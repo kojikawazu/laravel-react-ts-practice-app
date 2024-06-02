@@ -61,3 +61,7 @@ heroku run php artisan migrate
 -   Interia
 
 https://inertiajs.com/pages
+
+-   shadcn/ui
+
+https://ui.shadcn.com/docs/installation/laravel

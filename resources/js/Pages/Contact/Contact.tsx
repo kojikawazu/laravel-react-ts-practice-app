@@ -1,16 +1,18 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import HomeLayout from '@/Layouts/HomeLayout';
 import { PageProps } from '@/types';
+import MailForm from '@/Components/Contact/MailForm';
 
-function Home({}: PageProps) {
+function Contact({}: PageProps) {
   return (
     <div>
       Home
+      <MailForm />
     </div>
   );
 }
 
-Home.layout = (
+Contact.layout = (
   page: React.ReactElement
 ) => {
     return (
@@ -22,4 +24,4 @@ Home.layout = (
     );
 }
 
-export default Home
+export default Contact;
