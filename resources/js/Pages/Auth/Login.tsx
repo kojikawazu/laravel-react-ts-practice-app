@@ -32,6 +32,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
         if (csrfToken) {
             formData.append('_token', csrfToken);
         }
+        
 
         post(route('login'), {
             data: formData,
