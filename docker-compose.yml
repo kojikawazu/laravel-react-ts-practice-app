@@ -1,0 +1,57 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-app
+    restart: unless-stopped # コンテナが停止された場合、手動で停止しない限り再起動
+    working_dir: /var/www
+    volumes:
+      - .:/var/www # ホストの現在のディレクトリをコンテナの/var/wwwにマウント
+      - ./vendor:/var/www/vendor # ホストのvendorディレクトリをコンテナの/var/www/vendorにマウント
+      - ./storage:/var/www/storage # ホストのstorageディレクトリをコンテナの/var/www/storageにマウント
+    networks:
+      - app-network
+    ports:
+      - "8000:80"
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    container_name: laravel-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: laravel_react_db
+      POSTGRES_USER: root # PostgreSQLのユーザー
+      POSTGRES_PASSWORD: root # PostgreSQLのパスワード
+    volumes:
+      - dbdata:/var/lib/postgresql/data # PostgreSQLデータを永続化するためのボリュームをマウント
+    networks:
+      - app-network
+    ports:
+      - "5432:5432" # PostgreSQLのポートをマッピング
+
+  adminer:
+    image: adminer # Adminerイメージ（phpMyAdminの代替として使用）
+    container_name: adminer
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+    ports:
+      - "8090:8080" # Adminerのポートをマッピング
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+networks:
+  app-network:      # ネットワークの定義
+    driver: bridge  # ブリッジネットワークドライバーを使用
+
+volumes:
+  dbdata:           # ボリュームの定義
+    driver: local   # ローカルボリュームドライバーを使用
