@@ -23,7 +23,21 @@ export default function Login({ status, canResetPassword }: { status?: string, c
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('login'));
+        const formData = new FormData();
+        formData.append('email', data.email);
+        formData.append('password', data.password);
+
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        if (csrfToken) {
+            formData.append('_token', csrfToken);
+        }
+
+        post(route('login'), {
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken || '',
+            },
+        });
     };
 
     return (

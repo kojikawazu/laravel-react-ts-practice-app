@@ -23,13 +23,23 @@ export default function Register() {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('register'));
-    };
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('email', data.email);
+        formData.append('password', data.password);
+        formData.append('password_confirmation', data.password_confirmation);
 
-    // CSRFトークンを取得する関数
-    const getCsrfToken = (): string | undefined => {
-        const element = document.querySelector('meta[name="csrf-token"]');
-        return element ? element.getAttribute('content') || undefined : undefined;
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        if (csrfToken) {
+            formData.append('_token', csrfToken);
+        }
+
+        post(route('register'), {
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken || '',
+            },
+        });
     };
 
     return (
@@ -37,9 +47,6 @@ export default function Register() {
             <Head title="Register" />
 
             <form onSubmit={submit}>
-                {/* CSRFトークンを含める */}
-                <input type="hidden" name="_token" value={getCsrfToken()} />
-
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
 
