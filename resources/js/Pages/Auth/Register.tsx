@@ -26,11 +26,20 @@ export default function Register() {
         post(route('register'));
     };
 
+    // CSRFトークンを取得する関数
+    const getCsrfToken = (): string | undefined => {
+        const element = document.querySelector('meta[name="csrf-token"]');
+        return element ? element.getAttribute('content') || undefined : undefined;
+    };
+
     return (
         <GuestLayout>
             <Head title="Register" />
 
             <form onSubmit={submit}>
+                {/* CSRFトークンを含める */}
+                <input type="hidden" name="_token" value={getCsrfToken()} />
+
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
 
