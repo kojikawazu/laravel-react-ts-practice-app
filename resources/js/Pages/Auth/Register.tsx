@@ -23,23 +23,25 @@ export default function Register() {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('name', data.name);
-        formData.append('email', data.email);
-        formData.append('password', data.password);
-        formData.append('password_confirmation', data.password_confirmation);
+        post(route('register'));
 
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-        if (csrfToken) {
-            formData.append('_token', csrfToken);
-        }
+        // const formData = new FormData();
+        // formData.append('name', data.name);
+        // formData.append('email', data.email);
+        // formData.append('password', data.password);
+        // formData.append('password_confirmation', data.password_confirmation);
 
-        post(route('register'), {
-            data: formData,
-            headers: {
-                'X-CSRF-TOKEN': csrfToken || '',
-            },
-        });
+        // const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        // if (csrfToken) {
+        //     formData.append('_token', csrfToken);
+        // }
+
+        // post(route('register'), {
+        //     data: formData,
+        //     headers: {
+        //         'X-CSRF-TOKEN': csrfToken || '',
+        //     },
+        // });
     };
 
     return (
