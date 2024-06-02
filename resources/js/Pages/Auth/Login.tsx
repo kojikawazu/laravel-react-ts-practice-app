@@ -23,23 +23,25 @@ export default function Login({ status, canResetPassword }: { status?: string, c
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('email', data.email);
-        formData.append('password', data.password);
-        formData.append('remember', data.remember ? '1' : '0');
+        post(route('login'));
 
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-        if (csrfToken) {
-            formData.append('_token', csrfToken);
-        }
+        // const formData = new FormData();
+        // formData.append('email', data.email);
+        // formData.append('password', data.password);
+        // formData.append('remember', data.remember ? '1' : '0');
+
+        // const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        // if (csrfToken) {
+        //     formData.append('_token', csrfToken);
+        // }
         
 
-        post(route('login'), {
-            data: formData,
-            headers: {
-                'X-CSRF-TOKEN': csrfToken || '',
-            },
-        });
+        // post(route('login'), {
+        //     data: formData,
+        //     headers: {
+        //         'X-CSRF-TOKEN': csrfToken || '',
+        //     },
+        // });
     };
 
     return (
