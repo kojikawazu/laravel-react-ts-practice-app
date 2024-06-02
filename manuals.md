@@ -31,6 +31,13 @@ public function boot(): void
 }
 ```
 
+```bash
+# node.jsのビルドパック追加
+heroku buildpacks:add --index 1 heroku/nodejs --app laravel-react-ts-practice-app
+# ビルドパックリストの確認(PHP, Node.js)
+heroku buildpacks --app laravel-react-ts-practice-app
+```
+
 # Heroku CLI でデプロイ
 
 ```bash

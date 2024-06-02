@@ -22,4 +22,7 @@ export default defineConfig({
     build: {
         outDir: 'public/build', // 出力ディレクトリを指定
     },
+    server: {
+        strictPort: true,
+    },
 });
