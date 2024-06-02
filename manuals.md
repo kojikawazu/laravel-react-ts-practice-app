@@ -20,6 +20,10 @@ docker exec -it laravel-app php artisan breeze:install
 # Heroku デプロイ前準備
 
 ```php
+use Illuminate\Support\Facades\URL;
+
+# 省略
+
 /**
  * Bootstrap any application services.
  */
