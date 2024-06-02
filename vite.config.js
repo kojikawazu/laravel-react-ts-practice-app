@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
 
 export default defineConfig({
     plugins: [
@@ -19,10 +20,10 @@ export default defineConfig({
             },
         },
     },
-    build: {
-        outDir: 'public/build', // 出力ディレクトリを指定
-    },
     server: {
         strictPort: true,
+    },
+    build: {
+        outDir: 'public/build', // 出力ディレクトリを指定
     },
 });
