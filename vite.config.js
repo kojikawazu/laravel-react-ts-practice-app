@@ -11,6 +11,15 @@ export default defineConfig({
         react(),
     ],
     build: {
+        outDir: 'public/build',
+        manifest: true,
+        rollupOptions: {
+            input: {
+                app: resolve(__dirname, 'resources/js/app.tsx'),
+            },
+        },
+    },
+    build: {
         outDir: 'public/build', // 出力ディレクトリを指定
     },
 });
