@@ -26,6 +26,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
         const formData = new FormData();
         formData.append('email', data.email);
         formData.append('password', data.password);
+        formData.append('remember', data.remember ? '1' : '0');
 
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
         if (csrfToken) {
