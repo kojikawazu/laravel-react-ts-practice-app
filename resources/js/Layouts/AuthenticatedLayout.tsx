@@ -3,10 +3,21 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
-import { User } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
+import { PageProps, User } from '@/types';
 
-export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
+interface InertiaPage<T> {
+    props: T;
+}
+
+export default function Authenticated({ 
+    header, 
+    children 
+}: PropsWithChildren<{ 
+    header?: ReactNode 
+}>) {
+    const { props: page }: InertiaPage<PageProps> = usePage();
+    const user = page.auth.user;
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
