@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { useEffect, useRef } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
 import { User } from '@/types';
 import { useClientMailForm } from '@/hooks/useClientMailForm';
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
-import { Textarea } from '@/Components//ui/textarea';
+import { Textarea } from '@/Components/ui/textarea';
 import { 
   Form, 
   FormControl, 
@@ -14,6 +14,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/Components/ui/form';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 interface MailFormProps {
   user: User;
@@ -34,11 +36,21 @@ const MailForm = ({
     error,
   } = useClientMailForm({ user });
 
+  // 関数コンポーネントで状態を持たない変数
+  // ファイル入力フィールドのDOM要素にアクセスし、その値を操作するため
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   // メール送信成功時
   useEffect(() => {
     console.log("MailForm mounted");
+    console.log(form.formState.isSubmitSuccessful);
     if (form.formState.isSubmitSuccessful) {
       toast.success("メール送信に成功しました！");
+
+      if (fileInputRef.current) {
+        // ファイル入力の値をリセット
+        fileInputRef.current.value = "";
+      }
     }
   }, [form.formState.isSubmitSuccessful]);
   
@@ -55,6 +67,7 @@ const MailForm = ({
 
   return (
     <>
+      <ToastContainer />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -127,7 +140,7 @@ const MailForm = ({
           <FormField
             control={form.control}
             name="file"
-            render={({ field: {value, onChange, ...fieldProps }}) => (
+            render={({ field: {value, onChange, ref, ...fieldProps }}) => (
               <FormItem
                 className="mb-4"
               >
@@ -138,7 +151,13 @@ const MailForm = ({
                     type="file"
                     placeholder="画像"
                     onChange={(event) => {
+                      // ファイル入力フィールドは手動で更新する必要がある。
                       onChange(event.target.files);
+                    }}
+                    ref={(e) => {
+                      // React Hook Formのrefを設定しつつ、fileInputRefにもDOM要素を保存
+                      ref(e);
+                      fileInputRef.current = e;
                     }}
                     {...fieldProps}
                   />

@@ -105,8 +105,14 @@ export const useClientMailForm = ({
             const data = await response.json();
             //console.log("Email sent successfully: ", data);
 
-            // フォームをリセットし、成功フラグを設定
-            form.reset();
+            // フォームをリセット
+            form.reset({
+                username: "",
+                subject: "",
+                email: "",
+                content: "",
+                file: undefined,
+            });
             setError(null);
         } catch (err) {
             //console.error("Error sending email: ", err);

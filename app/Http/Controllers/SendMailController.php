@@ -36,11 +36,13 @@ class SendMailController extends Controller
         }
 
         try {
+            $htmlContent = view('emails.template', compact('username', 'email', 'content'))->render();
+            
             Resend::emails()->send([
                     'from' => "$username@resend.dev",
                     'to' => $RESEND_MAIL_ADDRESS,
                     'subject' => $subject,
-                    'html' => view('emails.template', compact('username', 'email', 'content'))->render(),
+                    'html' => $htmlContent,
                     'text' => strip_tags($htmlContent),
                     'attachments' => $attachments,
                 ]);
