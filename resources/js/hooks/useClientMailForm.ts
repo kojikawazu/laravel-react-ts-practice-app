@@ -42,6 +42,8 @@ export const useClientMailForm = ({
         const token = (window as any).Laravel?.csrfToken;
         if (token) {
             setCsrfToken(token);
+        } else {
+            console.error("CSRF token not found");
         }
     }, []);
 
@@ -76,7 +78,7 @@ export const useClientMailForm = ({
         
 
         try {
-            const response = await fetch(`https://laravel-react-ts-practice-app-3468f65bf2e2.herokuapp.com/send-mail`, {
+            const response = await fetch(`${process.env.APP_BASE_URL!}/send-mail`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${user!.token}`,
@@ -86,7 +88,7 @@ export const useClientMailForm = ({
             });
 
             if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
+                throw new Error(`Error: ${response.status} ${response.statusText}`);
             }
 
             const data = await response.json();
