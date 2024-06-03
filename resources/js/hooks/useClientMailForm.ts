@@ -78,7 +78,7 @@ export const useClientMailForm = ({
         
 
         try {
-            const response = await fetch(`${process.env.APP_BASE_URL!}/send-mail`, {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL!}/send-mail`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${user!.token}`,
