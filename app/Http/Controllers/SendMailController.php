@@ -37,6 +37,7 @@ class SendMailController extends Controller
                     'to' => $RESEND_MAIL_ADDRESS,
                     'subject' => $subject,
                     'html' => view('emails.template', compact('username', 'email', 'content'))->render(),
+                    'text' => strip_tags($htmlContent),
                     'attachments' => $attachments,
                 ]);
 

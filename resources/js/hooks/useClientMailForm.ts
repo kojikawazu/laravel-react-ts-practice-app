@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { User } from "@/types";
 import { contactFormSchema } from "@/lib/schema/contactFormSchema";
 
+/**
+ * クライアントメールフォームのProps型定義
+ */
 interface useClientMailFormProps {
     user: User | null,
 };
@@ -39,6 +42,7 @@ export const useClientMailForm = ({
         setLoading(false);
 
         // CSRFトークンを設定
+        // Laravel側のcsrfトークンを扱う
         const token = (window as any).Laravel?.csrfToken;
         if (token) {
             setCsrfToken(token);
