@@ -21,8 +21,9 @@ interface useClientMailFormProps {
 export const useClientMailForm = ({
     user,
 }: useClientMailFormProps) => {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading]     = useState(true);
     const [csrfToken, setCsrfToken] = useState<string | null>(null);
+    const [error, setError]         = useState<string | null>(null);
 
     const form = useForm<z.infer<typeof contactFormSchema>>({
         /** バリデーションを行っている */
@@ -51,8 +52,12 @@ export const useClientMailForm = ({
         }
     }, []);
 
-    const onSubmit = useCallback(
-        async (values: z.infer<typeof contactFormSchema>) => {
+    // useCallback 関数コンポーネント内で関数をメモ化
+    // 依存リスト内の値が変更されたときにのみ新しいインスタンスを作成し、それ以外の場合は以前のインスタンスを再利用する。
+    // これにより、不要な再レンダリングを防ぎ、パフォーマンスを向上させることができる。
+    // 
+    // 送信用関数(メモ化された関数)
+    const onSubmit = useCallback(async (values: z.infer<typeof contactFormSchema>) => {
         if (!user) {
             console.error("User not authenticated");
             return;
@@ -63,6 +68,7 @@ export const useClientMailForm = ({
             return;
         }
 
+        // データ取り出し
         const {
             username,
             email,
@@ -71,6 +77,7 @@ export const useClientMailForm = ({
             file,
         } = values;
 
+        // フォームデータに詰め込み
         const formData = new FormData();
         formData.append("username", username);
         formData.append("email",    email);
@@ -79,9 +86,9 @@ export const useClientMailForm = ({
         if (file && file.length > 0) {
             formData.append("file", file[0]);
         }
-        
 
         try {
+            // API側へ送信
             const response = await fetch(`${import.meta.env.VITE_APP_BASE_URL}/send-mail`, {
                 method: "POST",
                 headers: {
@@ -92,13 +99,19 @@ export const useClientMailForm = ({
             });
 
             if (!response.ok) {
-                throw new Error(`Error: ${response.status} ${response.statusText}`);
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
 
             const data = await response.json();
-            console.log("Email sent successfully: ", data);
+            //console.log("Email sent successfully: ", data);
+
+            // フォームをリセットし、成功フラグを設定
+            form.reset();
+            setError(null);
         } catch (err) {
-            console.error("Error sending email: ", err);
+            //console.error("Error sending email: ", err);
+            console.error("Unexpected error in onSubmit");
+            setError("Error");
         }
     }, [user, csrfToken]);
 
@@ -106,5 +119,6 @@ export const useClientMailForm = ({
         form,
         loading,
         onSubmit,
+        error,
     }
 };

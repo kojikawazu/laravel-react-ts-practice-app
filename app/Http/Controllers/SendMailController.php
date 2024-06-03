@@ -6,10 +6,14 @@ use Illuminate\Http\Request;
 use Resend\Laravel\Facades\Resend;
 use Exception;
 
+/**
+ * メール送信コントローラークラス
+ */
 class SendMailController extends Controller
 {
     public function sendMail(Request $request)
     {
+        // CORS対策
         $CORS_ADDRESS        = env('CORS_ADDRESS');
         $RESEND_MAIL_ADDRESS = env('RESEND_MAIL_ADDRESS');
         $RESEND_NAME         = env('RESEND_NAME');

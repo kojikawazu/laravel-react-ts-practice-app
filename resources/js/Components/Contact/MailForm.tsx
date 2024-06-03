@@ -31,14 +31,23 @@ const MailForm = ({
     form,
     loading,
     onSubmit,
+    error,
   } = useClientMailForm({ user });
 
+  // メール送信成功時
   useEffect(() => {
     console.log("MailForm mounted");
     if (form.formState.isSubmitSuccessful) {
       toast.success("メール送信に成功しました！");
     }
   }, [form.formState.isSubmitSuccessful]);
+  
+  // メール送信失敗時
+  useEffect(() => {
+    if (error) {
+      toast.error(`メール送信に失敗しました: ${error}`);
+    }
+  }, [error]);
 
   if (loading) {
     return <ClipLoader />
