@@ -76,7 +76,7 @@ export const useClientMailForm = ({
         
 
         try {
-            const response = await fetch(`https://laravel-react-ts-practice-app-3468f65bf2e2.herokuapp.com/send-mail"`, {
+            const response = await fetch(`https://laravel-react-ts-practice-app-3468f65bf2e2.herokuapp.com/send-mail`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${user!.token}`,
