@@ -78,8 +78,7 @@ export const useClientMailForm = ({
         
 
         try {
-            const base_url = process.env.REACT_APP_APP_BASE_URL! as string;
-            const response = await fetch(`${base_url}/send-mail`, {
+            const response = await fetch(`${import.meta.env.VITE_APP_BASE_URL}/send-mail`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${user!.token}`,
