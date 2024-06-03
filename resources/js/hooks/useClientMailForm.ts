@@ -76,7 +76,7 @@ export const useClientMailForm = ({
         
 
         try {
-            const url = process.env.BASE_URL + "/send-mail";
+            const url = process.env.APP_BASE_URL + "/send-mail";
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
