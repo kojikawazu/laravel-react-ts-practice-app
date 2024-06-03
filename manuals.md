@@ -26,3 +26,7 @@ https://inertiajs.com/pages
 -   shadcn/ui
 
 https://ui.shadcn.com/docs/installation/laravel
+
+-   環境変数
+
+https://zenn.dev/longbridge/articles/575190b038f805
