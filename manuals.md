@@ -30,3 +30,7 @@ https://ui.shadcn.com/docs/installation/laravel
 -   環境変数
 
 https://zenn.dev/longbridge/articles/575190b038f805
+
+-   Toast
+
+https://qiita.com/pikimaru/items/b2eac418291b8c175c4c

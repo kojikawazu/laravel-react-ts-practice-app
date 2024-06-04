@@ -1,16 +1,18 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import HomeLayout from '@/Layouts/HomeLayout';
+import MarkdownCreator from '@/Components/Markdown/MarkdownCreator';
 import { PageProps } from '@/types';
 
-function Home({}: PageProps) {
+function Markdown({}: PageProps) {
   return (
     <div>
-      Home
+      Markdown
+      <MarkdownCreator />
     </div>
   );
 }
 
-Home.layout = (
+Markdown.layout = (
   page: React.ReactElement
 ) => {
     return (
@@ -22,4 +24,4 @@ Home.layout = (
     );
 }
 
-export default Home;
+export default Markdown;
