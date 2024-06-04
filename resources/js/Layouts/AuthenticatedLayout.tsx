@@ -70,6 +70,9 @@ export default function Authenticated({
                                         <Dropdown.Link href={route('profile.edit')}>
                                             Profile
                                         </Dropdown.Link>
+                                        <Dropdown.Link href={route('markdown.index')}>
+                                            Markdown
+                                        </Dropdown.Link>
                                         <Dropdown.Link href={route('contact.index')}>
                                             Contact
                                         </Dropdown.Link>
@@ -125,6 +128,9 @@ export default function Authenticated({
                         <div className="mt-3 space-y-1">
                             <ResponsiveNavLink href={route('profile.edit')}>
                                 Profile
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink href={route('markdown.index')}>
+                                Markdown
                             </ResponsiveNavLink>
                             <ResponsiveNavLink href={route('contact.index')}>
                                 Contact
