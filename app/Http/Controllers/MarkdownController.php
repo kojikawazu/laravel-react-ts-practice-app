@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\MarkdownPost;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log; 
 
 class MarkdownController extends Controller
 {
