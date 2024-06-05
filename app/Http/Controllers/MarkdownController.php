@@ -45,14 +45,14 @@ class MarkdownController extends Controller
             Log::info('MarkdownController store MarkdownPost::create() after: ' . json_encode($post));
     
             Log::info('MarkdownController store end. ');
-            return Inertia::location(route('markdown.index')
-                ->with('message', 'Post submitted successfully'));
+            session()->flash('message', 'Post submitted successfully');
+            return Inertia::location(route('markdown.index'));
 
         } catch (\Exception $e) {
             Log::error('Post creation failed: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());
-            return Inertia::location(route('markdown.index')
-                ->with('error', 'Post creation failed'));
+            session()->flash('error', 'Post creation failed');
+            return Inertia::location(route('markdown.index'));
         }
     }
 }
