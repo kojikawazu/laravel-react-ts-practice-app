@@ -47,12 +47,12 @@ class MarkdownController extends Controller
             return redirect()
                 ->route('markdown.index')
                 ->with('message', 'Post submitted successfully');
+
         } catch (\Exception $e) {
             Log::error('Post creation failed: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());
-            return redirect()
-                ->route('markdown.index')
-                ->with('error', 'Post creation failed');
+            return Inertia::location(route('markdown.index')
+                ->with('error', 'Post creation failed'));
         }
     }
 }
