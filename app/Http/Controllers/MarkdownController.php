@@ -21,13 +21,20 @@ class MarkdownController extends Controller
             'content' => 'required',
         ]);
 
-        $post = MarkdownPost::create([
-            'content' => $data['content'],
-            'user_id' => Auth::id(),
-        ]);
-
-        return redirect()
-            ->route('markdown.index')
-            ->with('message', 'Post submitted successfully');
+        try {
+            $post = MarkdownPost::create([
+                'content' => $data['content'],
+                'user_id' => Auth::id(),
+            ]);
+    
+            return redirect()
+                ->route('markdown.index')
+                ->with('message', 'Post submitted successfully');
+        } catch (\Exception $e) {
+            Log::error('Post creation failed: ' . $e->getMessage());
+            return redirect()
+                ->route('markdown.index')
+                ->with('error', 'Post creation failed');
+        }
     }
 }
