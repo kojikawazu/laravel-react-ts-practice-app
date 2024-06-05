@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MarkdownPost;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Log;
 use Illuminate\Support\Facades\Auth;
 
 class MarkdownController extends Controller
@@ -28,7 +29,7 @@ class MarkdownController extends Controller
 
         try {
             Log::info('MarkdownController store MarkdownPost::create() before. ');
-            
+
             $post = MarkdownPost::create([
                 'content' => $data['content'],
                 'user_id' => Auth::id(),
