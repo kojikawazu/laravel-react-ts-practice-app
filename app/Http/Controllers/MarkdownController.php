@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\MarkdownPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
 
 class MarkdownController extends Controller
 {
@@ -16,9 +15,9 @@ class MarkdownController extends Controller
         ]);
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        $data = request()->validate([
+        $data = $request->validate([
             'content' => 'required',
         ]);
 
@@ -27,6 +26,8 @@ class MarkdownController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('markdown.index')->with('message', 'Post submitted successfully');
+        return redirect()
+            ->route('markdown.index')
+            ->with('message', 'Post submitted successfully');
     }
 }

@@ -40,6 +40,7 @@ const MarkdownCreator = ({
             onSuccess: () => {
                 reset();
                 setShowEmojiPicker(false);
+                toast.success('Post submitted successfully');
             },
             onError: () => {
                 toast.error('An error occurred while submitting the post');
