@@ -20,6 +20,7 @@ class MarkdownController extends Controller
         Log::info('MarkdownController index end.');
         return Inertia::render('Markdown/MarkdownPage', [
             'message' => $message,
+            'status' => session('status'),
         ]);
     }
 
@@ -44,9 +45,8 @@ class MarkdownController extends Controller
             Log::info('MarkdownController store MarkdownPost::create() after: ' . json_encode($post));
     
             Log::info('MarkdownController store end. ');
-            return redirect()
-                ->route('markdown.index')
-                ->with('message', 'Post submitted successfully');
+            return Inertia::location(route('markdown.index')
+                ->with('message', 'Post submitted successfully'));
 
         } catch (\Exception $e) {
             Log::error('Post creation failed: ' . $e->getMessage());
