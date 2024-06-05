@@ -8,17 +8,44 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log; 
 use Inertia\Inertia;
 
+/**
+ * マークダウンコントローラー
+ */
 class MarkdownController extends Controller
 {
     public function index()
     {
         Log::info('MarkdownController index start.');
-
-        $message = session('message');
-        Log::info('MarkdownController index - session message: ' . ($message ?? 'none'));
+        
+        $posts = MarkdownPost::all();
 
         Log::info('MarkdownController index end.');
-        return Inertia::render('Markdown/MarkdownPage', [
+        return Inertia::render('Markdown/MarkdownListPage', [
+            'posts' => $posts,
+        ]);
+    }
+
+    public function show($id)
+    {
+        Log::info('MarkdownController index start.');
+        
+        $post = MarkdownPost::findOrFail($id);
+
+        Log::info('MarkdownController showshow end.');
+        return Inertia::render('Markdown/MarkdownDetailPage', [
+            'post' => $post,
+        ]);
+    }
+
+    public function editor()
+    {
+        Log::info('MarkdownController editor start.');
+
+        $message = session('message');
+        Log::info('MarkdownController editor - session message: ' . ($message ?? 'none'));
+
+        Log::info('MarkdownController editor end.');
+        return Inertia::render('Markdown/MarkdownCreatorPage', [
             'message' => $message,
             'status' => session('status'),
         ]);
@@ -46,13 +73,13 @@ class MarkdownController extends Controller
     
             Log::info('MarkdownController store end. ');
             session()->flash('message', 'Post submitted successfully');
-            return Inertia::location(route('markdown.index'));
+            return Inertia::location(route('markdown.editor'));
 
         } catch (\Exception $e) {
             Log::error('Post creation failed: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());
             session()->flash('error', 'Post creation failed');
-            return Inertia::location(route('markdown.index'));
+            return Inertia::location(route('markdown.editor'));
         }
     }
 }
