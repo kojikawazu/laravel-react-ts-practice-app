@@ -6,18 +6,19 @@ use App\Models\MarkdownPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log; 
+use Inertia\Inertia;
 
 class MarkdownController extends Controller
 {
     public function index()
     {
-        Log::info('MarkdownController index start. ');
+        Log::info('MarkdownController index start.');
 
         $message = session('message');
-        Log::info('MarkdownController index - session message: ' . $message);
+        Log::info('MarkdownController index - session message: ' . ($message ?? 'none'));
 
-        Log::info('MarkdownController index end. ');
-        return inertia('Markdown/MarkdownPage', [
+        Log::info('MarkdownController index end.');
+        return Inertia::render('Markdown/MarkdownPage', [
             'message' => $message,
         ]);
     }
