@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/send-mail', [SendMailController::class, 'sendMail'])->name('sendMail');
 
     Route::get('/markdown', [MarkdownController::class, 'index'])->name('markdown.index');
+    Route::post('/markdown/posts', [MarkdownController::class, 'store'])->name('markdown.store');
 });
 
 require __DIR__.'/auth.php';

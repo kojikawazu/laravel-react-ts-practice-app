@@ -7,6 +7,30 @@ docker exec -it laravel-app php artisan make:controller SendMailController
 docker exec -it laravel-app php artisan make:controller MarkdownController
 ```
 
+# Migration の追加
+
+```bash
+docker exec -it laravel-app php artisan make:migration create_markdown_posts_table
+docker exec -it laravel-app php artisan make:migration create_markdown_likes_table
+docker exec -it laravel-app php artisan make:migration create_markdown_replies_table
+```
+
+# Model の追加
+
+```bash
+docker exec -it laravel-app php artisan make:model MarkdownPost
+docker exec -it laravel-app php artisan make:model MarkdownLike
+docker exec -it laravel-app php artisan make:model MarkdownReply
+```
+
+# マイグレーションの実行
+
+```bash
+docker exec -it laravel-app php artisan migrate:reset
+docker exec -it laravel-app php artisan migrate
+
+```
+
 # Shadcn/ui の追加
 
 ```bash

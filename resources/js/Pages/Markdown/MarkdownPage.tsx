@@ -2,17 +2,20 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import HomeLayout from '@/Layouts/HomeLayout';
 import MarkdownCreator from '@/Components/Markdown/MarkdownCreator';
 import { PageProps } from '@/types';
+import { usePage } from '@inertiajs/react';
 
-function Markdown({}: PageProps) {
+function MarkdownPage({}: PageProps) {
+  const { props } = usePage();
+  const message = props.message as string;
+
   return (
     <div>
-      Markdown
-      <MarkdownCreator />
+      <MarkdownCreator message={message} />
     </div>
   );
 }
 
-Markdown.layout = (
+MarkdownPage.layout = (
   page: React.ReactElement
 ) => {
     return (
@@ -24,4 +27,4 @@ Markdown.layout = (
     );
 }
 
-export default Markdown;
+export default MarkdownPage;
