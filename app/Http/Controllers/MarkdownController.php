@@ -13,9 +13,12 @@ class MarkdownController extends Controller
     {
         Log::info('MarkdownController index start. ');
 
+        $message = session('message');
+        Log::info('MarkdownController index - session message: ' . $message);
+
         Log::info('MarkdownController index end. ');
         return inertia('Markdown/MarkdownPage', [
-            'message' => session('message'),
+            'message' => $message,
         ]);
     }
 
@@ -27,6 +30,8 @@ class MarkdownController extends Controller
             'content' => 'required',
         ]);
 
+        Log::info('Request data validated: ' . json_encode($data));
+
         try {
             Log::info('MarkdownController store MarkdownPost::create() before. ');
 
@@ -34,6 +39,8 @@ class MarkdownController extends Controller
                 'content' => $data['content'],
                 'user_id' => Auth::id(),
             ]);
+
+            Log::info('MarkdownController store MarkdownPost::create() after: ' . json_encode($post));
     
             Log::info('MarkdownController store end. ');
             return redirect()
@@ -41,6 +48,7 @@ class MarkdownController extends Controller
                 ->with('message', 'Post submitted successfully');
         } catch (\Exception $e) {
             Log::error('Post creation failed: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
             return redirect()
                 ->route('markdown.index')
                 ->with('error', 'Post creation failed');
