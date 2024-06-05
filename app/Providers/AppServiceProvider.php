@@ -23,5 +23,16 @@ class AppServiceProvider extends ServiceProvider
         if (env('APP_ENV') !== 'local') {
             URL::forceScheme('https');
         }
+
+        Inertia::share([
+            'errors' => function () {
+                return session()->get('errors')
+                    ? session()->get('errors')->getBag('default')->getMessages()
+                    : (object) [];
+            },
+            'message' => function () {
+                return session()->get('message') ? session()->get('message') : null;
+            },
+        ]);
     }
 }
