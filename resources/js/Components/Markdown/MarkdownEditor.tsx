@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MDEditor, { MDEditorProps, commands } from '@uiw/react-md-editor';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import { toast, ToastContainer } from 'react-toastify';
-import { useForm } from '@inertiajs/inertia-react';
+import { Link, useForm } from '@inertiajs/inertia-react';
 import { Button } from '@/Components/ui/button';
 import { MarkdownPost } from '@/types/types';
 
@@ -78,7 +78,10 @@ const MarkdownEditor = ({
       <ToastContainer />
 
       <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold mb-4">Markdown Editor</h1>
+          <div className="flex justify-between items-center mb-4">
+              <h1 className="text-3xl font-bold mb-4">Markdown Editor</h1>
+              <Link href="/markdown" className="bg-gray-500 text-white p-2 rounded">Back</Link>
+          </div>
 
           <form onSubmit={handleSubmit}>
               {errors.content && <div className="text-red-500 mt-2">{errors.content}</div>}

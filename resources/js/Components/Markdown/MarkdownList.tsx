@@ -65,12 +65,20 @@ const MarkdownList = ({
                         >
                             {post.content.substring(0, 100)}
                         </Link>
-                        <Button
-                            onClick={() => handleDelete(post.id)}
-                            className="bg-red-500 text-white hover:underline"
-                        >
-                            Delete
-                        </Button>
+                        <div className="flex items-center">
+                            <Link 
+                                href={`/markdown/editor/${post.id}`} 
+                                className="bg-green-500 text-white p-2 mr-4 rounded">
+                                Update
+                            </Link>
+                            
+                            <Button
+                                onClick={() => handleDelete(post.id)}
+                                className="bg-red-500 text-white hover:underline"
+                            >
+                                Delete
+                            </Button>
+                        </div>
                     </li>
                 ))}
             </ul>
