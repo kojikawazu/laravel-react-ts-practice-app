@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids; 
 
 class MarkdownPost extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
+
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
 
     protected $fillable = [
         'content',
@@ -23,7 +27,7 @@ class MarkdownPost extends Model
 
     public function likes()
     {
-        return $this->hasMany(MarkdownLike::class);
+        return $this->hasMany(MarkdownLike::class, 'post_id', 'id');
     }
 
     public function replies()
