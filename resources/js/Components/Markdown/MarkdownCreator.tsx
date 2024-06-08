@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import MDEditor, { MDEditorProps, commands } from '@uiw/react-md-editor';
-import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
+import React, { useEffect } from 'react';
+import MDEditor, { commands } from '@uiw/react-md-editor';
+import EmojiPicker from 'emoji-picker-react';
 import { toast, ToastContainer } from 'react-toastify';
-//import { Link, useForm } from '@inertiajs/inertia-react';
-import { Link, useForm } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { Button } from '@/Components/ui/button';
+import { useMyMarkdown } from '@/hooks/useMyMarkdown';
 
 import 'react-toastify/dist/ReactToastify.css';
 
+/**
+ * Markdown作成コンポーネントProps
+ */
 interface MarkdownCreatorProps {
     message: string,
 };
@@ -20,10 +23,17 @@ interface MarkdownCreatorProps {
 const MarkdownCreator = ({
     message,
 }: MarkdownCreatorProps) => {
-    const { data, setData, post, processing, reset, errors } = useForm({
+    const {
+        data,
+        errors,
+        addEmoji,
+        showEmojiPicker,
+        setShowEmojiPicker,
+        handleChange,
+        handlePost,
+    } = useMyMarkdown({
         content: '',
     });
-    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
     useEffect(() => {
         if (message) {
@@ -31,29 +41,9 @@ const MarkdownCreator = ({
         }
     }, [message]);
 
-    const addEmoji = (emojiData: EmojiClickData) => {
-        setData('content', data.content + emojiData.emoji);
-        setShowEmojiPicker(false);
-    }
-
-    const handleCreatorChange: MDEditorProps['onChange'] = (value) => {
-        if (value !== undefined) {
-            setData('content', value);
-        }
-    }
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/markdown', {
-            onSuccess: () => {
-                reset();
-                setShowEmojiPicker(false);
-                toast.success('Post submitted successfully');
-            },
-            onError: () => {
-                toast.error('An error occurred while submitting the post');
-            },
-        });
+        handlePost();
     }
 
     return (
@@ -80,7 +70,7 @@ const MarkdownCreator = ({
                     <div data-color-mode="dark">
                         <MDEditor 
                             value={data.content} 
-                            onChange={handleCreatorChange}
+                            onChange={handleChange}
                             height={300}
                             preview="edit"
                             commands={[

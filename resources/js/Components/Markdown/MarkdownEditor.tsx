@@ -6,6 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { Link, useForm } from '@inertiajs/react';
 import { Button } from '@/Components/ui/button';
 import { MarkdownPost } from '@/types/types';
+import { useMyMarkdown } from '@/hooks/useMyMarkdown';
 
 /**
  * MarkdownエディタコンポーネントProps
@@ -25,10 +26,18 @@ const MarkdownEditor = ({
   post,
   message,
 }: MarkdownEditorProps) => {
-  const { data, setData, put, processing, reset, errors, delete: destroy } = useForm({
-    content: post.content,
+  const {
+    data,
+    errors,
+    addEmoji,
+    showEmojiPicker,
+    setShowEmojiPicker,
+    handleChange,
+    handlePut,
+    handleDestroy,
+  } = useMyMarkdown({
+      content: post.content,
   });
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   useEffect(() => {
     if (message) {
@@ -36,43 +45,16 @@ const MarkdownEditor = ({
     }
   }, []);
 
-  const handleEditorChange: MDEditorProps['onChange'] = (value) => {
-    if (value !== undefined) {
-        setData('content', value);
-    }
-}
-
-  const addEmoji = (emojiData: EmojiClickData) => {
-    setData('content', data.content + emojiData.emoji);
-    setShowEmojiPicker(false);
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    put(`/markdown/${post.id}`, {
-      onSuccess: () => {
-        toast.success('Post updated successfully');
-      },
-      onError: () => {
-        toast.error('An error occurred while updating the post');
-      },
-    });
+    handlePut(post.id);
   };
 
   const handleDelete = () => {
     if (confirm('Are you sure you want to delete this post?')) {
-      destroy(`/markdown/${post.id}`, {
-        onSuccess: () => {
-            toast.success('Post deleted successfully');
-            window.location.href = '/markdown';
-        },
-        onError: () => {
-            toast.error('An error occurred while deleting the post');
-        }
-      });
+      handleDestroy(post.id);
     }
-}
+  };
 
   return (
     <>
@@ -99,7 +81,7 @@ const MarkdownEditor = ({
               <div data-color-mode="dark">
                   <MDEditor 
                       value={data.content} 
-                      onChange={handleEditorChange}
+                      onChange={handleChange}
                       height={300}
                       preview="edit"
                       commands={[
