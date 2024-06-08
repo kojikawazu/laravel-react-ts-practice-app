@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::table('markdown_likes', function (Blueprint $table) {
-        //     $table->string('emoji')->after('post_id');
-        // });
+        Schema::table('markdown_likes', function (Blueprint $table) {
+            $table->string('emoji')->after('post_id');
+        });
     }
 
     /**
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::table('markdown_likes', function (Blueprint $table) {
-        //     $table->dropColumn('emoji');
-        // });
+        Schema::table('markdown_likes', function (Blueprint $table) {
+            $table->dropColumn('emoji');
+        });
     }
 };
