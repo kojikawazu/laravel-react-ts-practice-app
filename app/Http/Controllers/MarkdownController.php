@@ -44,16 +44,21 @@ class MarkdownController extends Controller
     /**
      * 詳細表示
      *
-     * @param int $id
+     * @param uuid $id
      * @return \Inertia\Response Markdown/MarkdownDetailPage
      */
     public function show($id)
     {
-        Log::info('MarkdownController index start.');
+        Log::info('MarkdownController show start.');
         
-        $post = MarkdownPost::findOrFail($id);
+        // markdown_posts と markdown_replies テーブルを結合し、
+        // 指定された ID の投稿とその返信を取得
+        // + α として、返信の返信も取得
+        $post = MarkdownPost::with(['replies' => function ($query) {
+            $query->with('children');
+        }])->findOrFail($id);
 
-        Log::info('MarkdownController showshow end.');
+        Log::info('MarkdownController show end.');
         return Inertia::render('Markdown/MarkdownDetailPage', [
             'post' => $post,
         ]);
@@ -79,7 +84,7 @@ class MarkdownController extends Controller
     }
 
     /**
-     * 作成処理
+     * 作成実行処理
      *
      * @param \Illuminate\Http\Request $request
      * @return \Inertia\Response
@@ -119,7 +124,7 @@ class MarkdownController extends Controller
     /**
      * 編集画面表示
      *
-     * @param int $id
+     * @param uuid $id
      * @return \Inertia\Response Markdown/MarkdownEditorPage
      */
     public function editor($id)
@@ -137,10 +142,10 @@ class MarkdownController extends Controller
     }
     
     /**
-     * 更新処理
+     * 更新実行処理
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param uuid $id
      * @return \Inertia\Response
      */
     public function update(Request $request, $id)
@@ -180,7 +185,7 @@ class MarkdownController extends Controller
     /**
      * 削除処理
      *
-     * @param int $id
+     * @param uuid $id
      * @return \Inertia\Response
      */
     public function destroy($id)
@@ -207,54 +212,5 @@ class MarkdownController extends Controller
             session()->flash('error', 'Post delete failed');
             return Inertia::location(route('markdown.index'));
         }
-    }
-
-    /**
-     * いいね処理
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param uuid $postId
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function like(Request $request, $postId)
-    {
-        Log::info('MarkdownController like start.');
-
-        $data = $request->validate([
-            'emoji' => 'required|string',
-        ]);
-
-        Log::info('Request data validated: ' . json_encode($data));
-
-        $like = MarkdownLike::updateOrCreate(
-            [
-                'post_id' => $postId,
-                'user_id' => Auth::id(),
-            ],
-            [
-                'emoji' => $request->emoji,
-            ]
-        );
-
-        Log::info('Request data validated: ' . json_encode($like));
-        return back();
-    }
-
-    /**
-     * いいね解除処理
-     *
-     * @param uuid $postId
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function unlike($postId)
-    {
-        Log::info('MarkdownController unlike start.');
-
-        MarkdownLike::where('post_id', $postId)
-            ->where('user_id', Auth::id())
-            ->delete();
-
-        Log::info('MarkdownController unlike end.');
-        return back();
     }
 }
