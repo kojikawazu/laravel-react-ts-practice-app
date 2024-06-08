@@ -13,11 +13,17 @@ return new class extends Migration
     public function up(): void
     {
          // Ensure the uuid-ossp extension is enabled
-         DB::statement('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+        DB::statement('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
-         // Update existing records with UUIDs
-         DB::statement('UPDATE markdown_likes SET id = uuid_generate_v4() WHERE id IS NULL');
-         
+        // Check if the function exists
+        $uuidCheck = DB::select('SELECT uuid_generate_v4()');
+
+        // Output the result for debugging purposes
+        dd($uuidCheck);
+
+        // Update existing records with UUIDs
+        DB::statement('UPDATE markdown_likes SET id = uuid_generate_v4() WHERE id IS NULL');
+
         // // UUIDカラムを追加
         // Schema::table('markdown_posts', function (Blueprint $table) {
         //     $table->uuid('uuid')->nullable()->unique()->first();
