@@ -38,7 +38,6 @@ return new class extends Migration
             $table->dropColumn('id');
             $table->renameColumn('uuid', 'id');
         });
-        
     }
 
     /**

@@ -73,7 +73,6 @@ return new class extends Migration
         Schema::table('markdown_replies', function (Blueprint $table) {
             $table->foreign('parent_id')->references('id')->on('markdown_replies')->onDelete('cascade');
         });
-        
     }
 
     /**
