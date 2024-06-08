@@ -16,6 +16,7 @@ class MarkdownLike extends Model
     protected $fillable = [
         'user_id',
         'post_id',
+        'emoji',
     ];
 
     public function user()
@@ -25,6 +26,6 @@ class MarkdownLike extends Model
 
     public function post()
     {
-        return $this->belongsTo(MarkdownPost::class);
+        return $this->belongsTo(MarkdownPost::class, 'post_id', 'id');
     }
 }

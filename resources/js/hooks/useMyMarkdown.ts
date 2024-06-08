@@ -45,7 +45,7 @@ export const useMyMarkdown = ({
         });
     };
 
-    const handlePut = (id: number) => {
+    const handlePut = (id: string) => {
         put(`/markdown/${id}`, {
             onSuccess: () => {
               toast.success('Post updated successfully');
@@ -56,7 +56,7 @@ export const useMyMarkdown = ({
           });
     }
 
-    const handleDestroy = (id: number) => {
+    const handleDestroy = (id: string) => {
         destroy(`/markdown/${id}`, {
             onSuccess: () => {
                 toast.success('Post deleted successfully');

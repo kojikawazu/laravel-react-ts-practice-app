@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MarkdownPost;
+use App\Models\MarkdownLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log; 
@@ -22,7 +23,17 @@ class MarkdownController extends Controller
     {
         Log::info('MarkdownController index start.');
         
-        $posts = MarkdownPost::all();
+        //$posts = MarkdownPost::all();
+        $posts = MarkdownPost::with('likes')->get()->map(function($post) {
+            $likeCounts = $post->likes->groupBy('emoji')->map(function($group) {
+                return $group->count();
+            });
+        
+            $post->likeCounts = $likeCounts;
+            $userLike = $post->likes->where('user_id', Auth::id())->first();
+            $post->currentEmoji = $userLike ? $userLike->emoji : null;
+            return $post;
+        });
 
         Log::info('MarkdownController index end.');
         return Inertia::render('Markdown/MarkdownListPage', [
@@ -196,5 +207,54 @@ class MarkdownController extends Controller
             session()->flash('error', 'Post delete failed');
             return Inertia::location(route('markdown.index'));
         }
+    }
+
+    /**
+     * いいね処理
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param uuid $postId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function like(Request $request, $postId)
+    {
+        Log::info('MarkdownController like start.');
+
+        $data = $request->validate([
+            'emoji' => 'required|string',
+        ]);
+
+        Log::info('Request data validated: ' . json_encode($data));
+
+        $like = MarkdownLike::updateOrCreate(
+            [
+                'post_id' => $postId,
+                'user_id' => Auth::id(),
+            ],
+            [
+                'emoji' => $request->emoji,
+            ]
+        );
+
+        Log::info('Request data validated: ' . json_encode($like));
+        return back();
+    }
+
+    /**
+     * いいね解除処理
+     *
+     * @param uuid $postId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unlike($postId)
+    {
+        Log::info('MarkdownController unlike start.');
+
+        MarkdownLike::where('post_id', $postId)
+            ->where('user_id', Auth::id())
+            ->delete();
+
+        Log::info('MarkdownController unlike end.');
+        return back();
     }
 }

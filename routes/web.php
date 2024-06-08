@@ -41,6 +41,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/markdown', [MarkdownController::class, 'store'])->name('markdown.store');
     Route::put('/markdown/{id}', [MarkdownController::class, 'update'])->name('markdown.update');
     Route::delete('/markdown/{id}', [MarkdownController::class, 'destroy'])->name('markdown.destroy');
+
+    Route::post('/markdown/{post}/like', [MarkdownController::class, 'like'])->name('markdown.like');
+    Route::delete('/markdown/{post}/unlike', [MarkdownController::class, 'unlike'])->name('markdown.unlike');
 });
 
 require __DIR__.'/auth.php';

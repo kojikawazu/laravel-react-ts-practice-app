@@ -27,7 +27,7 @@ class MarkdownPost extends Model
 
     public function likes()
     {
-        return $this->hasMany(MarkdownLike::class);
+        return $this->hasMany(MarkdownLike::class, 'post_id', 'id');
     }
 
     public function replies()
