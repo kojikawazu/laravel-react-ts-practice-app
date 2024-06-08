@@ -13,6 +13,12 @@ docker exec -it laravel-app php artisan make:controller MarkdownController
 docker exec -it laravel-app php artisan make:migration create_markdown_posts_table
 docker exec -it laravel-app php artisan make:migration create_markdown_likes_table
 docker exec -it laravel-app php artisan make:migration create_markdown_replies_table
+
+docker exec -it laravel-app php artisan make:migration update_tables_to_use_uuid --table=users
+docker exec -it laravel-app php artisan make:migration update_tables_to_use_uuid --table=markdown_posts
+docker exec -it laravel-app php artisan make:migration update_tables_to_use_uuid --table=markdown_likes
+docker exec -it laravel-app php artisan make:migration update_tables_to_use_uuid --table=markdown_replies
+docker exec -it laravel-app php artisan make:migration add_emoji_to_markdown_likes_table --table=markdown_likes
 ```
 
 # Model の追加
@@ -28,7 +34,6 @@ docker exec -it laravel-app php artisan make:model MarkdownReply
 ```bash
 docker exec -it laravel-app php artisan migrate:reset
 docker exec -it laravel-app php artisan migrate
-
 ```
 
 # Shadcn/ui の追加
@@ -56,6 +61,18 @@ docker exec -it laravel-app composer require resend/resend-laravel
 ```bash
 docker exec -it laravel-app npm i zod react-spinners react-toastify
 docker exec -it laravel-app npm install @uiw/react-md-editor react-markdown emoji-mart
+```
+
+# その他
+
+```bash
+haru@LAPTOP-QGU4MK3B:~/laravel-react-ts-practice-app$ docker exec -it laravel-db psql -U root -d laravel_react_db
+psql (13.14 (Debian 13.14-1.pgdg120+2))
+Type "help" for help.
+
+laravel_react_db=# CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION
+laravel_react_db=#
 ```
 
 # URL
