@@ -43,7 +43,7 @@ const MarkdownCreator = ({
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/markdown/creator', {
+        post('/markdown', {
             onSuccess: () => {
                 reset();
                 setShowEmojiPicker(false);
