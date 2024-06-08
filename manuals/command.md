@@ -5,6 +5,8 @@ docker exec -it laravel-app php artisan make:controller HomeController
 docker exec -it laravel-app php artisan make:controller ContactController
 docker exec -it laravel-app php artisan make:controller SendMailController
 docker exec -it laravel-app php artisan make:controller MarkdownController
+docker exec -it laravel-app php artisan make:controller MarkdownLikeController
+docker exec -it laravel-app php artisan make:controller MarkdownReplyController
 ```
 
 # Migration の追加
@@ -18,7 +20,9 @@ docker exec -it laravel-app php artisan make:migration update_tables_to_use_uuid
 docker exec -it laravel-app php artisan make:migration update_tables_to_use_uuid --table=markdown_posts
 docker exec -it laravel-app php artisan make:migration update_tables_to_use_uuid --table=markdown_likes
 docker exec -it laravel-app php artisan make:migration update_tables_to_use_uuid --table=markdown_replies
+
 docker exec -it laravel-app php artisan make:migration add_emoji_to_markdown_likes_table --table=markdown_likes
+docker exec -it laravel-app php artisan make:migration change_parent_id_to_markdown_replies_table --table=markdown_replies
 ```
 
 # Model の追加

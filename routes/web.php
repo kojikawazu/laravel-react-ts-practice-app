@@ -4,7 +4,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\MarkdownController;
+use App\Http\Controllers\MarkdownLikeController;
+use App\Http\Controllers\MarkdownReplyController;
 use App\Http\Controllers\ProfileController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -42,8 +45,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/markdown/{id}', [MarkdownController::class, 'update'])->name('markdown.update');
     Route::delete('/markdown/{id}', [MarkdownController::class, 'destroy'])->name('markdown.destroy');
 
-    Route::post('/markdown/{post}/like', [MarkdownController::class, 'like'])->name('markdown.like');
-    Route::delete('/markdown/{post}/unlike', [MarkdownController::class, 'unlike'])->name('markdown.unlike');
+    Route::post('/markdown/{post}/like', [MarkdownLikeController::class, 'like'])->name('markdown.like');
+    Route::delete('/markdown/{post}/unlike', [MarkdownLikeController::class, 'unlike'])->name('markdown.unlike');
+
+    Route::post('/markdown/{postId}/reply', [MarkdownReplyController::class, 'store'])->name('markdown.reply.store');
+    Route::put('/markdown/reply/{replyId}', [MarkdownReplyController::class, 'update'])->name('markdown.reply.update');
+    Route::delete('/markdown/reply/{replyId}', [MarkdownReplyController::class, 'destroy'])->name('markdown.reply.destroy');
 });
 
 require __DIR__.'/auth.php';
