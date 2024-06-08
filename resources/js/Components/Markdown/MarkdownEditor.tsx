@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import MDEditor, { MDEditorProps, commands } from '@uiw/react-md-editor';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import { toast, ToastContainer } from 'react-toastify';
-import { Link, useForm } from '@inertiajs/inertia-react';
+//import { Link, useForm } from '@inertiajs/inertia-react';
+import { Link, useForm } from '@inertiajs/react';
 import { Button } from '@/Components/ui/button';
 import { MarkdownPost } from '@/types/types';
 
