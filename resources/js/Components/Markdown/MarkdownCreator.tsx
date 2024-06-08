@@ -7,11 +7,18 @@ import { Button } from '@/Components/ui/button';
 
 import 'react-toastify/dist/ReactToastify.css';
 
+interface MarkdownCreatorProps {
+    message: string,
+};
+
+/**
+ * Markdown作成コンポーネント
+ * @param message Markdown作成メッセージ
+ * @returns JSX
+ */
 const MarkdownCreator = ({
     message,
-}: {
-    message: string,
-}) => {
+}: MarkdownCreatorProps) => {
     const { data, setData, post, processing, reset, errors } = useForm({
         content: '',
     });
@@ -28,7 +35,7 @@ const MarkdownCreator = ({
         setShowEmojiPicker(false);
     }
 
-    const handleEditorChange: MDEditorProps['onChange'] = (value) => {
+    const handleCreatorChange: MDEditorProps['onChange'] = (value) => {
         if (value !== undefined) {
             setData('content', value);
         }
@@ -51,7 +58,7 @@ const MarkdownCreator = ({
     return (
         <>
             <ToastContainer />
-                <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4">
                 <h1 className="text-3xl font-bold mb-4">Markdown Creator</h1>
 
                 <form onSubmit={handleSubmit}>
@@ -69,7 +76,7 @@ const MarkdownCreator = ({
                     <div data-color-mode="dark">
                         <MDEditor 
                             value={data.content} 
-                            onChange={handleEditorChange}
+                            onChange={handleCreatorChange}
                             height={300}
                             preview="edit"
                             commands={[
@@ -83,12 +90,12 @@ const MarkdownCreator = ({
                             type="button"
                             onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                             className="mt-4 mr-4">
-                            {showEmojiPicker ? 'Close' : 'Add'}
+                            {showEmojiPicker ? 'Close' : '☻'}
                         </Button>
                         
                         {showEmojiPicker && <EmojiPicker onEmojiClick={addEmoji} />}
                         
-                        <Button type="submit" className="mt-4">Submit</Button>
+                        <Button type="submit" className="mt-4">Create</Button>
                     </div>
                 </form>
             </div>

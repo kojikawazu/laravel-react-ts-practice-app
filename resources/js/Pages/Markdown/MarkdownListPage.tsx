@@ -3,7 +3,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import HomeLayout from '@/Layouts/HomeLayout';
 import { PageProps } from '@/types';
 import { MarkdownPost } from '@/types/types';
-import { usePage } from '@inertiajs/react';
 import MarkdownList from '@/Components/Markdown/MarkdownList';
 
 /**
@@ -21,7 +20,6 @@ interface MarkdownListPageProps extends PageProps {
 function MarkdownListPage({
   posts
 }: MarkdownListPageProps) {
-  const { props } = usePage();
 
   return (
     <>

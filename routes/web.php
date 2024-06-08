@@ -34,14 +34,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
     Route::post('/send-mail', [SendMailController::class, 'sendMail'])->name('sendMail');
 
-    //Route::get('/markdown', [MarkdownController::class, 'index'])->name('markdown.index');
-    //Route::post('/markdown/posts', [MarkdownController::class, 'store'])->name('markdown.store');
-
-    Route::get('/markdown/editor', [MarkdownController::class, 'editor'])->name('markdown.editor');
+    Route::get('/markdown/creator', [MarkdownController::class, 'creator'])->name('markdown.creator');
+    Route::get('/markdown/editor/{id}', [MarkdownController::class, 'editor'])->name('markdown.editor');
     Route::get('/markdown/{id}', [MarkdownController::class, 'show'])->name('markdown.show');
     Route::get('/markdown', [MarkdownController::class, 'index'])->name('markdown.index');
     Route::post('/markdown', [MarkdownController::class, 'store'])->name('markdown.store');
-      
+    Route::put('/markdown/{id}', [MarkdownController::class, 'update'])->name('markdown.update');
+    Route::delete('/markdown/{id}', [MarkdownController::class, 'destroy'])->name('markdown.destroy');
 });
 
 require __DIR__.'/auth.php';

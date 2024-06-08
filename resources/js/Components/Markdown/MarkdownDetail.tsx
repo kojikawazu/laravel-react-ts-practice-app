@@ -1,10 +1,17 @@
-import React from 'react';
 import { MarkdownPost } from '@/types/types';
 
+/**
+ * Markdown詳細コンポーネントProps
+ */
 interface MarkdownDetail {
     post: MarkdownPost;
 }
 
+/**
+ * マークダウン詳細ページ
+ * @param post Markdown
+ * @returns JSX
+ */
 const MarkdownDetail = ({
     post,
 }: MarkdownDetail) => {
