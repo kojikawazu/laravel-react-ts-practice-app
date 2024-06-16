@@ -20,7 +20,6 @@ class MarkdownReplyController extends Controller
      */
     public function store(Request $request, $postId)
     {
-        Log::info('MarkdownReplyController store start.');
         Log::info('Request data: ', $request->all());
 
         try {
@@ -62,7 +61,6 @@ class MarkdownReplyController extends Controller
      */
     public function update(Request $request, $replyId)
     {
-        Log::info('MarkdownReplyController update start.');
 
         $request->validate([
             'content' => 'required',
@@ -73,7 +71,6 @@ class MarkdownReplyController extends Controller
             'content' => $request->input('content'),
         ]);
 
-        Log::info('MarkdownReplyController update end.');
         return back();
     }
 
@@ -84,12 +81,9 @@ class MarkdownReplyController extends Controller
      */
     public function destroy($replyId)
     {
-        Log::info('MarkdownReplyController destroy start.');
-
         $reply = MarkdownReply::findOrFail($replyId);
         $reply->delete();
 
-        Log::info('MarkdownReplyController destroy end.');
         return back();
     }
 }
