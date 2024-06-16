@@ -22,7 +22,6 @@ class MarkdownLikeController extends Controller
      */
     public function like(Request $request, $postId)
     {
-        Log::info('MarkdownLikeController like start.');
 
         $data = $request->validate([
             'emoji' => 'required|string',
@@ -40,7 +39,6 @@ class MarkdownLikeController extends Controller
             ]
         );
 
-        Log::info('Request data validated: ' . json_encode($like));
         return back();
     }
 
@@ -52,13 +50,11 @@ class MarkdownLikeController extends Controller
      */
     public function unlike($postId)
     {
-        Log::info('MarkdownLikeController unlike start.');
 
         MarkdownLike::where('post_id', $postId)
             ->where('user_id', Auth::id())
             ->delete();
 
-        Log::info('MarkdownLikeController unlike end.');
         return back();
     }
 }

@@ -26,8 +26,8 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_DB: laravel_react_db
-      POSTGRES_USER: root # PostgreSQLのユーザー
-      POSTGRES_PASSWORD: root # PostgreSQLのパスワード
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
     volumes:
       - dbdata:/var/lib/postgresql/data # PostgreSQLデータを永続化するためのボリュームをマウント
     networks:
