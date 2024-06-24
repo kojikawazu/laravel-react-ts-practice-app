@@ -1,12 +1,14 @@
-import React, { FormEvent } from 'react';
+import { FormEvent } from 'react';
 import { MarkdownPost } from '@/types/types';
-import { useForm, Link, router } from '@inertiajs/react';
+import { useForm, router } from '@inertiajs/react';
 import MDEditor from '@uiw/react-md-editor';
 import ReplyItem from './Reply/ReplyItem';
 import { Button } from '../ui/button';
 import { toast, ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import MarkdownTitle from './atoms/MarkdownTitle';
+import MarkdownButton from './atoms/MarkdownButton';
 
 /**
  * Markdown詳細コンポーネントProps
@@ -66,23 +68,23 @@ const MarkdownDetail = ({
             <ToastContainer />
 
             <div className="flex justify-center mb-4">
-                <h1 className="text-2xl font-bold mb-4 text-white border-b-2">
-                    Markdown Detail
-                </h1>
+                <MarkdownTitle title={"Markdown Detail"} />
             </div>
             
 
             <div className="flex justify-end space-x-4 mb-4">
-                <Link 
-                    href="/markdown" 
-                    className="bg-gray-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
-                    Back
-                    </Link>
-                <Link 
-                    href={`/markdown/editor/${post.id}`} 
-                    className="bg-indigo-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
-                    Update
-                </Link>
+                <MarkdownButton
+                    label="Back"
+                    href="/markdown"
+                    backgroundColor="gray"
+                    textColor="white" 
+                />
+                <MarkdownButton
+                    label="Update"
+                    href={`/markdown/editor/${post.id}`}
+                    backgroundColor="indigo"
+                    textColor="white"
+                />
                 
                 <Button
                     onClick={() => handleDelete(post.id)}

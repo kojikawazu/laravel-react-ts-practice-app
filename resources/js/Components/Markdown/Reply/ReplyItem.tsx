@@ -1,6 +1,6 @@
-import { useState, FormEvent, useEffect } from 'react';
-import { MarkdownReply } from '@/types/types';
+import { useState, FormEvent } from 'react';
 import { useForm } from '@inertiajs/react';
+import { MarkdownReply } from '@/types/types';
 
 /**
  * 返信アイテムProps
@@ -31,16 +31,12 @@ const ReplyItem = ({
     });
 
     const [showReplyForm, setShowReplyForm] = useState(false);
-    //console.log("ReplyItem mounted");
-    //console.log(`parent.id == null ? ${reply.parent_id == null}`);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        //console.log("ReplyItem handleSubmit()");
 
         submit(route('markdown.reply.store', postId), {
             onSuccess: () => {
-                //console.log('ReplyItem handleSubmit() onSuccess');
                 reset();
             },
         });

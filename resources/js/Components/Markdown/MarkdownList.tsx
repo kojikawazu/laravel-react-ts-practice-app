@@ -1,7 +1,8 @@
 import { MarkdownPost } from '@/types/types';
-import { Link, useForm } from '@inertiajs/react';
-import MarkdownLike from './MarkdownLike';
+import { Link } from '@inertiajs/react';
 import { ToastContainer } from 'react-toastify';
+import MarkdownLike from './MarkdownLike';
+import MarkdownTitle from './atoms/MarkdownTitle';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -26,9 +27,7 @@ const MarkdownList = ({
             <ToastContainer />
 
             <div className="flex justify-center items-center">
-                <h1 className="text-2xl font-bold mb-4 text-white border-b-2">
-                    Markdown List
-                </h1>
+                <MarkdownTitle title={"Markdown List"} />
             </div>
 
             <div className="flex justify-end">

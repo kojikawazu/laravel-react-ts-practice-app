@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import MDEditor, { MDEditorProps, commands } from '@uiw/react-md-editor';
-import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
+import React, { useEffect } from 'react';
+import MDEditor, { commands } from '@uiw/react-md-editor';
+import EmojiPicker from 'emoji-picker-react';
 import { toast, ToastContainer } from 'react-toastify';
-//import { Link, useForm } from '@inertiajs/inertia-react';
-import { Link, useForm } from '@inertiajs/react';
 import { Button } from '@/Components/ui/button';
 import { MarkdownPost } from '@/types/types';
 import { useMyMarkdown } from '@/hooks/useMyMarkdown';
+import MarkdownTitle from './atoms/MarkdownTitle';
+import MarkdownButton from './atoms/MarkdownButton';
 
 /**
  * MarkdownエディタコンポーネントProps
@@ -62,15 +62,16 @@ const MarkdownEditor = ({
 
       <div className="container mx-auto p-4 bg-slate-800">
           <div className="flex justify-center mb-4">
-              <h1 className="text-2xl font-bold text-white border-b-2">
-                  Markdown Editor
-              </h1>
+              <MarkdownTitle title={"Markdown Editor"} />
           </div>
 
           <div className="flex justify-end space-x-4 mb-4">
-              <Link href="/markdown" className="bg-gray-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
-                  Back
-              </Link>
+              <MarkdownButton
+                    label="Back"
+                    href="/markdown"
+                    backgroundColor="gray"
+                    textColor="white" 
+                />
           </div>
 
           <form onSubmit={handleSubmit}>
