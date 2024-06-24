@@ -76,14 +76,12 @@ const MarkdownDetail = ({
                 <MarkdownButton
                     label="Back"
                     href="/markdown"
-                    backgroundColor="gray"
-                    textColor="white" 
+                    additionalClasses="bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-500"
                 />
                 <MarkdownButton
                     label="Update"
                     href={`/markdown/editor/${post.id}`}
-                    backgroundColor="indigo"
-                    textColor="white"
+                    additionalClasses="bg-indigo-500 text-white hover:bg-indigo-600 focus:ring-indigo-500"
                 />
                 
                 <Button
