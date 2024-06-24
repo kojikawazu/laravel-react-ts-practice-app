@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import HomeLayout from '@/Layouts/HomeLayout';
 import { PageProps } from '@/types';
 import { MarkdownPost } from '@/types/types';
+import MarkdownLayout from '@/Layouts/MarkdownLayout';
 import MarkdownList from '@/Components/Markdown/MarkdownList';
 
 /**
@@ -38,9 +38,9 @@ MarkdownListPage.layout = (
 ) => {
     return (
         <AuthenticatedLayout>
-            <HomeLayout>
+            <MarkdownLayout>
               {page}
-            </HomeLayout>
+            </MarkdownLayout>
         </AuthenticatedLayout>
     );
 }

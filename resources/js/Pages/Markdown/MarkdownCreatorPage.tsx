@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import HomeLayout from '@/Layouts/HomeLayout';
+import MarkdownLayout from '@/Layouts/MarkdownLayout';
 import MarkdownCreator from '@/Components/Markdown/MarkdownCreator';
 import { PageProps } from '@/types';
 import { usePage } from '@inertiajs/react';
@@ -31,9 +31,9 @@ MarkdownCreatorPage.layout = (
 ) => {
     return (
         <AuthenticatedLayout>
-            <HomeLayout>
+            <MarkdownLayout>
               {page}
-            </HomeLayout>
+            </MarkdownLayout>
         </AuthenticatedLayout>
     );
 }
