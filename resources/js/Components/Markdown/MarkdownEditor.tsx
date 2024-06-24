@@ -60,10 +60,17 @@ const MarkdownEditor = ({
     <>
       <ToastContainer />
 
-      <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-4">
-              <h1 className="text-3xl font-bold mb-4">Markdown Editor</h1>
-              <Link href="/markdown" className="bg-gray-500 text-white p-2 rounded">Back</Link>
+      <div className="container mx-auto p-4 bg-slate-800">
+          <div className="flex justify-center mb-4">
+              <h1 className="text-2xl font-bold text-white border-b-2">
+                  Markdown Editor
+              </h1>
+          </div>
+
+          <div className="flex justify-end space-x-4 mb-4">
+              <Link href="/markdown" className="bg-gray-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                  Back
+              </Link>
           </div>
 
           <form onSubmit={handleSubmit}>
