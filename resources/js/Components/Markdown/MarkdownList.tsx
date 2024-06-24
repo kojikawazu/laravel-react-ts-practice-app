@@ -1,8 +1,7 @@
 import { MarkdownPost } from '@/types/types';
 import { Link, useForm } from '@inertiajs/react';
-import { toast, ToastContainer } from 'react-toastify';
-import { Button } from '../ui/button';
 import MarkdownLike from './MarkdownLike';
+import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -21,74 +20,61 @@ interface MarkdownListProps {
 const MarkdownList = ({
     posts,
 }: MarkdownListProps) => {
-    const { delete: destroy } = useForm();
-
-    const handleDelete = (id: string) => {
-        if (confirm('Are you sure you want to delete this post?')) {
-            destroy(`/markdown/${id}`, {
-                onSuccess: () => {
-                    toast.success('Post deleted successfully');
-                    window.location.reload();
-                },
-                onError: () => {
-                    toast.error('An error occurred while deleting the post');
-                },
-            });
-        }
-    };
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 bg-slate-800">
             <ToastContainer />
 
-            <div className="flex justify-between">
-                <h1 className="text-2xl font-bold mb-4">
+            <div className="flex justify-center items-center">
+                <h1 className="text-2xl font-bold mb-4 text-white border-b-2">
                     Markdown List
                 </h1>
+            </div>
 
+            <div className="flex justify-end">
                 <Link
                     href="/markdown/creator"
-                    className="text-blue-500 hover:underline"
+                    className="text-white mb-2 hover:underline"
                 >
                     作成はこちら
                 </Link>
             </div>
 
-            <ul className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {posts.map((post) => (
-                    <li 
+                    <div 
                         key={post.id}
-                        className="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between items-left"
+                        className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col transition-shadow duration-300 ease-in-out hover:shadow-lg"
                     >
-                        <Link
-                            href={`/markdown/${post.id}`}
-                            className="bg-gray-200 text-blue-500 rounded-lg p-4 mb-4 hover:underline">
-                            {post.content.substring(0, 100)}
+                        <Link href={`/markdown/${post.id}`} className="block h-48 overflow-hidden">
+                            <img
+                                src={`/images/no_image.png`}
+                                alt={`sample`}
+                                className="w-full h-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
+                            />
                         </Link>
-                        <div className="flex justify-between items-start">
+
+                        <div className="p-4 flex-grow">
+                            <Link
+                                href={`/markdown/${post.id}`}
+                                className="text-blue-700 hover:underline block mb-2"
+                            >
+                                <h2 className="text-xl font-semibold text-blue-700 hover:text-blue-900 transition-colors duration-300">
+                                    {'Untitled Post'}
+                                </h2>
+                            </Link>
+                        </div>
+                        
+                        <div className="p-4 bg-gray-50 flex justify-between items-center">
                             <MarkdownLike
                                 postId={post.id}
                                 currentEmoji={post.currentEmoji || null}
                                 likeCounts={post.likeCounts || {}}
                             />
-
-                            <div className="flex space-x-2">
-                                <Link 
-                                    href={`/markdown/editor/${post.id}`} 
-                                    className="bg-green-500 text-white p-2 mr-4 rounded">
-                                    Update
-                                </Link>
-                                
-                                <Button
-                                    onClick={() => handleDelete(post.id)}
-                                    className="bg-red-500 text-white rounded">
-                                    Delete
-                                </Button>
-                            </div>
                         </div>
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
   );
 }
