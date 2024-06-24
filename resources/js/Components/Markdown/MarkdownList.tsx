@@ -26,7 +26,7 @@ const MarkdownList = ({
             <ToastContainer />
 
             <div className="flex justify-center items-center">
-                <h1 className="text-2xl font-bold mb-4 text-white">
+                <h1 className="text-2xl font-bold mb-4 text-white border-b-2">
                     Markdown List
                 </h1>
             </div>
