@@ -59,8 +59,7 @@ const MarkdownCreator = ({
                     <MarkdownButton
                         label="Back"
                         href="/markdown"
-                        backgroundColor="gray"
-                        textColor="white"
+                        additionalClasses="bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-500"
                     />
                 </div>
 
