@@ -14,7 +14,22 @@
         "paths": {
             "@/*": ["./resources/js/*"],
             "ziggy-js": ["./vendor/tightenco/ziggy"]
-        }
+        },
+        "types": [
+            "vite/client",
+            "vitest/globals",
+            "@testing-library/jest-dom"
+        ],
+        "skipLibCheck": true,
+        "resolveJsonModule": true
     },
-    "include": ["resources/js/**/*.ts", "resources/js/**/*.tsx", "resources/js/**/*.d.ts"]
+    "include": [
+        "resources/js/**/*.ts", 
+        "resources/js/**/*.tsx", 
+        "resources/js/**/*.d.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "public"
+    ]
 }

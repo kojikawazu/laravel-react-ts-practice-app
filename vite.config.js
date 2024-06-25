@@ -23,7 +23,25 @@ export default defineConfig({
     server: {
         strictPort: true,
     },
-    build: {
-        outDir: 'public/build', // 出力ディレクトリを指定
+    test: {
+        globals: true,
+        environment: 'jsdom',
+        setupFiles: ['./resources/js/__tests__/setup.ts'],
+        include: ['resources/js/__tests__/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+        exclude: ['node_modules', 'dist', '.idea', '.git', '.cache'],
+        env: {
+            VITE_APP_BASE_URL: 'http://localhost:3000'
+        }
     },
+    resolve: {
+        alias: {
+            '@': resolve(__dirname, './resources/js'),
+        }
+    },
+    define: {
+        'process.env': process.env
+    },
+    optimizeDeps: {
+        include: ['@inertiajs/react']
+    }
 });
