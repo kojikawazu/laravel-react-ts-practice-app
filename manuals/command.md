@@ -60,6 +60,14 @@ docker exec -it laravel-app npx shadcn-ui@latest add textarea
 docker exec -it laravel-app composer require resend/resend-laravel
 ```
 
+# React Testing Library のインストール
+
+vitest を利用する。
+
+```bash
+docker exec -it laravel-app npm i --save-dev vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event
+```
+
 # その他インストール
 
 ```bash
