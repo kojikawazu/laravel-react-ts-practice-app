@@ -15,9 +15,8 @@ services:
     ports:
       - "8000:80"
       - "8080:8080"
-    env_file:
-      - .env
     depends_on:
+      - test_db
       - db
 
   db:
@@ -35,6 +34,21 @@ services:
     ports:
       - "5432:5432" # PostgreSQLのポートをマッピング
 
+  test_db:
+    image: postgres:13
+    container_name: laravel_test_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: laravel_test_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - testdbdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+    ports:
+      - "5433:5432"
+
   adminer:
     image: adminer # Adminerイメージ（phpMyAdminの代替として使用）
     container_name: adminer
@@ -44,6 +58,7 @@ services:
     ports:
       - "8090:8080" # Adminerのポートをマッピング
     depends_on:
+      - test_db
       - db
     networks:
       - app-network
@@ -55,3 +70,5 @@ networks:
 volumes:
   dbdata:           # ボリュームの定義
     driver: local   # ローカルボリュームドライバーを使用
+  testdbdata:
+    driver: local

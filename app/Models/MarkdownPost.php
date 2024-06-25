@@ -14,6 +14,7 @@ class MarkdownPost extends Model
     use HasFactory, HasUuids;
 
     protected $primaryKey = 'id';
+    public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -21,6 +22,10 @@ class MarkdownPost extends Model
         'user_id',
         'likes_count',
         'replies'
+    ];
+
+    protected $casts = [
+        'likes_count' => 'integer',
     ];
 
     public function user()
@@ -32,7 +37,7 @@ class MarkdownPost extends Model
     public function likes()
     {
         // markdown_post 1 <- 多 markdown_like
-        return $this->hasMany(MarkdownLike::class, 'post_id', 'id');
+        return $this->hasMany(MarkdownLike::class, 'post_id');
     }
 
     public function replies()
