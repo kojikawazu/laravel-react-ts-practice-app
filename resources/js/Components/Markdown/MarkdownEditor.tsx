@@ -7,6 +7,7 @@ import { MarkdownPost } from '@/types/types';
 import { useMyMarkdown } from '@/hooks/useMyMarkdown';
 import MarkdownTitle from './atoms/MarkdownTitle';
 import MarkdownButton from './atoms/MarkdownButton';
+import EmojiButton from './atoms/emoji/EmojiButton';
 
 /**
  * MarkdownエディタコンポーネントProps
@@ -78,8 +79,7 @@ const MarkdownEditor = ({
 
               <div 
                   data-color-mode="dark"
-                  className="w-full h-72 bg-black mb-4 p-4 rounded-sm"
-              >
+                  className="w-full h-72 bg-black mb-4 p-4 rounded-sm">
                   <MDEditor.Markdown
                       source={data.content}
                   />
@@ -98,14 +98,11 @@ const MarkdownEditor = ({
               </div>
 
               <div className="flex justify-center">
-                  <Button 
-                      type="button"
-                      onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                      className="mt-4 mr-4">
-                      {showEmojiPicker ? 'Close' : '☻'}
-                  </Button>
-                  
-                  {showEmojiPicker && <EmojiPicker onEmojiClick={addEmoji} />}
+                  <EmojiButton
+                      setShowEmojiPicker={setShowEmojiPicker}
+                      showEmojiPicker={showEmojiPicker}
+                      addEmoji={addEmoji}
+                  />
                   
                   <Button type="submit" className="mt-4">Update</Button>
                   <Button type="button" onClick={handleDelete} className="mt-4 ml-4">Delete</Button>

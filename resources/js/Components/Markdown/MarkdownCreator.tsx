@@ -8,6 +8,8 @@ import MarkdownTitle from './atoms/MarkdownTitle';
 import MarkdownButton from './atoms/MarkdownButton';
 
 import 'react-toastify/dist/ReactToastify.css';
+import EmojiButton from './atoms/emoji/EmojiButton';
+import { aD } from 'vitest/dist/reporters-yx5ZTtEV.js';
 
 /**
  * Markdown作成コンポーネントProps
@@ -88,14 +90,11 @@ const MarkdownCreator = ({
                     </div>
 
                     <div className="flex justify-center">
-                        <Button 
-                            type="button"
-                            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                            className="mt-4 mr-4">
-                            {showEmojiPicker ? 'Close' : '☻'}
-                        </Button>
-                        
-                        {showEmojiPicker && <EmojiPicker onEmojiClick={addEmoji} />}
+                        <EmojiButton
+                            setShowEmojiPicker={setShowEmojiPicker}
+                            showEmojiPicker={showEmojiPicker}
+                            addEmoji={addEmoji}
+                        />
                         
                         <Button type="submit" className="mt-4">Create</Button>
                     </div>

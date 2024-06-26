@@ -2,13 +2,14 @@ import { FormEvent } from 'react';
 import { MarkdownPost } from '@/types/types';
 import { useForm, router } from '@inertiajs/react';
 import MDEditor from '@uiw/react-md-editor';
-import ReplyItem from './Reply/ReplyItem';
 import { Button } from '../ui/button';
 import { toast, ToastContainer } from 'react-toastify';
-
-import 'react-toastify/dist/ReactToastify.css';
 import MarkdownTitle from './atoms/MarkdownTitle';
 import MarkdownButton from './atoms/MarkdownButton';
+import MarkdownReplyForm from './molecules/MarkdownReplyForm';
+import MarkdownReplyItem from './molecules/Reply/MarkdownReplyItem';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * Markdown詳細コンポーネントProps
@@ -97,25 +98,20 @@ const MarkdownDetail = ({
             </div>
 
             <div className="bg-white shadow-md rounded-lg p-4">
-                <form onSubmit={handleSubmit} className="mt-4">
-                    <textarea
-                        className="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        rows={4}
-                        value={data.content}
-                        onChange={(e) => setData('content', e.target.value)}
-                    />
-
-                    <div className="flex items-center justify-end mt-4">
-                        <button
-                            type="submit"
-                            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                            Submit
-                        </button>
-                    </div>
-                </form>
+                <MarkdownReplyForm
+                    formClasses="mt-4"
+                    handleSubmit={handleSubmit}
+                    textareaRows={4}
+                    textareaClasses="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    content={data.content}
+                    setContent={setData}
+                    submitBtnClasses="flex items-center justify-end mt-4"
+                    submitBtnInnerClasses="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    submitBtnLabel={"投稿"}
+                />
 
                 {post.replies && post.replies.map(reply => (
-                    <ReplyItem
+                    <MarkdownReplyItem
                         key={reply.id}
                         reply={reply}
                         postId={post.id}
