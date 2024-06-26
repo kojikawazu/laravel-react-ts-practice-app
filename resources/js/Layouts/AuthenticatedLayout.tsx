@@ -21,8 +21,8 @@ export default function Authenticated({
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-h-screen bg-slate-800 text-white">
-            <nav className="border-b border-slate-100">
+        <div className="min-h-screen bg-amber-100 text-amber-900">
+            <nav className="border-b border-amber-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -46,7 +46,7 @@ export default function Authenticated({
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-500 bg-white hover:text-slate-700 focus:outline-none transition ease-in-out duration-150"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-amber-500 bg-amber-100 hover:text-amber-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {user.name}
 
@@ -87,7 +87,7 @@ export default function Authenticated({
                         <div className="-me-2 flex items-center sm:hidden">
                             <button
                                 onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                                className="inline-flex items-center justify-center p-2 rounded-md text-amber-400 hover:text-amber-500 hover:bg-amber-100 focus:outline-none focus:bg-amber-100 focus:text-amber-500 transition duration-150 ease-in-out"
                             >
                                 <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path
@@ -117,12 +117,12 @@ export default function Authenticated({
                         </ResponsiveNavLink>
                     </div>
 
-                    <div className="pt-4 pb-1 border-t border-gray-200">
+                    <div className="pt-4 pb-1 border-t border-amber-700">
                         <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">
+                            <div className="font-medium text-base text-amber-800">
                                 {user.name}
                             </div>
-                            <div className="font-medium text-sm text-white">{user.email}</div>
+                            <div className="font-medium text-sm text-amber-700">{user.email}</div>
                         </div>
 
                         <div className="mt-3 space-y-1">

@@ -1,11 +1,12 @@
 import { useState, FormEvent } from 'react';
 import { useForm } from '@inertiajs/react';
 import { MarkdownReply } from '@/types/types';
+import MarkdownReplyForm from '../MarkdownReplyForm';
 
 /**
  * 返信アイテムProps
  */
-interface ReplyItemProps {
+interface MarkdownReplyItemProps {
     reply: MarkdownReply;
     postId: string;
 };
@@ -16,10 +17,10 @@ interface ReplyItemProps {
  * @param postId
  * @returns JSX
  */
-const ReplyItem = ({
+const MarkdownReplyItem = ({
     reply,
     postId,
-}: ReplyItemProps) => {
+}: MarkdownReplyItemProps) => {
     const {
         data,
         setData,
@@ -55,26 +56,22 @@ const ReplyItem = ({
             </button>
 
             {showReplyForm && (
-                <form onSubmit={handleSubmit} className="mt-2">
-                    <textarea
-                        className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
-                        rows={2}
-                        value={data.content}
-                        onChange={(e) => setData('content', e.target.value)}
-                        placeholder="返信内容を入力してください"
-                    />
-
-                    <button
-                        type="submit"
-                        className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
-                        返信を送信
-                    </button>
-                </form>
+                <MarkdownReplyForm
+                    formClasses="mt-2"
+                    handleSubmit={handleSubmit}
+                    textareaRows={2}
+                    textareaClasses="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+                    content={data.content}
+                    setContent={setData}
+                    submitBtnClasses="flex items-center justify-start mt-4"
+                    submitBtnInnerClasses="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+                    submitBtnLabel={"返信を送信"}
+                />
             )}
 
             {reply.children && reply.children.map((child) => (
                 <div key={child.id} className="ml-6 mt-4 border-l-2 border-gray-200 pl-4">
-                    <ReplyItem
+                    <MarkdownReplyItem
                         reply={child}
                         postId={postId} />
                 </div>
@@ -83,4 +80,4 @@ const ReplyItem = ({
     );
 };
 
-export default ReplyItem;
+export default MarkdownReplyItem;

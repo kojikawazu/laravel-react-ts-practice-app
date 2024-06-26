@@ -102,8 +102,6 @@ const MarkdownLike = ({
                         </div>
                     ))}
                 </div>
-
-                {/* <span className="ml-4">Likes: {Object.values(likes).reduce((a, b) => a + b, 0)}</span> */}
             </div>
 
             {showPicker && <EmojiPicker onEmojiClick={addEmoji} />}

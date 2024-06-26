@@ -3,9 +3,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
 import { User } from '@/types';
 import { useClientMailForm } from '@/hooks/useClientMailForm';
-import { Button } from '@/Components/ui/button';
-import { Input } from '@/Components/ui/input';
-import { Textarea } from '@/Components/ui/textarea';
+
+
 import { 
   Form, 
   FormControl, 
@@ -16,6 +15,10 @@ import {
 } from '@/Components/ui/form';
 
 import 'react-toastify/dist/ReactToastify.css';
+import MailSendButton from './atoms/MailSendButton';
+import MailFileInput from './atoms/MailFileInput';
+import MailInput from './atoms/MailInput';
+import MailTextareaInput from './atoms/MailTextareaInput';
 
 interface MailFormProps {
   user: User;
@@ -73,110 +76,49 @@ const MailForm = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="container flex flex-col gap-3"
         >
-          <FormField 
+          <MailInput
             control={form.control}
             name="username"
-            render={({ field }) => (
-              <FormItem 
-                className="mb-4"
-              >
-                <FormLabel>ユーザー名</FormLabel>
-                <FormControl>
-                  <Input placeholder="ユーザー名" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="ユーザー名"
+            placeholder="ユーザー名"
           />
 
-          <FormField
+          <MailInput
             control={form.control}
             name="email"
-            render={({ field }) => (
-              <FormItem
-                className="mb-4"
-              >
-                <FormLabel>メールアドレス</FormLabel>
-                <FormControl>
-                  <Input placeholder="メールアドレス" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="メールアドレス"
+            placeholder="メールアドレス"
           />
 
-          <FormField
+          <MailInput
             control={form.control}
             name="subject"
-            render={({ field }) => (
-              <FormItem
-                className="mb-4"
-              >
-                <FormLabel>主題</FormLabel>
-                <FormControl>
-                  <Input placeholder="主題" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="主題"
+            placeholder="主題"
           />
 
-          <FormField
+          <MailInput
             control={form.control}
             name="content"
-            render={({ field }) => (
-              <FormItem
-                className="mb-4"
-              >
-                <FormLabel>本文</FormLabel>
-                <FormControl>
-                  <Textarea placeholder="本文" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            label="本文"
+            placeholder="本文"
           />
 
-          <FormField
+          <MailTextareaInput
             control={form.control}
-            name="file"
-            render={({ field: {value, onChange, ref, ...fieldProps }}) => (
-              <FormItem
-                className="mb-4"
-              >
-                <FormLabel>添付画像</FormLabel>
-                <FormControl>
-                  <Input
-                    accept="image/*"
-                    type="file"
-                    placeholder="画像"
-                    onChange={(event) => {
-                      // ファイル入力フィールドは手動で更新する必要がある。
-                      onChange(event.target.files);
-                    }}
-                    ref={(e) => {
-                      // React Hook Formのrefを設定しつつ、fileInputRefにもDOM要素を保存
-                      ref(e);
-                      fileInputRef.current = e;
-                    }}
-                    {...fieldProps}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            name="content"
+            label="本文"
+            placeholder="本文"
           />
 
-          <Button
-            type="submit"
-            disabled={form.formState.isSubmitting}
-            className="mb-4"
-          >
-            {form.formState.isSubmitting 
-              ? <ClipLoader /> 
-              : "送信"
-            }
-          </Button>
+          <MailFileInput
+            control={form.control}
+            fileInputRef={fileInputRef}
+          />
+
+          <MailSendButton
+            isSubmitting={form.formState.isSubmitting}
+          />
         </form>
       </Form>
     </>
