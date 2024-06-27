@@ -11,7 +11,7 @@ describe('MarkdownTitle', () => {
     it('applies default classes', () => {
         render(<MarkdownTitle title="Test Title" />);
         const headingElement = screen.getByRole('heading', {level: 1 });
-        expect(headingElement).toHaveClass('text-2xl', 'font-bold', 'mb-4', 'text-white', 'border-b-2');
+        expect(headingElement.className).toContain('pb-2 flex items-center text-4xl font-bold text-amber-900 border-b-4 border-amber-600');
     });
 
     it('applies additional class when provided', () => {
@@ -29,6 +29,6 @@ describe('MarkdownTitle', () => {
     it('combines default and additional classes', () => {
         render(<MarkdownTitle title="Test Title" additiolnalClass="custom-class" />);
         const headingElement = screen.getByRole('heading', { level: 1 });
-        expect(headingElement).toHaveClass('text-2xl', 'font-bold', 'mb-4', 'text-white', 'border-b-2', 'custom-class');
+        expect(headingElement.className).toContain('pb-2 flex items-center text-4xl font-bold text-amber-900 border-b-4 border-amber-600 custom-class');
       });
 });

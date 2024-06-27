@@ -32,7 +32,7 @@ const MarkdownList = ({
                 <MarkdownTitle title={"Markdown List"} />
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex justify-end mb-4 mr-2">
                 <MarkdownCreateLink
                     href="/markdown/creator"
                     label="作成はこちら"

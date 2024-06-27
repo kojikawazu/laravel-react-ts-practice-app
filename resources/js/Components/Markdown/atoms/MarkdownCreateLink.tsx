@@ -18,7 +18,7 @@ const MarkdownCreateLink = ({
   return (
     <Link
         href={href}
-        className="text-md text-amber-900 border-b-2 border-amber-600 flex items-center hover:text-amber-400 hover:border-amber-300"
+        className="flex items-center text-md text-amber-900 border-b-2 border-amber-600 hover:text-amber-400 hover:border-amber-300"
     >
         {label}
     </Link>
