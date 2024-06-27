@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Resend\Laravel\Facades\Resend;
+use Resend\Client;
 use Exception;
 
 /**
@@ -11,12 +11,43 @@ use Exception;
  */
 class SendMailController extends Controller
 {
+    /**
+     * @var Client Resend クライアントインスタンス(DI)
+     */
+    protected $resendClient;
+
+    /**
+     * コンストラクタ
+     * 
+     * @param Client $resendClient Resend クライアントインスタンス
+     */
+    public function __construct(Client $resendClient)
+    {
+        $this->resendClient = $resendClient;
+    }
+
+    /**
+     * メール送信
+     * 
+     * @param Request $request HTTPリクエストオブジェクト
+     * @return \Illuminate\Http\JsonResponse メール送信の結果を含むJSONレスポンス
+     * @throws Exception 送信エラーが発生した場合
+     */
     public function sendMail(Request $request)
     {
         // CORS対策
         $CORS_ADDRESS        = env('CORS_ADDRESS');
         $RESEND_MAIL_ADDRESS = env('RESEND_MAIL_ADDRESS');
         $RESEND_NAME         = env('RESEND_NAME');
+
+        // バリデーション
+        $request->validate([
+            'username' => 'required|string',
+            'email' => 'required|email',
+            'subject' => 'required|string',
+            'content' => 'required|string',
+            'file' => 'nullable|file'
+        ]);
 
         // ここでリクエストからデータを取り出す
         $username = $request->input('username');
@@ -38,7 +69,7 @@ class SendMailController extends Controller
         try {
             $htmlContent = view('emails.template', compact('username', 'email', 'content'))->render();
             
-            Resend::emails()->send([
+            $this->resendClient->emails()->send([
                     'from' => "$username@resend.dev",
                     'to' => $RESEND_MAIL_ADDRESS,
                     'subject' => $subject,
@@ -52,8 +83,8 @@ class SendMailController extends Controller
                 ->header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
                 ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()])
-                ->header('Access-Control-Allow-Origin', $CORS_ADDRESS)
+            return response()->json(['error' => $e->getMessage()], 500)
+                ->header('Access-Control-Allow-Origin', env('CORS_ADDRESS'))
                 ->header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
                 ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         }
