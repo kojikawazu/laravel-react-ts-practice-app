@@ -1,20 +1,20 @@
 import { Link } from '@inertiajs/react';
 
-interface MarkdownButtonProps {
+interface MarkdownLinkButtonProps {
   label: string;
   href: string;
   additionalClasses: string;
 };
 
 /**
- * マークダウンボタンコンポーネント
+ * マークダウンリンクボタンコンポーネント
  * @returns JSX
  */
-const MarkdownButton = ({
+const MarkdownLinkButton = ({
   label,
   href,
   additionalClasses,
-}: MarkdownButtonProps) => {
+}: MarkdownLinkButtonProps) => {
   return (
     <Link 
         href={href}
@@ -24,4 +24,4 @@ const MarkdownButton = ({
   );
 }
 
-export default MarkdownButton;
+export default MarkdownLinkButton;

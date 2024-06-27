@@ -24,7 +24,7 @@ const EmojiButton = ({
             <Button 
                 type="button"
                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                className="mt-4 mr-4">
+                className="mt-4 mr-4 bg-amber-500 text-amber-100 hover:bg-amber-600 focus:ring-amber-500">
                 {showEmojiPicker ? 'Close' : '☻'}
             </Button>
             

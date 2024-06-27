@@ -23,7 +23,7 @@ describe('MarkdownCreateLink', () => {
   it('applies correct default classes', () => {
     render(<MarkdownCreateLink href="/create" label="Create New" />);
     const linkElement = screen.getByRole('link');
-    expect(linkElement.className).toContain('text-white mb-2 hover:underline');
+    expect(linkElement.className).toContain('flex items-center text-md text-amber-900 border-b-2 border-amber-600 hover:text-amber-400 hover:border-amber-300');
   });
 
   it('renders as an anchor tag', () => {

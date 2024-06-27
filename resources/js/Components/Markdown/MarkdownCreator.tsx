@@ -5,11 +5,11 @@ import { toast, ToastContainer } from 'react-toastify';
 import { Button } from '@/Components/ui/button';
 import { useMyMarkdown } from '@/hooks/useMyMarkdown';
 import MarkdownTitle from './atoms/MarkdownTitle';
-import MarkdownButton from './atoms/MarkdownButton';
+import MarkdownLinkButton from './atoms/button/MarkdownLinkButton';
 
 import 'react-toastify/dist/ReactToastify.css';
 import EmojiButton from './atoms/emoji/EmojiButton';
-import { aD } from 'vitest/dist/reporters-yx5ZTtEV.js';
+import MarkdownButton from './atoms/button/MarkdownButton';
 
 /**
  * Markdown作成コンポーネントProps
@@ -52,16 +52,20 @@ const MarkdownCreator = ({
     return (
         <>
             <ToastContainer />
-            <div className="container mx-auto p-4 bg-slate-800">
-                <div className="flex justify-center mb-4">
+            <div className="container mx-auto p-4">
+                <div className="flex justify-center mb-12">
                     <MarkdownTitle title={"Markdown Creator"} />
                 </div>
 
-                <div className="flex justify-end space-x-4 mb-4">
-                    <MarkdownButton
+                <div className="flex justify-between space-x-4 mb-2">
+                    <div className="flex items-end">
+                        <p className="pl-2">Preview:</p>
+                    </div>
+
+                    <MarkdownLinkButton
                         label="Back"
                         href="/markdown"
-                        additionalClasses="bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-500"
+                        additionalClasses="bg-amber-500 text-amber-100 hover:bg-amber-600 focus:ring-amber-500"
                     />
                 </div>
 
@@ -69,12 +73,15 @@ const MarkdownCreator = ({
                     {errors.content && <div className="text-red-500 mt-2">{errors.content}</div>}
 
                     <div 
-                        data-color-mode="dark"
-                        className="w-full h-72 bg-black mb-4 p-4 rounded-sm"
-                    >
+                        data-color-mode="light"
+                        className="w-full h-72 bg-white mb-4 p-4 rounded-2xl border-8 border-amber-500">
                         <MDEditor.Markdown
                             source={data.content}
                         />
+                    </div>
+
+                    <div className="flex flex-start items-end">
+                        <p className="pl-2">Creator:</p>
                     </div>
 
                     <div data-color-mode="dark">
@@ -96,7 +103,11 @@ const MarkdownCreator = ({
                             addEmoji={addEmoji}
                         />
                         
-                        <Button type="submit" className="mt-4">Create</Button>
+                        <MarkdownButton
+                            type="submit"
+                            additionalClassName={"mt-4"}
+                            label="Create"
+                        />
                     </div>
                 </form>
             </div>

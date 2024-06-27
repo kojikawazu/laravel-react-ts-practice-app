@@ -25,14 +25,14 @@ const MarkdownList = ({
 }: MarkdownListProps) => {
 
     return (
-        <div className="container mx-auto p-4 bg-slate-800">
+        <div className="container mx-auto p-4">
             <ToastContainer />
 
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center mb-8">
                 <MarkdownTitle title={"Markdown List"} />
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex justify-end mb-4 mr-2">
                 <MarkdownCreateLink
                     href="/markdown/creator"
                     label="作成はこちら"

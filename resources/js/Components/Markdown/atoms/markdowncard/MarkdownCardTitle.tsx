@@ -15,9 +15,9 @@ const MarkdownCardTitle = ({
   return (
     <Link
         href={href}
-        className="text-blue-700 hover:underline block mb-2"
+        className="text-amber-700 hover:underline block mb-2"
     >
-        <h2 className="text-xl font-semibold text-blue-700 hover:text-blue-900 transition-colors duration-300">
+        <h2 className="text-xl font-semibold text-amber-700 hover:text-amber-900 transition-colors duration-300">
             {'Untitled Post'}
         </h2>
     </Link>

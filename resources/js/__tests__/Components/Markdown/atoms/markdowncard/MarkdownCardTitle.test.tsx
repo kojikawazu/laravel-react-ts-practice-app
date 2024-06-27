@@ -25,10 +25,10 @@ describe('MarkdownCardTitle', () => {
     it('applies correct classes for styling', () => {
         render(<MarkdownCardTitle href={testHref} />);
         const link = screen.getByRole('link');
-        expect(link).toHaveClass('text-blue-700', 'hover:underline', 'block', 'mb-2');
+        expect(link.className).toContain('text-amber-700 hover:underline block mb-2');
 
         const heading = screen.getByRole('heading', { level: 2 });
-        expect(heading).toHaveClass('text-xl', 'font-semibold', 'text-blue-700', 'hover:text-blue-900', 'transition-colors', 'duration-300');
+        expect(heading.className).toContain('text-xl font-semibold text-amber-700 hover:text-amber-900 transition-colors duration-300');
     });
 
     it('renders as an h2 element', () => {

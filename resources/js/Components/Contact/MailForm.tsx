@@ -3,22 +3,14 @@ import { toast, ToastContainer } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
 import { User } from '@/types';
 import { useClientMailForm } from '@/hooks/useClientMailForm';
-
-
+import MailSendButton from '@/Components/Contact/atoms/MailSendButton';
+import MailFileInput from '@/Components/Contact/atoms/MailFileInput';
+import MailInput from '@/Components/Contact/atoms/MailInput';
 import { 
-  Form, 
-  FormControl, 
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+  Form,
 } from '@/Components/ui/form';
 
 import 'react-toastify/dist/ReactToastify.css';
-import MailSendButton from './atoms/MailSendButton';
-import MailFileInput from './atoms/MailFileInput';
-import MailInput from './atoms/MailInput';
-import MailTextareaInput from './atoms/MailTextareaInput';
 
 interface MailFormProps {
   user: User;
@@ -98,13 +90,6 @@ const MailForm = ({
           />
 
           <MailInput
-            control={form.control}
-            name="content"
-            label="本文"
-            placeholder="本文"
-          />
-
-          <MailTextareaInput
             control={form.control}
             name="content"
             label="本文"

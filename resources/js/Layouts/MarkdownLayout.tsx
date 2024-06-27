@@ -10,7 +10,7 @@ export default function MarkdownLayout({
     children: React.ReactNode 
 }) {
     return (
-        <div className="bg-slate-800 h-screen">
+        <div className="min-h-screen bg-amber-100 py-12 font-serif">
             {children}
         </div>
     );
