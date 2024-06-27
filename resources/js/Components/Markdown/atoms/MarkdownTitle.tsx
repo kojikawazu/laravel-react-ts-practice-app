@@ -14,7 +14,7 @@ const MarkdownTitle = ({
     additiolnalClass,
 }: MarkdownTitleProps) => {
   return (
-    <h1 className={`text-2xl font-bold mb-4 text-white border-b-2 ${additiolnalClass}`}>
+    <h1 className={`text-4xl font-bold text-amber-900 border-b-4 border-amber-600 pb-2 flex items-center ${additiolnalClass}`}>
         {title}
     </h1>
   );
