@@ -23,6 +23,7 @@ docker exec -it laravel-app php artisan make:migration update_tables_to_use_uuid
 
 docker exec -it laravel-app php artisan make:migration add_emoji_to_markdown_likes_table --table=markdown_likes
 docker exec -it laravel-app php artisan make:migration change_parent_id_to_markdown_replies_table --table=markdown_replies
+docker exec -it laravel-app php artisan make:migration add_image_fields_to_post_table --table=markdown_posts
 ```
 
 # Model の追加
@@ -66,6 +67,12 @@ vitest を利用する。
 
 ```bash
 docker exec -it laravel-app npm i --save-dev vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event
+```
+
+# S3 用インストール
+
+```bash
+docker exec -it laravel-app composer require league/flysystem-aws-s3-v3 "^3.0"
 ```
 
 # その他インストール

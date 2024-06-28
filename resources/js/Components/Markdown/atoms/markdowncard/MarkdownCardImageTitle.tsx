@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 
 interface MarkdownCardImageTitleProps {
+    image_path?: string;
     href: string;
 }
 
@@ -10,6 +11,7 @@ interface MarkdownCardImageTitleProps {
  * @returns JSX
  */
 const MarkdownCardImageTitle = ({
+    image_path,
     href,
 }: MarkdownCardImageTitleProps) => {
     return (
@@ -17,7 +19,7 @@ const MarkdownCardImageTitle = ({
             href={href}
             className="block h-48 overflow-hidden">
             <img
-                src={`/images/no_image.png`}
+                src={image_path ? image_path : `/images/no_image.png`}
                 alt={`sample`}
                 className="w-full h-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
             />
