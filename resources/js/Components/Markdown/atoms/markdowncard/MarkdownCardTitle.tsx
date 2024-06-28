@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 
 interface MarkdownCardTitleProps {
+    title?: string | null;
     href: string;
 };
 
@@ -10,6 +11,7 @@ interface MarkdownCardTitleProps {
  * @returns JSX
  */
 const MarkdownCardTitle = ({
+    title,
     href,
 }: MarkdownCardTitleProps) => {
   return (
@@ -18,7 +20,7 @@ const MarkdownCardTitle = ({
         className="text-amber-700 hover:underline block mb-2"
     >
         <h2 className="text-xl font-semibold text-amber-700 hover:text-amber-900 transition-colors duration-300">
-            {'Untitled Post'}
+            {title ? title : 'Untitled Post'}
         </h2>
     </Link>
   );

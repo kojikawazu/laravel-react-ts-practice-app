@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MarkdownPost;
 use App\Models\MarkdownLike;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log; 
 use Inertia\Inertia;
@@ -31,6 +32,15 @@ class MarkdownController extends Controller
             $post->likeCounts = $likeCounts;
             $userLike = $post->likes->where('user_id', Auth::id())->first();
             $post->currentEmoji = $userLike ? $userLike->emoji : null;
+
+            // 事前署名付きURLを生成
+            if ($post->image_path) {
+                $imagePath = 'post/' . $post->image_path;
+                $post->image_path = Storage::disk('s3')->temporaryUrl($imagePath, now()->addMinutes(20));
+            } else {
+                $post->image_path = null;
+            }
+
             return $post;
         });
 

@@ -10,6 +10,8 @@ export interface MarkdownPost {
     created_at: string;
     updated_at: string;
     emoji: string;
+    title?: string | null;
+    image_path?: string | null;
     likeCounts?: Record<string, number>;
     currentEmoji?: string | null;
     replies?: MarkdownReply[];

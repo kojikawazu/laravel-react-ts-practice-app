@@ -8,12 +8,19 @@ vi.mock('@inertiajs/react', () => ({
 }));
 
 describe('MarkdownCardTitle', () => {
+    const testTitle = 'testTitle';
     const testHref = '/markdown/1';
 
     it('renders the component with correct link', () => {
-        render(<MarkdownCardTitle href={testHref} />);
+        render(<MarkdownCardTitle title={testTitle} href={testHref} />);
         const link = screen.getByRole('link');
         expect(link).toHaveAttribute('href', testHref);
+    });
+
+    it('renders the correct title text when title is provided', () => {
+        render(<MarkdownCardTitle title={testTitle} href={testHref} />);
+        const heading = screen.getByRole('heading', { level: 2 });
+        expect(heading).toHaveTextContent(testTitle);
     });
 
     it('renders the correct title text', () => {
@@ -23,7 +30,7 @@ describe('MarkdownCardTitle', () => {
     });
 
     it('applies correct classes for styling', () => {
-        render(<MarkdownCardTitle href={testHref} />);
+        render(<MarkdownCardTitle title={testTitle} href={testHref} />);
         const link = screen.getByRole('link');
         expect(link.className).toContain('text-amber-700 hover:underline block mb-2');
 
@@ -32,13 +39,13 @@ describe('MarkdownCardTitle', () => {
     });
 
     it('renders as an h2 element', () => {
-        render(<MarkdownCardTitle href={testHref} />);
+        render(<MarkdownCardTitle  title={testTitle} href={testHref} />);
         const heading = screen.getByRole('heading', { level: 2 });
         expect(heading.tagName).toBe('H2');
     });
 
     it('is wrapped in a Link component', () => {
-        render(<MarkdownCardTitle href={testHref} />);
+        render(<MarkdownCardTitle  title={testTitle} href={testHref} />);
         const link = screen.getByRole('link');
         expect(link).toBeInTheDocument();
         expect(link.querySelector('h2')).toBeInTheDocument();

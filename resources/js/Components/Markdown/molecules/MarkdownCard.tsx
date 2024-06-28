@@ -15,25 +15,27 @@ interface MarkdownCardProps {
 const MarkdownCard = ({
     post,
 }: MarkdownCardProps) => {
-  return (
-    <div
-        className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col transition-shadow duration-300 ease-in-out hover:shadow-lg border-amber-500 border-2"
-    >
-        <MarkdownCardImageTitle
-            href={`/markdown/${post.id}`}
-        />
-
-        <div className="p-4 flex-grow">
-            <MarkdownCardTitle 
+    return (
+        <div
+            className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col transition-shadow duration-300 ease-in-out hover:shadow-lg border-amber-500 border-2"
+        >
+            <MarkdownCardImageTitle
+                image_path={post?.image_path!}
                 href={`/markdown/${post.id}`}
             />
-        </div>
-        
-        <div className="p-4 bg-gray-50 flex justify-between items-center">
-            <MarkdownLike
-                postId={post.id}
-                currentEmoji={post.currentEmoji || null}
-                likeCounts={post.likeCounts || {}}
+
+            <div className="p-4 flex-grow">
+                <MarkdownCardTitle
+                    title={post.title}
+                    href={`/markdown/${post.id}`}
+                />
+            </div>
+            
+            <div className="p-4 bg-gray-50 flex justify-between items-center">
+                <MarkdownLike
+                    postId={post.id}
+                    currentEmoji={post.currentEmoji || null}
+                    likeCounts={post.likeCounts || {}}
             />
         </div>
     </div>

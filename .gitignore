@@ -22,3 +22,8 @@ yarn-error.log
 /.vscode
 deploy_env.sh
 private
+terraform/.terraform
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfvars
+terraform/terraform.tfstate.backup

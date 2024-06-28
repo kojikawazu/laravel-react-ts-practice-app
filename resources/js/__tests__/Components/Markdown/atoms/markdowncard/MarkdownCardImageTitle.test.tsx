@@ -8,12 +8,16 @@ vi.mock('@inertiajs/react', () => ({
 }));
 
 describe('MarkdownCardImageTitle', () => {
+  const testImagePath = '/src/image.jpg';
   const testHref = '/markdown/1';
 
   it('renders the component with correct link', () => {
-    render(<MarkdownCardImageTitle href={testHref} />);
+    render(<MarkdownCardImageTitle image_path={testImagePath} href={testHref} />);
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', testHref);
+
+    const image = screen.getByRole('img');
+    expect(image).toHaveAttribute('src', testImagePath);
   });
 
   it('renders the image with correct attributes', () => {
