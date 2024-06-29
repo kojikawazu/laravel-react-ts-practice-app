@@ -1,12 +1,10 @@
 import { MarkdownPost } from '@/types/types';
-import { Link } from '@inertiajs/react';
 import { ToastContainer } from 'react-toastify';
-import MarkdownLike from './MarkdownLike';
-import MarkdownTitle from './atoms/MarkdownTitle';
+import MarkdownTitle from '@/Components/Markdown/atoms/MarkdownTitle';
+import MarkdownCreateLink from '@/Components/Markdown/atoms/MarkdownCreateLink';
+import MarkdownCard from '@/Components/Markdown/molecules/MarkdownCard';
 
 import 'react-toastify/dist/ReactToastify.css';
-import MarkdownCreateLink from './atoms/MarkdownCreateLink';
-import MarkdownCard from './molecules/MarkdownCard';
 
 /**
  * MarkdownリストコンポーネントProps
