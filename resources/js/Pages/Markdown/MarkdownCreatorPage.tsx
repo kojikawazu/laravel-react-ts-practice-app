@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import MarkdownLayout from '@/Layouts/MarkdownLayout';
-import MarkdownCreator from '@/Components/Markdown/MarkdownCreator';
+import MarkdownCreator from '@/Components/Markdown/MarkdownCreator/MarkdownCreator';
 import { PageProps } from '@/types';
 import { usePage } from '@inertiajs/react';
 
