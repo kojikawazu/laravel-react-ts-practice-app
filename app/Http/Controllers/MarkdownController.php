@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 /**
@@ -77,7 +78,6 @@ class MarkdownController extends Controller
      */
     public function creator()
     {
-
         $message = session('message');
         Log::info('MarkdownController creator - session message: ' . ($message ?? 'none'));
 
@@ -95,22 +95,64 @@ class MarkdownController extends Controller
      */
     public function store(Request $request)
     {
-
-        $data = $request->validate([
-            'content' => 'required',
-        ]);
-
-        Log::info('Request data validated: ' . json_encode($data));
+        //Log::info('Request headers:', $request->headers->all());
+        //Log::info('Request all:', $request->all());
+        //Log::info('Request files:', $request->allFiles());
 
         try {
-            Log::info('MarkdownController store MarkdownPost::create() before. ');
-
-            $post = MarkdownPost::create([
-                'content' => $data['content'],
-                'user_id' => Auth::id(),
+            $data = $request->validate([
+                'content' => 'required',
+                'title' => 'required|string|max:255',
+                'imageFile' => 'required|file|mimes:jpg,jpeg,png,gif|max:2048',
             ]);
 
-            Log::info('MarkdownController store MarkdownPost::create() after: ' . json_encode($post));
+            Log::info('Request data validated: ' . json_encode($data));
+
+            $post = new MarkdownPost();
+            $post->content = $data['content'];
+            $post->title = $data['title'];
+            $post->user_id = Auth::id();
+
+            if ($request->hasFile('imageFile')) {
+                $file = $request->file('imageFile');
+                Log::debug('File info:', [
+                    'name' => $file->getClientOriginalName(),
+                    'size' => $file->getSize(),
+                    'mime' => $file->getMimeType(),
+                    'path' => $file->path(),
+                    'extension' => $file->extension(),
+                ]);
+
+                try {
+                    // ファイル名をハッシュ化
+                    $extension = $file->getClientOriginalExtension();
+                    $hashedFileName = hash('sha256', $file->getClientOriginalName() . Str::random(10)) . '.' . $extension;
+                    Log::debug('Hashed file name: ' . $hashedFileName);
+
+                    // S3にアップロード
+                    $directory = 'post';
+                    $path = Storage::disk('s3')->putFileAs($directory, $file, $hashedFileName);
+                    if ($path) {
+                        Log::info('File stored at path: ' . $path);
+                        // ファイルパスを保存(ファイル名のみ)
+                        $post->image_path = str_replace($directory . '/', '', $path);
+                        Log::info('File save path: ' . $post->image_path);
+                    } else {
+                        Log::error('File was not stored on S3');
+                        return response()->json(['error' => 'File was not stored on S3'], 500);
+                    }
+                } catch (\Exception $e) {
+                    Log::error('File upload to S3 failed: ' . $e->getMessage());
+                    Log::error('Exception trace: ' . $e->getTraceAsString());
+                    return response()->json(['error' => 'File upload failed: ' . $e->getMessage()], 500);
+                }
+            } else {
+                Log::info('No file received in request');
+            }
+
+            Log::info('MarkdownController store MarkdownPost::store() before. ');
+            $post->save();
+            Log::info('MarkdownController store MarkdownPost::store() after: ' . json_encode($post));
     
             session()->flash('message', 'Post submitted successfully');            
             return Inertia::location(route('markdown.creator'));

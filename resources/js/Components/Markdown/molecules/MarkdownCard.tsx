@@ -1,7 +1,7 @@
 import { MarkdownPost } from '@/types/types';
-import MarkdownLike from '@/Components/Markdown/MarkdownLike'
 import MarkdownCardImageTitle from '@/Components/Markdown/atoms/markdowncard/MarkdownCardImageTitle';
 import MarkdownCardTitle from '@/Components/Markdown/atoms/markdowncard/MarkdownCardTitle';
+import MarkdownLike from '@/Components/Markdown/MarkdownLike'
 
 interface MarkdownCardProps {
     post: MarkdownPost;
