@@ -1,0 +1,83 @@
+name: Deploy to ConoHa
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.CONOHA_PRIVATE_KEY }}
+
+      - name: Copy files to ConoHa
+        run: |
+          rsync -avz --exclude '.git' --exclude 'node_modules' . ${{ secrets.CONOHA_USER }}@${{ secrets.CONOHA_HOST }}:/path/to/your/app
+
+      - name: Deploy on ConoHa
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.CONOHA_USER }}@${{ secrets.CONOHA_HOST }} << 'EOF'
+            cd /path/to/your/app
+            echo "APP_NAME=${{ secrets.APP_NAME }}" > .env
+            echo "APP_ENV=${{ secrets.APP_ENV }}" >> .env
+            echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env
+            echo "APP_DEBUG=${{ secrets.APP_DEBUG }}" >> .env
+            echo "APP_TIMEZONE=${{ secrets.APP_TIMEZONE }}" >> .env
+            echo "APP_URL=${{ secrets.APP_URL }}" >> .env
+            echo "APP_LOCALE=${{ secrets.APP_LOCALE }}" >> .env
+            echo "APP_FALLBACK_LOCALE=${{ secrets.APP_FALLBACK_LOCALE }}" >> .env
+            echo "APP_FAKER_LOCALE=${{ secrets.APP_FAKER_LOCALE }}" >> .env
+            echo "APP_MAINTENANCE_DRIVER=${{ secrets.APP_MAINTENANCE_DRIVER }}" >> .env
+            echo "APP_MAINTENANCE_STORE=${{ secrets.APP_MAINTENANCE_STORE }}" >> .env
+            echo "BCRYPT_ROUNDS=${{ secrets.BCRYPT_ROUNDS }}" >> .env
+            echo "LOG_CHANNEL=${{ secrets.LOG_CHANNEL }}" >> .env
+            echo "LOG_STACK=${{ secrets.LOG_STACK }}" >> .env
+            echo "LOG_DEPRECATIONS_CHANNEL=${{ secrets.LOG_DEPRECATIONS_CHANNEL }}" >> .env
+            echo "LOG_LEVEL=${{ secrets.LOG_LEVEL }}" >> .env
+            echo "DB_CONNECTION=${{ secrets.DB_CONNECTION }}" >> .env
+            echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+            echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+            echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+            echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+            echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+            echo "SESSION_DRIVER=${{ secrets.SESSION_DRIVER }}" >> .env
+            echo "SESSION_LIFETIME=${{ secrets.SESSION_LIFETIME }}" >> .env
+            echo "SESSION_ENCRYPT=${{ secrets.SESSION_ENCRYPT }}" >> .env
+            echo "SESSION_PATH=${{ secrets.SESSION_PATH }}" >> .env
+            echo "SESSION_DOMAIN=${{ secrets.SESSION_DOMAIN }}" >> .env
+            echo "BROADCAST_CONNECTION=${{ secrets.BROADCAST_CONNECTION }}" >> .env
+            echo "FILESYSTEM_DISK=${{ secrets.FILESYSTEM_DISK }}" >> .env
+            echo "QUEUE_CONNECTION=${{ secrets.QUEUE_CONNECTION }}" >> .env
+            echo "CACHE_STORE=${{ secrets.CACHE_STORE }}" >> .env
+            echo "CACHE_PREFIX=${{ secrets.CACHE_PREFIX }}" >> .env
+            echo "MEMCACHED_HOST=${{ secrets.MEMCACHED_HOST }}" >> .env
+            echo "REDIS_CLIENT=${{ secrets.REDIS_CLIENT }}" >> .env
+            echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> .env
+            echo "REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}" >> .env
+            echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> .env
+            echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
+            echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+            echo "AWS_DEFAULT_REGION=${{ secrets.AWS_DEFAULT_REGION }}" >> .env
+            echo "AWS_BUCKET=${{ secrets.AWS_BUCKET }}" >> .env
+            echo "AWS_USE_PATH_STYLE_ENDPOINT=${{ secrets.AWS_USE_PATH_STYLE_ENDPOINT }}" >> .env
+            echo "AWS_URL=${{ secrets.AWS_URL }}" >> .env
+            echo "VITE_APP_NAME=${{ secrets.VITE_APP_NAME }}" >> .env
+            echo "VITE_APP_BASE_URL=${{ secrets.VITE_APP_BASE_URL }}" >> .env
+            echo "CORS_ADDRESS=${{ secrets.CORS_ADDRESS }}" >> .env
+            echo "RESEND_MAIL_ADDRESS=${{ secrets.RESEND_MAIL_ADDRESS }}" >> .env
+            echo "RESEND_NAME=${{ secrets.RESEND_NAME }}" >> .env
+            echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> .env
+            echo "MAIL_MAILER=${{ secrets.MAIL_MAILER }}" >> .env
+            echo "MAIL_FROM_ADDRESS=${{ secrets.MAIL_FROM_ADDRESS }}" >> .env
+            echo "MAIL_FROM_NAME=${{ secrets.MAIL_FROM_NAME }}" >> .env
+            docker-compose down
+            docker-compose up -d --build
+          EOF
