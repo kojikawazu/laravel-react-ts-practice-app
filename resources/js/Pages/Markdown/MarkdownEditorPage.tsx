@@ -24,12 +24,14 @@ function MarkdownEditorPage({
   const { props } = usePage();
   const post = props.post as MarkdownPost;
   const message = props.message as string;
+  const error = props.error as string;
 
   return (
     <>
         <MarkdownEditor 
           post={post}
-          message={message} 
+          message={message}
+          error={error}
         />
     </>
   );

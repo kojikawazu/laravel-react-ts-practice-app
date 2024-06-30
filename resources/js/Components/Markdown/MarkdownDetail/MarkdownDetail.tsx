@@ -2,19 +2,18 @@ import { FormEvent, useState } from 'react';
 import { MarkdownPost } from '@/types/types';
 import { useForm, router } from '@inertiajs/react';
 import { toast, ToastContainer } from 'react-toastify';
+
 import MarkdownTitle from '@/Components/Markdown/atoms/MarkdownTitle';
+import MdConfirmDialog from '@/Components/Markdown/atoms/dialog/MdConfirmDialog';
 import MarkdownReplyForm from '@/Components/Markdown/molecules/MarkdownReplyForm';
 import MarkdownReplyItem from '@/Components/Markdown/molecules/Reply/MarkdownReplyItem';
+
 import MdDetailButtonArea from '@/Components/Markdown/MarkdownDetail/molecules/MdDetailButtonArea';
 import MdDetailPreview from '@/Components/Markdown/MarkdownDetail/molecules/MdDetailPreview';
+import MdDetailImage from '@/Components/Markdown/MarkdownDetail/molecules/MdDetailImage';
 
 import 'react-toastify/dist/ReactToastify.css';
-import MdDetailImage from './molecules/MdDetailImage';
 
-
-/**
- * Markdown詳細コンポーネントProps
- */
 interface MarkdownDetail {
     post: MarkdownPost;
 }
@@ -28,6 +27,7 @@ const MarkdownDetail = ({
     post,
 }: MarkdownDetail) => {
     const [isImageLoading, setIsImageLoading] = useState(true);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
     const { delete: destroy } = useForm();
 
     const {
@@ -48,27 +48,31 @@ const MarkdownDetail = ({
                 reset();
             },
         });
-    }
+    };
 
-    const handleDelete = (id: string) => {
-        if (confirm('Are you sure you want to delete this post?')) {
-            destroy(`/markdown/${id}`, {
-                onSuccess: () => {
-                    toast.success('Post deleted successfully');
-                    router.visit('/markdown');
-                },
-                onError: () => {
-                    toast.error('An error occurred while deleting the post');
-                },
-            });
-        }
+    const handleDelete = () => {
+        setIsDialogOpen(true);
+    };
+
+    const handleConfirm = (id: string) => {
+        destroy(`/markdown/${id}`, {
+            onSuccess: () => {
+                toast.success('削除に成功しました。');
+                router.visit('/markdown');
+            },
+            onError: () => {
+                toast.error('削除に失敗しました。');
+            },
+        });
+
+        setIsDialogOpen(false);
     };
 
     return (
         <>
             <ToastContainer />
+
             <div className="container mx-auto p-4">
-                
                 <div className="flex justify-center mb-8">
                     <MarkdownTitle title={post.title ? post.title : 'Untitled Post'} />
                 </div>
@@ -123,6 +127,16 @@ const MarkdownDetail = ({
                         />
                     ))}
                 </div>
+
+                <MdConfirmDialog
+                    isOpen={isDialogOpen}
+                    onRequestClose={() => setIsDialogOpen(false)}
+                    onConfirm={() => handleConfirm(post.id)}
+                    title="確認"
+                    labelYes="はい"
+                    labelNo="いいえ"
+                    message="本当に削除してもよろしいですか？"
+                />  
             </div>
         </>
     );

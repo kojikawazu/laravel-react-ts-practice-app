@@ -76,10 +76,14 @@ class MarkdownController extends Controller
     public function creator()
     {
         $message = session('message');
-        Log::info('MarkdownController creator - session message: ' . ($message ?? 'none'));
+        $error = session('error');
+
+        Log::debug('MarkdownController creator - session message: ' . ($message ?? 'none'));
+        Log::debug('MarkdownController creator - session error: ' . ($error ?? 'none'));
 
         return Inertia::render('Markdown/MarkdownCreatorPage', [
             'message' => $message,
+            'error' => $error,
             'status' => session('status'),
         ]);
     }
@@ -96,22 +100,30 @@ class MarkdownController extends Controller
         //Log::info('Request all:', $request->all());
         //Log::info('Request files:', $request->allFiles());
 
+        $customMessages = [
+            'content.required' => '投稿内容を入力してください。',
+            'title.required' => 'タイトルを入力してください。',
+            'title.max' => 'タイトルは255文字以内で入力してください。',
+            'imageFile.required' => '画像を選択してください。',
+            'imageFile.mimes' => '画像はjpg, jpeg, png, gif形式のみアップロード可能です。',
+            'imageFile.max' => '画像のサイズが大きすぎます。',
+        ];
+
+        $data = $request->validate([
+            'content' => 'required',
+            'title' => 'required|string|max:255',
+            'imageFile' => 'required|file|mimes:jpg,jpeg,png,gif|max:2048',
+        ], $customMessages);
+
+        Log::info('Request data validated: ' . json_encode($data));
         DB::beginTransaction();
 
+        $post = new MarkdownPost();
+        $post->content = $data['content'];
+        $post->title = $data['title'];
+        $post->user_id = Auth::id();
+
         try {
-            $data = $request->validate([
-                'content' => 'required',
-                'title' => 'required|string|max:255',
-                'imageFile' => 'required|file|mimes:jpg,jpeg,png,gif|max:2048',
-            ]);
-
-            Log::info('Request data validated: ' . json_encode($data));
-
-            $post = new MarkdownPost();
-            $post->content = $data['content'];
-            $post->title = $data['title'];
-            $post->user_id = Auth::id();
-
             if ($request->hasFile('imageFile')) {
                 $file = $request->file('imageFile');
                 Log::debug('File info:', [
@@ -159,8 +171,10 @@ class MarkdownController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+
             Log::error('Post creation failed: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());
+
             session()->flash('error', 'Post creation failed');
             return Inertia::location(route('markdown.creator'));
         }
@@ -176,13 +190,18 @@ class MarkdownController extends Controller
     {
         $post    = MarkdownPost::findOrFail($id);
         $message = session('message');
-
+        $error   = session('error');
+    
         // 事前署名付きURLを生成
         $post->image_path = $this->generatePresignedUrl($post->image_path);
 
+        Log::debug('MarkdownController editor - session message: ' . ($message ?? 'none'));
+        Log::debug('MarkdownController editor - session error: ' . ($error ?? 'none'));
+
         return Inertia::render('Markdown/MarkdownEditorPage', [
-            'message' => $message,
             'post' => $post,
+            'message' => $message,
+            'error' => $error,
         ]);
     }
     
@@ -195,11 +214,20 @@ class MarkdownController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $customMessages = [
+            'content.required' => '投稿内容を入力してください。',
+            'title.required' => 'タイトルを入力してください。',
+            'title.max' => 'タイトルは255文字以内で入力してください。',
+            'imageFile.required' => '画像を選択してください。',
+            'imageFile.mimes' => '画像はjpg, jpeg, png, gif形式のみアップロード可能です。',
+            'imageFile.max' => '画像のサイズが大きすぎます。',
+        ];
+
         $data = $request->validate([
             'content' => 'required',
             'title' => 'required|string|max:255',
             'imageFile' => 'nullable|file|mimes:jpg,jpeg,png,gif|max:2048',
-        ]);
+        ], $customMessages);
 
         Log::info('Request data validated: ' . json_encode($data));
         DB::beginTransaction();

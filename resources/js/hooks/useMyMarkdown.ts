@@ -121,10 +121,10 @@ export const useMyMarkdown = ({
             onSuccess: () => {
                 reset();
                 setShowEmojiPicker(false);
-                toast.success('Post submitted successfully');
+                toast.success('投稿に成功しました。');
             },
             onError: () => {
-                toast.error('An error occurred while submitting the post');
+                toast.error('投稿に失敗しました。');
             },
         });
     };
@@ -143,10 +143,10 @@ export const useMyMarkdown = ({
             preserveState: true,
             preserveScroll: true,
             onSuccess: () => {
-              toast.success('Post updated successfully');
+              toast.success('投稿の更新に成功しました。');
             },
             onError: () => {
-              toast.error('An error occurred while updating the post');
+              toast.error('投稿の更新に失敗しました。');
             },
         });
     }

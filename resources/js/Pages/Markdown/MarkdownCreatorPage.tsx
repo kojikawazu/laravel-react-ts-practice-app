@@ -13,10 +13,11 @@ import { usePage } from '@inertiajs/react';
 function MarkdownCreatorPage({}: PageProps) {
   const { props } = usePage();
   const message = props.message as string;
+  const error = props.error as string;
 
   return (
     <div>
-      <MarkdownCreator message={message} />
+      <MarkdownCreator message={message} error={error} />
     </div>
   );
 }

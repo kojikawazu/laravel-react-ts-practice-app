@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
+import { ToastContainer } from 'react-toastify';
 import { useForm } from '@inertiajs/react';
-import { Button } from '../ui/button';
+import { Button } from '@/Components/ui/button';
 
 /**
  * MarkdownLikeコンポーネントProps
@@ -56,7 +57,7 @@ const MarkdownLike = ({
                 //console.log(error);
             }
         });
-    }
+    };
     
     const removeEmoji = () => {
         if (emoji) {
@@ -76,7 +77,9 @@ const MarkdownLike = ({
     };
 
     return (
-        <div>
+        <>
+            <ToastContainer />
+
             <div className="flex items-center">
                 {
                     emoji ? (
@@ -105,7 +108,7 @@ const MarkdownLike = ({
             </div>
 
             {showPicker && <EmojiPicker onEmojiClick={addEmoji} />}
-        </div>
+        </>
     );
 }
 
