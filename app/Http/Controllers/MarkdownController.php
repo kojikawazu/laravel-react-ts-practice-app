@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -95,6 +96,8 @@ class MarkdownController extends Controller
         //Log::info('Request all:', $request->all());
         //Log::info('Request files:', $request->allFiles());
 
+        DB::beginTransaction();
+
         try {
             $data = $request->validate([
                 'content' => 'required',
@@ -148,12 +151,14 @@ class MarkdownController extends Controller
 
             Log::info('MarkdownController store MarkdownPost::store() before. ');
             $post->save();
+            DB::commit();
             Log::info('MarkdownController store MarkdownPost::store() after: ' . json_encode($post));
     
             session()->flash('message', 'Post submitted successfully');            
             return Inertia::location(route('markdown.creator'));
 
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error('Post creation failed: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());
             session()->flash('error', 'Post creation failed');
@@ -197,6 +202,7 @@ class MarkdownController extends Controller
         ]);
 
         Log::info('Request data validated: ' . json_encode($data));
+        DB::beginTransaction();
 
         try {
             Log::info('MarkdownController update MarkdownPost::find() before. ');
@@ -216,6 +222,7 @@ class MarkdownController extends Controller
             $post->title   = $data['title'];
             $post->user_id = Auth::id();
             $post->save();
+            DB::commit();
 
             Log::info('MarkdownController update MarkdownPost::find() after: ' . json_encode($post));
     
@@ -223,6 +230,7 @@ class MarkdownController extends Controller
             return Inertia::location(route('markdown.editor', ['id' => $id]));
 
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error('Post update failed: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());
             session()->flash('error', 'Post update failed');
@@ -238,6 +246,7 @@ class MarkdownController extends Controller
      */
     public function destroy($id)
     {
+        DB::beginTransaction();
 
         try {
             Log::info('MarkdownController destroy MarkdownPost::find() before. ');
@@ -246,6 +255,7 @@ class MarkdownController extends Controller
             Log::info('MarkdownController destroy MarkdownPost::find() before: ' . json_encode($post));
 
             $post->delete();
+            DB::commit();
 
             Log::info('MarkdownController destroy MarkdownPost::find() after: ' . json_encode($post));
     
@@ -253,6 +263,7 @@ class MarkdownController extends Controller
             return Inertia::location(route('markdown.index'));
 
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error('Post delete failed: ' . $e->getMessage());
             Log::error('Stack trace: ' . $e->getTraceAsString());
             session()->flash('error', 'Post delete failed');
@@ -282,25 +293,31 @@ class MarkdownController extends Controller
      * S3にアップロード
      * 
      * @param \Illuminate\Http\UploadedFile $file
+     * @return string|null
      */
     private function uploadToS3($file)
     {
-        // ファイル名をハッシュ化
-        $extension = $file->getClientOriginalExtension();
-        $hashedFileName = hash('sha256', $file->getClientOriginalName() . Str::random(10)) . '.' . $extension;
-        Log::debug('Hashed file name: ' . $hashedFileName);
+        try {
+            // ファイル名をハッシュ化
+            $extension = $file->getClientOriginalExtension();
+            $hashedFileName = hash('sha256', $file->getClientOriginalName() . Str::random(10)) . '.' . $extension;
+            Log::debug('Hashed file name: ' . $hashedFileName);
 
-        // S3にアップロード
-        $directory = 'post';
-        $path = Storage::disk('s3')->putFileAs($directory, $file, $hashedFileName);
-        if ($path) {
-            Log::info('File stored at path: ' . $path);
-            // ファイルパスを保存(ファイル名のみ)
-            $changeImagePath = str_replace($directory . '/', '', $path);
-            Log::info('File save path: ' . $changeImagePath);
-            return $changeImagePath;
-        } else {
-            Log::error('File was not stored on S3');
+            // S3にアップロード
+            $directory = 'post';
+            $path = Storage::disk('s3')->putFileAs($directory, $file, $hashedFileName);
+            if ($path) {
+                Log::info('File stored at path: ' . $path);
+                $changeImagePath = str_replace($directory . '/', '', $path);
+                Log::info('File save path: ' . $changeImagePath);
+                return $changeImagePath;
+            } else {
+                Log::error('File was not stored on S3');
+                return null;
+            }
+        } catch (\Exception $e) {
+            Log::error('File upload to S3 failed: ' . $e->getMessage());
+            Log::error('Exception trace: ' . $e->getTraceAsString());
             return null;
         }
     }
