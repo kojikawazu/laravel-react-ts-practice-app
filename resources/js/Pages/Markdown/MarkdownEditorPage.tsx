@@ -4,7 +4,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import MarkdownLayout from '@/Layouts/MarkdownLayout';
 import { PageProps } from '@/types';
 import { MarkdownPost } from '@/types/types';
-import MarkdownEditor from '@/Components/Markdown/MarkdownEditor';
+import MarkdownEditor from '@/Components/Markdown/MarkdownEditor/MarkdownEditor';
 
 import 'react-toastify/dist/ReactToastify.css';
 

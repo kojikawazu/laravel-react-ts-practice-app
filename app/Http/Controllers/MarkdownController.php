@@ -169,9 +169,11 @@ class MarkdownController extends Controller
      */
     public function editor($id)
     {
-
         $post    = MarkdownPost::findOrFail($id);
         $message = session('message');
+
+        // 事前署名付きURLを生成
+        $post->image_path = $this->generatePresignedUrl($post->image_path);
 
         return Inertia::render('Markdown/MarkdownEditorPage', [
             'message' => $message,
@@ -188,22 +190,32 @@ class MarkdownController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $data = $request->validate([
             'content' => 'required',
+            'title' => 'required|string|max:255',
+            'imageFile' => 'nullable|file|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
         Log::info('Request data validated: ' . json_encode($data));
 
         try {
             Log::info('MarkdownController update MarkdownPost::find() before. ');
-
             $post = MarkdownPost::findOrFail($id);
             Log::info('MarkdownController update MarkdownPost::find() before: ' . json_encode($post));
 
-            $post->update([
-                'content' => $data['content'],
-            ]);
+            if ($request->hasFile('imageFile')) {
+                $file = $request->file('imageFile');
+                $post->image_path = $this->uploadToS3($file);
+                $uploadedFilePath = $this->uploadToS3($file);
+                if ($uploadedFilePath) {
+                    $post->image_path = $uploadedFilePath;
+                } 
+            }
+
+            $post->content = $data['content'];
+            $post->title   = $data['title'];
+            $post->user_id = Auth::id();
+            $post->save();
 
             Log::info('MarkdownController update MarkdownPost::find() after: ' . json_encode($post));
     
@@ -264,5 +276,32 @@ class MarkdownController extends Controller
         }
     
         return $changeImagePath;
+    }
+
+    /**
+     * S3にアップロード
+     * 
+     * @param \Illuminate\Http\UploadedFile $file
+     */
+    private function uploadToS3($file)
+    {
+        // ファイル名をハッシュ化
+        $extension = $file->getClientOriginalExtension();
+        $hashedFileName = hash('sha256', $file->getClientOriginalName() . Str::random(10)) . '.' . $extension;
+        Log::debug('Hashed file name: ' . $hashedFileName);
+
+        // S3にアップロード
+        $directory = 'post';
+        $path = Storage::disk('s3')->putFileAs($directory, $file, $hashedFileName);
+        if ($path) {
+            Log::info('File stored at path: ' . $path);
+            // ファイルパスを保存(ファイル名のみ)
+            $changeImagePath = str_replace($directory . '/', '', $path);
+            Log::info('File save path: ' . $changeImagePath);
+            return $changeImagePath;
+        } else {
+            Log::error('File was not stored on S3');
+            return null;
+        }
     }
 }

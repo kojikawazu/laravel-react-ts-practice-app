@@ -37,6 +37,7 @@ const MarkdownCreator = ({
         handleImageChange,
         handlePost,
     } = useMyMarkdown({
+        title: '',
         content: '',
     });
 
