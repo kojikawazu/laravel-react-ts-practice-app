@@ -16,7 +16,7 @@ jobs:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.CONOHA_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.CONOHA_SSH_KEY }}
 
       - name: Copy files to ConoHa
         run: |
@@ -57,7 +57,6 @@ jobs:
             echo "FILESYSTEM_DISK=${{ secrets.FILESYSTEM_DISK }}" >> .env
             echo "QUEUE_CONNECTION=${{ secrets.QUEUE_CONNECTION }}" >> .env
             echo "CACHE_STORE=${{ secrets.CACHE_STORE }}" >> .env
-            echo "CACHE_PREFIX=${{ secrets.CACHE_PREFIX }}" >> .env
             echo "MEMCACHED_HOST=${{ secrets.MEMCACHED_HOST }}" >> .env
             echo "REDIS_CLIENT=${{ secrets.REDIS_CLIENT }}" >> .env
             echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> .env
