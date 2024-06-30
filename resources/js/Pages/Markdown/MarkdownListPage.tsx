@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { PageProps } from '@/types';
 import { MarkdownPost } from '@/types/types';
 import MarkdownLayout from '@/Layouts/MarkdownLayout';
-import MarkdownList from '@/Components/Markdown/MarkdownList';
+import MarkdownList from '@/Components/Markdown/MarkdownList/MarkdownList';
 
 /**
  * マークダウンリストページProps

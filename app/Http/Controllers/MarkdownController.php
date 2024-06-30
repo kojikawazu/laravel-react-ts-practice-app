@@ -23,7 +23,6 @@ class MarkdownController extends Controller
      */
     public function index()
     {
-        
         //$posts = MarkdownPost::all();
         $posts = MarkdownPost::with('likes')->get()->map(function($post) {
             $likeCounts = $post->likes->groupBy('emoji')->map(function($group) {
@@ -35,12 +34,7 @@ class MarkdownController extends Controller
             $post->currentEmoji = $userLike ? $userLike->emoji : null;
 
             // 事前署名付きURLを生成
-            if ($post->image_path) {
-                $imagePath = 'post/' . $post->image_path;
-                $post->image_path = Storage::disk('s3')->temporaryUrl($imagePath, now()->addMinutes(20));
-            } else {
-                $post->image_path = null;
-            }
+            $post->image_path = $this->generatePresignedUrl($post->image_path);
 
             return $post;
         });
@@ -58,13 +52,15 @@ class MarkdownController extends Controller
      */
     public function show($id)
     {
-        
         // markdown_posts と markdown_replies テーブルを結合し、
         // 指定された ID の投稿とその返信を取得
         // + α として、返信の返信も取得
         $post = MarkdownPost::with(['replies' => function ($query) {
             $query->with('children');
         }])->findOrFail($id);
+
+        // 事前署名付きURLを生成
+        $post->image_path = $this->generatePresignedUrl($post->image_path);
 
         return Inertia::render('Markdown/MarkdownDetailPage', [
             'post' => $post,
@@ -250,5 +246,23 @@ class MarkdownController extends Controller
             session()->flash('error', 'Post delete failed');
             return Inertia::location(route('markdown.index'));
         }
+    }
+
+    /**
+     * 事前署名付きURLを生成
+     * 
+     * @param string $image_path 画像パス
+     * @return string 事前署名付きURL
+     */
+    private function generatePresignedUrl($image_path)
+    {
+        if ($image_path) {
+            $tempImagePath = 'post/' . $image_path;
+            $changeImagePath = Storage::disk('s3')->temporaryUrl($tempImagePath, now()->addMinutes(20));
+        } else {
+            $changeImagePath = null;
+        }
+    
+        return $changeImagePath;
     }
 }
