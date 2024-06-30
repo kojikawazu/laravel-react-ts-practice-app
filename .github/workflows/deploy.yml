@@ -20,12 +20,12 @@ jobs:
 
       - name: Copy files to ConoHa
         run: |
-          rsync -avz --exclude '.git' --exclude 'node_modules' -e "ssh -p ${{ secrets.CONOHA_PORT }}" . ${{ secrets.CONOHA_USER }}@${{ secrets.CONOHA_HOST }}:/path/to/your/app
+          rsync -avz --exclude '.git' --exclude 'node_modules' -e "ssh -p ${{ secrets.CONOHA_PORT }}" . ${{ secrets.CONOHA_USER }}@${{ secrets.CONOHA_HOST }}:${{ secrets.DST_PATH }}
 
       - name: Deploy on ConoHa
         run: |
           ssh -p ${{ secrets.CONOHA_PORT }} -o StrictHostKeyChecking=no ${{ secrets.CONOHA_USER }}@${{ secrets.CONOHA_HOST }} << 'EOF'
-            cd /path/to/your/app
+            cd ${{ secrets.DST_PATH }}
             echo "APP_NAME=${{ secrets.APP_NAME }}" > .env
             echo "APP_ENV=${{ secrets.APP_ENV }}" >> .env
             echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env
