@@ -46,7 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/markdown/{id}', [MarkdownController::class, 'show'])->name('markdown.show');
         Route::get('/markdown', [MarkdownController::class, 'index'])->name('markdown.index');
         Route::post('/markdown', [MarkdownController::class, 'store'])->name('markdown.store');
-        Route::put('/markdown/{id}', [MarkdownController::class, 'update'])->name('markdown.update');
+        Route::post('/markdown/{id}', [MarkdownController::class, 'update'])->name('markdown.update');
         Route::delete('/markdown/{id}', [MarkdownController::class, 'destroy'])->name('markdown.destroy');
 
         Route::post('/markdown/{post}/like', [MarkdownLikeController::class, 'like'])->name('markdown.like');

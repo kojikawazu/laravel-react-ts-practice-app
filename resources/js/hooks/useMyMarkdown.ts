@@ -28,8 +28,10 @@ interface MarkdownFormData {
  * @returns カスタムhooks
  */
 export const useMyMarkdown = ({
+    title = '',
     content = '',
 }: {
+    title: string;
     content: string;
 }) => {
     const { 
@@ -41,7 +43,7 @@ export const useMyMarkdown = ({
         reset, 
         errors 
     } = useForm<MarkdownFormData>({
-        title: '',
+        title: title,
         imageFile: null,
         content: content,
     });
@@ -119,23 +121,34 @@ export const useMyMarkdown = ({
             onSuccess: () => {
                 reset();
                 setShowEmojiPicker(false);
-                toast.success('Post submitted successfully');
+                toast.success('投稿に成功しました。');
             },
             onError: () => {
-                toast.error('An error occurred while submitting the post');
+                toast.error('投稿に失敗しました。');
             },
         });
     };
 
     const handlePut = (id: string) => {
-        put(`/markdown/${id}`, {
+        const formData = new FormData();
+        formData.append('content', data.content);
+        formData.append('title', data.title);
+        if (data.imageFile) {
+            formData.append('imageFile', data.imageFile);
+        }
+
+        post(`/markdown/${id}`, {
+            data: formData,
+            forceFormData: true,
+            preserveState: true,
+            preserveScroll: true,
             onSuccess: () => {
-              toast.success('Post updated successfully');
+              toast.success('投稿の更新に成功しました。');
             },
             onError: () => {
-              toast.error('An error occurred while updating the post');
+              toast.error('投稿の更新に失敗しました。');
             },
-          });
+        });
     }
 
     const handleDestroy = (id: string) => {
