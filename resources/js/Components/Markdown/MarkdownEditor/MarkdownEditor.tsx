@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { commands } from '@uiw/react-md-editor';
 import { toast, ToastContainer } from 'react-toastify';
 import { MarkdownPost } from '@/types/types';
@@ -31,8 +31,9 @@ interface MarkdownEditorProps {
 
 /**
  * Markdownエディタコンポーネント
- * @param Post
+ * @param post
  * @param message
+ * @param error
  * @returns JSX
  */
 const MarkdownEditor = ({
@@ -53,8 +54,8 @@ const MarkdownEditor = ({
     handleDestroy,
     handleImageChange,
   } = useMyMarkdown({
-      title: post.title!,
-      content: post.content,
+      title: post.title || '',
+      content: post.content || '',
   });
 
   const updateDialog = useModalDialog();
@@ -68,7 +69,7 @@ const MarkdownEditor = ({
 
   useEffect(() => {
     if (error) {
-        toast.success(CommonConstants.TOAST_CREATE_FAILURE);
+      toast.error(CommonConstants.TOAST_CREATE_FAILURE);
     }
 }, [error]);
 
@@ -109,7 +110,7 @@ const MarkdownEditor = ({
               <MarkdownErrorLabel errorContents={errors.imageFile} />
               <div className="mb-4">
                 <MdEditorImageInput
-                  imagePath={post.image_path!}
+                  imagePath={post.image_path || ''}
                   handleImageChange={handleImageChange}
                   imagePreview={imagePreview}
                 />

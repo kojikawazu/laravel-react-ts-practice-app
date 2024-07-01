@@ -26,6 +26,7 @@ interface MarkdownCreatorProps {
 /**
  * Markdown作成コンポーネント
  * @param message Markdown作成メッセージ
+ * @param error
  * @returns JSX
  */
 const MarkdownCreator = ({
@@ -58,7 +59,7 @@ const MarkdownCreator = ({
 
     useEffect(() => {
         if (error) {
-            toast.success(CommonConstants.TOAST_CREATE_FAILURE);
+            toast.error(CommonConstants.TOAST_CREATE_FAILURE);
         }
     }, [error]);
 
