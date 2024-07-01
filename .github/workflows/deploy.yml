@@ -77,6 +77,7 @@ jobs:
             echo "MAIL_MAILER=${{ secrets.MAIL_MAILER }}" >> .env
             echo "MAIL_FROM_ADDRESS=${{ secrets.MAIL_FROM_ADDRESS }}" >> .env
             echo "MAIL_FROM_NAME=${{ secrets.MAIL_FROM_NAME }}" >> .env
+            ls -l
             docker-compose down
             docker-compose up -d --build
             docker-compose exec app bash -c "
