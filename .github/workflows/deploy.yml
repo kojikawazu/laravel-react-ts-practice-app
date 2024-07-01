@@ -20,7 +20,7 @@ jobs:
 
       - name: Copy files to ConoHa
         run: |
-          rsync -avz --delete --exclude '.git' --exclude 'node_modules' --exclude 'vendor' --exclude 'storage' --exclude 'bootstrap/cache' -e "ssh -o StrictHostKeyChecking=no -p ${{ secrets.CONOHA_PORT }}" . ${{ secrets.CONOHA_USER }}@${{ secrets.CONOHA_HOST }}:${{ secrets.DST_PATH }}
+          rsync -avz --delete --exclude '.git' --exclude 'node_modules' --exclude 'vendor' --exclude 'storage' --exclude 'bootstrap/cache' --exclude 'public/build' -e  "ssh -o StrictHostKeyChecking=no -p ${{ secrets.CONOHA_PORT }}" . ${{ secrets.CONOHA_USER }}@${{ secrets.CONOHA_HOST }}:${{ secrets.DST_PATH }}
 
       - name: Deploy on ConoHa
         run: |
