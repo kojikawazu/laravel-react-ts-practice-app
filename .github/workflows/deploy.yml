@@ -78,5 +78,6 @@ jobs:
             echo "MAIL_FROM_ADDRESS=${{ secrets.MAIL_FROM_ADDRESS }}" >> .env
             echo "MAIL_FROM_NAME=${{ secrets.MAIL_FROM_NAME }}" >> .env
             docker-compose down
+            composer install
             docker-compose up -d --build
           EOF
