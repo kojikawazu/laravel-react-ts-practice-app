@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import { MDEditorProps } from '@uiw/react-md-editor';
 import { EmojiClickData } from 'emoji-picker-react';
@@ -38,7 +38,6 @@ export const useMyMarkdown = ({
         data, 
         setData, 
         post, 
-        put, 
         delete: destroy,
         reset, 
         errors 
