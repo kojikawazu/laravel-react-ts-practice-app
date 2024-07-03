@@ -76,6 +76,11 @@ export default function Authenticated({
                                         <Dropdown.Link href={route('contact.index')}>
                                             Contact
                                         </Dropdown.Link>
+                                        {user.is_admin && (
+                                            <Dropdown.Link href={route('admin.tables')}>
+                                                Table Manager
+                                            </Dropdown.Link>
+                                        )}
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out
                                         </Dropdown.Link>
