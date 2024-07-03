@@ -24,12 +24,17 @@ class MarkdownController extends Controller
      */
     public function index()
     {
-        //$posts = MarkdownPost::all();
-        $posts = MarkdownPost::with('likes')->get()->map(function($post) {
+        // ページネーションで10件ずつ取得
+        $posts = MarkdownPost::with('likes')->paginate(10);
+
+        // ページねーとされたコレクションの各要素を変換
+        $posts->getCollection()->transform(function($post) {
+            // likesをemojiでグループ化し、各グループのカウントを取得
             $likeCounts = $post->likes->groupBy('emoji')->map(function($group) {
                 return $group->count();
             });
-        
+
+            // ユーザーがいいねした絵文字を取得
             $post->likeCounts = $likeCounts;
             $userLike = $post->likes->where('user_id', Auth::id())->first();
             $post->currentEmoji = $userLike ? $userLike->emoji : null;

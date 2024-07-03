@@ -5,11 +5,18 @@ import { MarkdownPost } from '@/types/types';
 import MarkdownLayout from '@/Layouts/MarkdownLayout';
 import MarkdownList from '@/Components/Markdown/MarkdownList/MarkdownList';
 
-/**
- * マークダウンリストページProps
- */
 interface MarkdownListPageProps extends PageProps {
-  posts: MarkdownPost[];
+  posts: {
+    data: MarkdownPost[];
+    links: { url: string | null, label: string, active: boolean }[];
+    meta: {
+        current_page: number;
+        last_page: number;
+        from: number;
+        to: number;
+        total: number;
+    };
+  };
 }
 
 /**
