@@ -3,14 +3,22 @@ import { ToastContainer } from 'react-toastify';
 import MarkdownTitle from '@/Components/Markdown/atoms/MarkdownTitle';
 import MarkdownCreateLink from '@/Components/Markdown/atoms/MarkdownCreateLink';
 import MarkdownCard from '@/Components/Markdown/molecules/MarkdownCard';
+import MdListPagination from '@/Components/Markdown/MarkdownList/molecules/MdListPagination';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-/**
- * MarkdownリストコンポーネントProps
- */
 interface MarkdownListProps {
-    posts: MarkdownPost[];
+    posts: {
+        data: MarkdownPost[];
+        links: { url: string | null, label: string, active: boolean }[];
+        meta: {
+            current_page: number;
+            last_page: number;
+            from: number;
+            to: number;
+            total: number;
+        };
+    };
 }
 
 /**
@@ -21,7 +29,6 @@ interface MarkdownListProps {
 const MarkdownList = ({
     posts,
 }: MarkdownListProps) => {
-
     return (
         <div className="container mx-auto p-4">
             <ToastContainer />
@@ -38,13 +45,15 @@ const MarkdownList = ({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {posts.map((post) => (
+                {posts.data.map((post) => (
                     <MarkdownCard 
                         key={post.id}
                         post={post}
                     />
                 ))}
             </div>
+
+            <MdListPagination links={posts.links} />
         </div>
   );
 }

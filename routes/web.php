@@ -7,6 +7,7 @@ use App\Http\Controllers\MarkdownController;
 use App\Http\Controllers\MarkdownLikeController;
 use App\Http\Controllers\MarkdownReplyController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TableColumnController;
 use App\Http\Middleware\LogControllerActions;
 
 use Illuminate\Foundation\Application;
@@ -55,6 +56,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/markdown/{postId}/reply', [MarkdownReplyController::class, 'store'])->name('markdown.reply.store');
         Route::put('/markdown/reply/{replyId}', [MarkdownReplyController::class, 'update'])->name('markdown.reply.update');
         Route::delete('/markdown/reply/{replyId}', [MarkdownReplyController::class, 'destroy'])->name('markdown.reply.destroy');
+
+        Route::get('/admin/tables', [TableColumnController::class, 'index'])->name('admin.tables');
     });
 });
 
