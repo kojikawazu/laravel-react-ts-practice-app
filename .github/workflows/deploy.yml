@@ -20,12 +20,17 @@ jobs:
 
       - name: Copy files to ConoHa
         run: |
-          rsync -avz --delete --exclude '.git' --exclude 'node_modules' --exclude 'vendor' --exclude 'storage' --exclude 'bootstrap/cache' --exclude 'public/build' -e  "ssh -o StrictHostKeyChecking=no -p ${{ secrets.CONOHA_PORT }}" . ${{ secrets.CONOHA_USER }}@${{ secrets.CONOHA_HOST }}:${{ secrets.DST_PATH }}
+          rsync -avz --delete --exclude '.git' --exclude 'node_modules' --exclude 'vendor' --exclude 'storage' --exclude 'bootstrap/cache' --exclude 'public/build' --exclude 'private' -e  "ssh -o StrictHostKeyChecking=no -p ${{ secrets.CONOHA_PORT }}" . ${{ secrets.CONOHA_USER }}@${{ secrets.CONOHA_HOST }}:${{ secrets.DST_PATH }}
 
       - name: Deploy on ConoHa
         run: |
           ssh -o StrictHostKeyChecking=no -p ${{ secrets.CONOHA_PORT }} ${{ secrets.CONOHA_USER }}@${{ secrets.CONOHA_HOST }} << 'EOF'
             cd ${{ secrets.DST_PATH }}
+
+            mv Dockerfile_stage Dockerfile
+            mv docker-compose_stage.yml docker-compose.yml
+            mv nginx/default_stage.conf nginx/default.conf
+
             echo "APP_NAME=${{ secrets.APP_NAME }}" > .env
             echo "APP_ENV=${{ secrets.APP_ENV }}" >> .env
             echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env
@@ -77,7 +82,9 @@ jobs:
             echo "MAIL_MAILER=${{ secrets.MAIL_MAILER }}" >> .env
             echo "MAIL_FROM_ADDRESS=${{ secrets.MAIL_FROM_ADDRESS }}" >> .env
             echo "MAIL_FROM_NAME=${{ secrets.MAIL_FROM_NAME }}" >> .env
+
             ls -l
+            
             docker-compose down
             docker-compose up -d --build
             docker-compose exec app bash -c "

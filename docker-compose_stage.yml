@@ -1,0 +1,21 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-app
+    restart: unless-stopped # コンテナが停止された場合、手動で停止しない限り再起動
+    working_dir: /var/www
+    volumes:
+      - .:/var/www # ホストの現在のディレクトリをコンテナの/var/wwwにマウント
+      - ./vendor:/var/www/vendor # ホストのvendorディレクトリをコンテナの/var/www/vendorにマウント
+      - ./storage:/var/www/storage # ホストのstorageディレクトリをコンテナの/var/www/storageにマウント
+    networks:
+      - app-network
+    ports:
+      - "80:80"
+      - "443:443"
+
+networks:
+  app-network:      # ネットワークの定義
+    driver: bridge  # ブリッジネットワークドライバーを使用
