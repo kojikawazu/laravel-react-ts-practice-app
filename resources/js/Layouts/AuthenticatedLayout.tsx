@@ -21,7 +21,7 @@ export default function Authenticated({
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-h-screen bg-amber-100 text-amber-900">
+        <div className="min-h-screen bg-amber-100 text-amber-900 font-serif">
             <nav className="border-b border-amber-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
