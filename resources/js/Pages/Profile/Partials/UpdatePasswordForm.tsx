@@ -39,9 +39,9 @@ export default function UpdatePasswordForm({ className = '' }: { className?: str
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-amber-900">パスワードの更新</h2>
+                <h2 className="text-lg font-medium mb-2 text-amber-900 border-b border-amber-900">パスワードの更新</h2>
 
-                <p className="mt-1 text-sm text-amber-600">
+                <p className="mt-1 text-sm text-amber-700">
                     あなたのEメールアドレスに新しい認証リンクが送信されました。
                 </p>
             </header>

@@ -46,9 +46,9 @@ export default function DeleteUserForm({ className = '' }: { className?: string 
     return (
         <section className={`space-y-6 ${className}`}>
             <header>
-                <h2 className="text-lg font-medium text-amber-900">アカウントの削除</h2>
+                <h2 className="text-lg font-medium mb-2 text-amber-900 border-b border-amber-900">アカウントの削除</h2>
 
-                <p className="mt-1 text-sm text-amber-600">
+                <p className="mt-1 text-sm text-amber-700">
                     アカウントが削除されると、そのリソースとデータはすべて永久に削除されます。アカウントを削除する前に、保持したいデータや情報をダウンロードしてください。
                 </p>
             </header>

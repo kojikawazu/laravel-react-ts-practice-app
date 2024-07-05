@@ -24,9 +24,9 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-amber-900">プロフィール情報</h2>
+                <h2 className="text-lg font-medium mb-2 text-amber-900 border-b border-amber-900">プロフィール情報</h2>
 
-                <p className="mt-1 text-sm text-amber-600">
+                <p className="mt-1 text-sm text-amber-700">
                     アカウントのプロフィール情報とEメールアドレスを更新してください。
                 </p>
             </header>
