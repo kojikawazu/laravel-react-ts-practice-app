@@ -8,10 +8,8 @@ export default function ContactLayout({
   }: { 
     children: React.ReactNode 
   }) {
-    console.log("ContactLayout mounted");
-    
     return (
-      <div className="bg-amber-100 m-0 p-0">
+      <div className="bg-amber-100 m-0 p-0 font-serif">
         {children}
       </div>
     );

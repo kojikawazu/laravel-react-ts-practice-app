@@ -7,6 +7,11 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
+/**
+ * ログインページ
+ * @param status
+ * @returns JSX
+ */
 export default function Login({ status, canResetPassword }: { status?: string, canResetPassword: boolean }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
@@ -22,26 +27,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-
         post(route('login'));
-
-        // const formData = new FormData();
-        // formData.append('email', data.email);
-        // formData.append('password', data.password);
-        // formData.append('remember', data.remember ? '1' : '0');
-
-        // const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-        // if (csrfToken) {
-        //     formData.append('_token', csrfToken);
-        // }
-        
-
-        // post(route('login'), {
-        //     data: formData,
-        //     headers: {
-        //         'X-CSRF-TOKEN': csrfToken || '',
-        //     },
-        // });
     };
 
     return (
@@ -52,7 +38,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value="Eメール" />
 
                     <TextInput
                         id="email"
@@ -69,7 +55,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel htmlFor="password" value="パスワード" />
 
                     <TextInput
                         id="password"
@@ -99,14 +85,21 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="underline text-sm text-amber-600 hover:text-amber-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2"
                         >
-                            Forgot your password?
+                            パスワードを忘れた方はこちら
                         </Link>
                     )}
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
+                    <Link
+                        href={route('register')}
+                        className="underline text-sm text-amber-600 hover:text-amber-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                        ユーザー登録はこちら
+                    </Link>
+
+                    <PrimaryButton className="ms-4 bg-amber-700" disabled={processing}>
+                        ログイン
                     </PrimaryButton>
                 </div>
             </form>
