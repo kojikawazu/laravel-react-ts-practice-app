@@ -24,7 +24,7 @@ vi.mock('@/Components/ui/form', () => ({
 }));
 
 describe('MailFileInput', () => {
-    const mockControl = {} as Control<any>;
+    const mockControl = {} as Control<{ username: string; subject: string; email: string; content: string; file?: FileList | null }, any>;
     const mockFileInputRef = { current: null };
   
     beforeEach(() => {

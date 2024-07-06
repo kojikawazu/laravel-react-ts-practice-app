@@ -36,12 +36,12 @@ export const contactFormSchema = z.object({
             message: `本文は${CONTENT_MAX}文字以上で入力してください。`,
         }),
     file: z
-        .custom<FileList>()
-        .refine((files) => files != undefined && files != null, "ファイルの画像が必要です。")
-        .refine((files) => files?.length != undefined || files?.length > 0, "ファイル画像が必要です。")
-        .refine((files) => files?.[0].size <= IMAGE_MAX_FILE_SIZE, `画像サイズは${IMAGE_MAX_MB}MBまでです。`)
-        /** 配列に含まれているかどうかチェック */
-        .refine((files) => ACCEPTED_IMAGE_TYPE.includes(files?.[0].type),
-            ".jepg, .jpg, .png, .webpのファイルのみ利用できます。"
-        ),
+        .custom<FileList | null | undefined>()
+        .optional()
+        .refine((files) => files === undefined || files === null || files.length === 0 || (files.length > 0 && files[0].size <= IMAGE_MAX_FILE_SIZE), {
+            message: `画像サイズは${IMAGE_MAX_MB}MBまでです。`,
+        })
+        .refine((files) => files === undefined || files === null || files.length === 0 || ACCEPTED_IMAGE_TYPE.includes(files[0].type), {
+            message: ".jpeg, .jpg, .png, .webpのファイルのみ利用できます。",
+        }),
 });
