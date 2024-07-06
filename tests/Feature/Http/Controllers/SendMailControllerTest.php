@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Http\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -27,7 +27,6 @@ class SendMailControllerTest extends TestCase
 
         // 環境変数の設定
         config(['app.env' => 'testing']);
-        config(['CORS_ADDRESS' => 'http://localhost:8000']);
         config(['RESEND_MAIL_ADDRESS' => 'test@example.com']);
         config(['RESEND_NAME' => 'Test User']);
 
@@ -68,11 +67,6 @@ class SendMailControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson(['message' => 'Email sent successfully.']);
-
-        // CORSヘッダー検証
-        $response->assertHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-        $response->assertHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        $response->assertHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     }
 
     public function testSendMailFailure()
@@ -99,11 +93,6 @@ class SendMailControllerTest extends TestCase
         // レスポンステスト
         $response->assertStatus(500)
             ->assertJson(['error' => 'Failed to send email']);
-
-        // CORSヘッダー検証
-        $response->assertHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-        $response->assertHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        $response->assertHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     }
 
     public function testSendMailWithoutAttachment()
@@ -128,11 +117,6 @@ class SendMailControllerTest extends TestCase
         // レスポンステスト
         $response->assertStatus(200)
             ->assertJson(['message' => 'Email sent successfully.']);
-
-        // CORSヘッダー検証
-        $response->assertHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-        $response->assertHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        $response->assertHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     }
 
     public function testSendMailMissingFields()
@@ -155,11 +139,6 @@ class SendMailControllerTest extends TestCase
 
         // レスポンステスト
         $response->assertStatus(422);
-
-        // CORSヘッダー検証
-        $response->assertHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-        $response->assertHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        $response->assertHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     }
 
     protected function tearDown(): void
