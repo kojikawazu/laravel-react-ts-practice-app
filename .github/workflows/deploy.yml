@@ -87,10 +87,12 @@ jobs:
             
             docker-compose down
             docker-compose up -d --build
+                        docker-compose down
+            docker-compose up -d --build
             docker-compose exec app bash -c "
               composer install &&
               chown -R www-data:www-data storage bootstrap/cache &&
-              chmod -R 775 storage bootstrap/cache" &&
-              /usr/local/bin/npm install &&
-              /usr/local/bin/npm run build
+              chmod -R 775 storage bootstrap/cache &&
+              npm install &&
+              npm run build"
           EOF
