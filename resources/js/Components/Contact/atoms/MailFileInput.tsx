@@ -14,7 +14,7 @@ interface MailFileInputProps {
         subject: string;
         email: string;
         content: string;
-        file: FileList;
+        file?: FileList | null;
     }, any>
     fileInputRef: React.MutableRefObject<HTMLInputElement | null>
 };

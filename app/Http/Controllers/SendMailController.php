@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log; 
 use Resend\Client;
 use Exception;
 
@@ -49,6 +50,8 @@ class SendMailController extends Controller
             'file' => 'nullable|file'
         ]);
 
+        Log::info('Request data validation OK.');
+
         // ここでリクエストからデータを取り出す
         $username = $request->input('username');
         $email    = $request->input('email');
@@ -59,6 +62,7 @@ class SendMailController extends Controller
         // 添付ファイル
         $attachments = [];
         if ($file) {
+            Log::info('file is not null.');
             $attachments[] = [
                 'filename' => $file->getClientOriginalName(),
                 'content' => base64_encode(file_get_contents($file->getPathname())),
@@ -67,19 +71,31 @@ class SendMailController extends Controller
         }
 
         try {
+            Log::info('Sending email...');
             $htmlContent = view('emails.template', compact('username', 'email', 'content'))->render();
-            
-            $this->resendClient->emails()->send([
-                    'from' => "$username@resend.dev",
-                    'to' => $RESEND_MAIL_ADDRESS,
-                    'subject' => $subject,
-                    'html' => $htmlContent,
-                    'text' => strip_tags($htmlContent),
-                    'attachments' => $attachments,
-                ]);
+
+            Log::info('Email content generated.');
+
+            $emailData = [
+                'from' => "$username@resend.dev",
+                'to' => $RESEND_MAIL_ADDRESS,
+                'subject' => $subject,
+                'html' => $htmlContent,
+                'text' => strip_tags($htmlContent),
+            ];
+
+            if (!empty($attachments)) {
+                Log::info('Attachments found');
+                $emailData['attachments'] = $attachments;
+            }
+
+            Log::info('Attachments found');
+            $this->resendClient->emails()->send($emailData);
+            Log::info('Email sent successfully.');
 
             return response()->json(['message' => 'Email sent successfully.']);
         } catch (Exception $e) {
+            Log::error('Failed to send email: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
