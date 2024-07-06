@@ -11,6 +11,7 @@ import {
 } from '@/Components/ui/form';
 
 import 'react-toastify/dist/ReactToastify.css';
+import MailTextareaInput from './atoms/MailTextareaInput';
 
 interface MailFormProps {
   user: User;
@@ -89,7 +90,7 @@ const MailForm = ({
             placeholder="主題"
           />
 
-          <MailInput
+          <MailTextareaInput
             control={form.control}
             name="content"
             label="本文"
