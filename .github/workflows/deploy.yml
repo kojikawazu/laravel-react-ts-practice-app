@@ -90,5 +90,7 @@ jobs:
             docker-compose exec app bash -c "
               composer install &&
               chown -R www-data:www-data storage bootstrap/cache &&
-              chmod -R 775 storage bootstrap/cache"
+              chmod -R 775 storage bootstrap/cache" &&
+              npm install &&
+              npm run build
           EOF
