@@ -7,7 +7,9 @@ interface MdCreatorTitleInputProps {
 
 /**
  * [Markdown Creator] タイトルコンポーネント
+ * @param titleLabel
  * @param title
+ * @param titlePlaceholder
  * @param setData
  * @returns JSX
  */
