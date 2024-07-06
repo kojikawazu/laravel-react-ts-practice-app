@@ -6,7 +6,13 @@ Zenn という投稿サイトで技術記事を投稿してました。その際
 
 アーキテクチャー図は以下になります。
 
-[アーキテクチャ図](./design/%20architecture/%20architecture.md)
+[アーキテクチャ図](./design/architecture/architecture.md)
+
+## 機能設計図
+
+機能設計一覧は以下になります。
+
+[機能設計](./design/functional)
 
 ## テーブル設計
 
