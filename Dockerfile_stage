@@ -39,6 +39,10 @@ COPY . .
 # Composerの依存関係をインストール
 RUN composer install --no-dev --optimize-autoloader
 
+# npmのインストールとバージョン確認
+RUN npm install -g npm@latest
+RUN npm --version
+
 # npmの依存関係をインストールしてビルド
 RUN npm install && npm run build
 
