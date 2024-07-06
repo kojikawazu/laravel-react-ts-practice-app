@@ -78,15 +78,9 @@ class SendMailController extends Controller
                     'attachments' => $attachments,
                 ]);
 
-            return response()->json(['message' => 'Email sent successfully.'])
-                ->header('Access-Control-Allow-Origin', $CORS_ADDRESS)
-                ->header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-                ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+            return response()->json(['message' => 'Email sent successfully.']);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500)
-                ->header('Access-Control-Allow-Origin', env('CORS_ADDRESS'))
-                ->header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-                ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 }

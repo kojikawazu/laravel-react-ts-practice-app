@@ -102,7 +102,9 @@ const MarkdownEditor = ({
               <MarkdownErrorLabel errorContents={errors.title} />
               <div className="mb-4">
                   <MdCreatorTitleInput
+                      titleLabel={CommonConstants.MARKDOWN_CREATOR_LABEL_TITLE}
                       title={data.title}
+                      titlePlaceholder={CommonConstants.MARKDOWN_CREATOR_INPUT_PLACEHOLDER}
                       setData={setData}
                   />
               </div>

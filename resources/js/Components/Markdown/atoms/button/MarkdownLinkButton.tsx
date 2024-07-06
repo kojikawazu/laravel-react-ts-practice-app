@@ -8,6 +8,9 @@ interface MarkdownLinkButtonProps {
 
 /**
  * マークダウンリンクボタンコンポーネント
+ * @param label
+ * @param href
+ * @param additionalClasses
  * @returns JSX
  */
 const MarkdownLinkButton = ({

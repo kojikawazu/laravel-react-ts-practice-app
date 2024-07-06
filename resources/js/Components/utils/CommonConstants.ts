@@ -9,6 +9,9 @@ export const CommonConstants = {
     MARKDOWN_CREATOR_TITLE: "Markdown Creator",
     MARKDOWN_EDITOR_TITLE: "Markdown Editor",
 
+    MARKDOWN_CREATOR_LABEL_TITLE: "タイトル:",
+    MARKDOWN_CREATOR_INPUT_PLACEHOLDER: "タイトルを入力してください",
+
     CREATE_CONFIRM_TITLE: "確認",
     CREATE_CONFIRM_YES: "はい",
     CREATE_CONFIRM_NO: "いいえ",
