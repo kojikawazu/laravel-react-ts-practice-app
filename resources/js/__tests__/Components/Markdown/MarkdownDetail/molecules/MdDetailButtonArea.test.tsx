@@ -5,7 +5,12 @@ describe('MdDetailButtonArea', () => {
     const mockHandleDelete = vi.fn();
 
     beforeEach(() => {
-        render(<MdDetailButtonArea postId="123" handleDelete={mockHandleDelete} />);
+        render(<MdDetailButtonArea 
+            postId="123" 
+            loginUserId={1}
+            postUserId={1}
+            handleDelete={mockHandleDelete} 
+        />);
     });
 
     afterEach(() => {
@@ -33,5 +38,32 @@ describe('MdDetailButtonArea', () => {
         const deleteButton = screen.getByText('Delete');
         fireEvent.click(deleteButton);
         expect(mockHandleDelete).toHaveBeenCalledWith('123');
+    });
+});
+
+describe('MdDetailButtonArea - other user', () => {
+    const mockHandleDelete = vi.fn();
+
+    beforeEach(() => {
+        render(<MdDetailButtonArea 
+            postId="123" 
+            loginUserId={2}
+            postUserId={1}
+            handleDelete={mockHandleDelete} 
+        />);
+    });
+
+    afterEach(() => {
+        cleanup();
+    });
+
+    it('update button rendering test', () => {
+        const updateButton = screen.queryByText('Update');
+        expect(updateButton).toBeNull();
+    });
+
+    it('delete button rendering test', () => {
+        const deleteButton = screen.queryByText('Delete');
+        expect(deleteButton).toBeNull();
     });
 });

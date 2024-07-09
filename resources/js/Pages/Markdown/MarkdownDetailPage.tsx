@@ -1,8 +1,10 @@
 import { ReactElement } from 'react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import MarkdownLayout from '@/Layouts/MarkdownLayout';
 import { PageProps } from '@/types';
 import { MarkdownPost } from '@/types/types';
+import { InertiaPage } from '@/types/type-pages';
+import { usePage } from '@inertiajs/react';
+import MarkdownLayout from '@/Layouts/MarkdownLayout';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import MarkdownDetail from '@/Components/Markdown/MarkdownDetail/MarkdownDetail';
 
 /**
@@ -20,9 +22,16 @@ interface MarkdownDetailPageProps extends PageProps {
 function MarkdownDetailsPage({
     post,
 }: MarkdownDetailPageProps) {
+  const { props: page }: InertiaPage<PageProps> = usePage();
+  const user = page.auth.user;
+  //user.
+  
   return (
     <>
-        <MarkdownDetail post={post} />
+        <MarkdownDetail 
+          post={post} 
+          loginUserId={user.id}
+        />
     </>
   );
 }
