@@ -5,10 +5,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { PageProps, User } from '@/types';
-
-interface InertiaPage<T> {
-    props: T;
-}
+import { InertiaPage } from '@/types/type-pages';
 
 export default function Authenticated({ 
     header, 

@@ -16,15 +16,18 @@ import 'react-toastify/dist/ReactToastify.css';
 
 interface MarkdownDetail {
     post: MarkdownPost;
+    loginUserId: number;
 }
 
 /**
  * マークダウン詳細ページ
  * @param post MarkdownPost
+ * @param loginUserId number
  * @returns JSX
  */
 const MarkdownDetail = ({
     post,
+    loginUserId,
 }: MarkdownDetail) => {
     const [isImageLoading, setIsImageLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -93,6 +96,8 @@ const MarkdownDetail = ({
                     <div className="flex flex-end">
                         <MdDetailButtonArea
                             postId={post.id}
+                            loginUserId={loginUserId}
+                            postUserId={post.user_id}
                             handleDelete={handleDelete}
                         />
                     </div>
