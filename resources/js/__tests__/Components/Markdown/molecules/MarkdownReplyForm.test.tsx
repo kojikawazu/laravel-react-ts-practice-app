@@ -12,19 +12,19 @@ describe('MarkdownReplyForm', () => {
         content = '',
         submitBtnClasses = '',
         submitBtnInnerClasses = '',
-        submitBtnLabel = 'submit',
+        submitBtnLabel = 'submit'
     ) => {
         return render(
             <MarkdownReplyForm
-            formClasses={formClasses}
-            handleSubmit={handleSubmitMock}
-            textareaRows={textareaRows}
-            textareaClasses={textareaClasses}
-            content={content}
-            setContent={setContentMock}
-            submitBtnClasses={submitBtnClasses}
-            submitBtnInnerClasses={submitBtnInnerClasses}
-            submitBtnLabel={submitBtnLabel}
+                formClasses={formClasses}
+                handleSubmit={handleSubmitMock}
+                textareaRows={textareaRows}
+                textareaClasses={textareaClasses}
+                content={content}
+                setContent={setContentMock}
+                submitBtnClasses={submitBtnClasses}
+                submitBtnInnerClasses={submitBtnInnerClasses}
+                submitBtnLabel={submitBtnLabel}
             />
         );
     };
@@ -53,19 +53,19 @@ describe('MarkdownReplyForm', () => {
 
         const button = screen.getByRole('button', { name: /submit/i });
         fireEvent.click(button);
-    
+
         expect(handleSubmitMock).toHaveBeenCalled();
     });
 
     test('displays the correct initial content in the textarea', () => {
         setup(
-            'Initial form classes', 
-            2, 
-            'Initial textarea classes', 
+            'Initial form classes',
+            2,
+            'Initial textarea classes',
             'Initial content',
             'Initial submit button classes',
             'Initial submit inner button classes',
-            'Initial submit label classes',
+            'Initial submit label classes'
         );
 
         const textarea = screen.getByRole('textbox');

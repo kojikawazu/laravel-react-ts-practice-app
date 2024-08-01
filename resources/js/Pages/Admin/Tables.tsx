@@ -20,8 +20,12 @@ const Tables = () => {
         return (
             <div className="flex items-center justify-center h-screen bg-gray-100">
                 <div className="text-center p-8 bg-white rounded-lg shadow-md">
-                    <h1 className="text-2xl font-bold text-red-600 mb-4">アクセスが拒否されました</h1>
-                    <p className="text-gray-600">このページを表示する権限がありません。</p>
+                    <h1 className="text-2xl font-bold text-red-600 mb-4">
+                        アクセスが拒否されました
+                    </h1>
+                    <p className="text-gray-600">
+                        このページを表示する権限がありません。
+                    </p>
                 </div>
             </div>
         );
@@ -35,18 +39,23 @@ const Tables = () => {
                     データベーステーブルとカラム
                 </h1>
             </div>
-            
+
             <div className="space-y-8">
                 {Object.entries(tableColumns).map(([table, columns]) => (
-                    <div key={table} className="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div
+                        key={table}
+                        className="bg-white rounded-lg shadow-md overflow-hidden"
+                    >
                         <div className="bg-amber-600 text-white px-6 py-4">
-                            <h2 className="text-xl font-semibold">テーブル: {table}</h2>
+                            <h2 className="text-xl font-semibold">
+                                テーブル: {table}
+                            </h2>
                         </div>
-                        
+
                         <div className="p-6">
                             <ul className="flex flex-wrap gap-3">
                                 {columns.map((column, idx) => (
-                                    <li 
+                                    <li
                                         key={idx}
                                         className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-medium"
                                     >
@@ -60,12 +69,10 @@ const Tables = () => {
             </div>
         </div>
     );
-}
+};
 
 Tables.layout = (page: ReactElement) => (
-    <AuthenticatedLayout>
-        {page}
-    </AuthenticatedLayout>
+    <AuthenticatedLayout>{page}</AuthenticatedLayout>
 );
 
 export default Tables;

@@ -6,17 +6,17 @@ import MarkdownLayout from '@/Layouts/MarkdownLayout';
 import MarkdownList from '@/Components/Markdown/MarkdownList/MarkdownList';
 
 interface MarkdownListPageProps extends PageProps {
-  posts: {
-    data: MarkdownPost[];
-    links: { url: string | null, label: string, active: boolean }[];
-    meta: {
-        current_page: number;
-        last_page: number;
-        from: number;
-        to: number;
-        total: number;
+    posts: {
+        data: MarkdownPost[];
+        links: { url: string | null; label: string; active: boolean }[];
+        meta: {
+            current_page: number;
+            last_page: number;
+            from: number;
+            to: number;
+            total: number;
+        };
     };
-  };
 }
 
 /**
@@ -24,32 +24,25 @@ interface MarkdownListPageProps extends PageProps {
  * @param posts Markdownリスト
  * @returns JSX
  */
-function MarkdownListPage({
-  posts
-}: MarkdownListPageProps) {
-
-  return (
-    <>
-      <MarkdownList posts={posts} />
-    </>
-  );
+function MarkdownListPage({ posts }: MarkdownListPageProps) {
+    return (
+        <>
+            <MarkdownList posts={posts} />
+        </>
+    );
 }
 
 /**
  * マークダウンリストレイアウト
- * @param page 
+ * @param page
  * @returns JSX
  */
-MarkdownListPage.layout = (
-  page: ReactElement
-) => {
+MarkdownListPage.layout = (page: ReactElement) => {
     return (
         <AuthenticatedLayout>
-            <MarkdownLayout>
-              {page}
-            </MarkdownLayout>
+            <MarkdownLayout>{page}</MarkdownLayout>
         </AuthenticatedLayout>
     );
-}
+};
 
 export default MarkdownListPage;

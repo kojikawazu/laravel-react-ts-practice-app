@@ -7,8 +7,7 @@ interface MdDetailPreviewProps {
 }
 
 describe('MdDetailPreview', () => {
-    beforeEach(() => {
-    });
+    beforeEach(() => {});
 
     afterEach(() => {
         cleanup();
@@ -25,7 +24,9 @@ describe('MdDetailPreview', () => {
         const markdownContent = screen.getByText('Hello World');
         expect(markdownContent).toBeInTheDocument();
 
-        const paragraphContent = screen.getByText('This is a markdown preview.');
+        const paragraphContent = screen.getByText(
+            'This is a markdown preview.'
+        );
         expect(paragraphContent).toBeInTheDocument();
     });
 
@@ -33,6 +34,8 @@ describe('MdDetailPreview', () => {
         setup({ postContent: 'Test content' });
 
         const container = screen.getByTestId('md-detail-preview');
-        expect(container).toHaveClass('w-full h-72 bg-white mb-4 p-4 rounded-2xl border-8 border-amber-500');
+        expect(container).toHaveClass(
+            'w-full h-72 bg-white mb-4 p-4 rounded-2xl border-8 border-amber-500'
+        );
     });
 });

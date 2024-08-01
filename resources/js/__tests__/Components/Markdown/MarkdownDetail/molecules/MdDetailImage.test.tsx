@@ -13,11 +13,11 @@ describe('MdDetailImage', () => {
     beforeEach(() => {
         mockSetIsImageLoading.mockClear();
     });
-    
+
     afterEach(() => {
         cleanup();
     });
-    
+
     const setup = (props: MdDetailImageProps) => {
         render(<MdDetailImage {...props} />);
     };
@@ -67,11 +67,11 @@ describe('MdDetailImage', () => {
 
     it('should not render anything when image_path is undefined or null', () => {
         const { container } = render(
-        <MdDetailImage
-            image_path={null}
-            isImageLoading={true}
-            setIsImageLoading={mockSetIsImageLoading}
-        />
+            <MdDetailImage
+                image_path={null}
+                isImageLoading={true}
+                setIsImageLoading={mockSetIsImageLoading}
+            />
         );
         expect(container.firstChild).toBeNull();
     });

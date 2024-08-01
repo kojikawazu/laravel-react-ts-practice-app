@@ -6,7 +6,7 @@ interface MdCreatorButtonAreaProps {
     setShowEmojiPicker: React.Dispatch<React.SetStateAction<boolean>>;
     showEmojiPicker: boolean;
     addEmoji: (emojiData: EmojiClickData) => void;
-};
+}
 
 /**
  * [Markdown Creator]ボタンエリアコンポーネント
@@ -27,14 +27,14 @@ const MdCreatorButtonArea = ({
                 showEmojiPicker={showEmojiPicker}
                 addEmoji={addEmoji}
             />
-            
+
             <MarkdownButton
                 type="submit"
-                additionalClassName={"mt-4"}
+                additionalClassName={'mt-4'}
                 label="投稿"
             />
         </div>
     );
-}
+};
 
 export default MdCreatorButtonArea;

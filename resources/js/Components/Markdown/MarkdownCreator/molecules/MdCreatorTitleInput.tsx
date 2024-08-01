@@ -3,7 +3,7 @@ interface MdCreatorTitleInputProps {
     title: string;
     titlePlaceholder: string;
     setData: <T>(key: T, value: string) => void;
-};
+}
 
 /**
  * [Markdown Creator] タイトルコンポーネント
@@ -21,7 +21,10 @@ const MdCreatorTitleInput = ({
 }: MdCreatorTitleInputProps) => {
     return (
         <>
-            <label className="block text-amber-700 text-sm font-bold mb-2" htmlFor="title">
+            <label
+                className="block text-amber-700 text-sm font-bold mb-2"
+                htmlFor="title"
+            >
                 {titleLabel}
             </label>
             <input
@@ -34,6 +37,6 @@ const MdCreatorTitleInput = ({
             />
         </>
     );
-}
+};
 
 export default MdCreatorTitleInput;

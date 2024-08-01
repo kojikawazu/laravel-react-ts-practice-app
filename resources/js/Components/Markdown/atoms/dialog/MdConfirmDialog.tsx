@@ -8,7 +8,7 @@ interface MdConfirmDialogProps {
     labelYes: string;
     labelNo: string;
     message: string;
-};
+}
 
 /**
  * マークダウン確認ダイアログ
@@ -62,6 +62,6 @@ const MdConfirmDialog = ({
             </div>
         </Modal>
     );
-}
+};
 
 export default MdConfirmDialog;

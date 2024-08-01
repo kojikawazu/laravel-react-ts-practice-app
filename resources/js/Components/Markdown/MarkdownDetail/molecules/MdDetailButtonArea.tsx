@@ -6,7 +6,7 @@ interface MdDetailButtonAreaProps {
     loginUserId: number;
     postUserId: number;
     handleDelete: (id: string) => void;
-};
+}
 
 /**
  * [MarkdownDetail] ボタンエリアコンポーネント
@@ -37,16 +37,17 @@ const MdDetailButtonArea = ({
                         href={`/markdown/editor/${postId}`}
                         additionalClasses="mr-2 bg-amber-600 text-white hover:bg-amber-700 focus:ring-amber-600"
                     />
-                    
+
                     <Button
                         onClick={() => handleDelete(postId)}
-                        className="bg-amber-700 text-white px-4 py-2 rounded-md shadow-md hover:bg-amber-800 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-amber-700 focus:ring-opacity-50">
+                        className="bg-amber-700 text-white px-4 py-2 rounded-md shadow-md hover:bg-amber-800 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-amber-700 focus:ring-opacity-50"
+                    >
                         Delete
                     </Button>
                 </>
             )}
         </>
-    )
-}
+    );
+};
 
 export default MdDetailButtonArea;

@@ -11,18 +11,14 @@ interface MdListInActiveProps {
  * @param label
  * @returns JSX
  */
-const MdListInActive = ({
-    index,
-    active,
-    label,
-}: MdListInActiveProps) => {
+const MdListInActive = ({ index, active, label }: MdListInActiveProps) => {
     const changedActiveBold = active ? 'font-bold' : '';
-    const changedLabel = 
-        (label === '« Previous' || label === '&laquo; Previous') 
-            ? '前へ' 
-            : (label === 'Next »' || label === 'Next &raquo;') 
-                ? '次へ' 
-                : label;
+    const changedLabel =
+        label === '« Previous' || label === '&laquo; Previous'
+            ? '前へ'
+            : label === 'Next »' || label === 'Next &raquo;'
+              ? '次へ'
+              : label;
 
     return (
         <span
@@ -32,6 +28,6 @@ const MdListInActive = ({
             {changedLabel}
         </span>
     );
-}
+};
 
 export default MdListInActive;

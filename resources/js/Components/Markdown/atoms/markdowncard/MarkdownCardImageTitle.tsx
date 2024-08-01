@@ -15,9 +15,7 @@ const MarkdownCardImageTitle = ({
     href,
 }: MarkdownCardImageTitleProps) => {
     return (
-        <Link
-            href={href}
-            className="block h-48 overflow-hidden">
+        <Link href={href} className="block h-48 overflow-hidden">
             <img
                 src={image_path ? image_path : `/images/no_image.png`}
                 alt={`sample`}
@@ -25,6 +23,6 @@ const MarkdownCardImageTitle = ({
             />
         </Link>
     );
-}
+};
 
 export default MarkdownCardImageTitle;

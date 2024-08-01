@@ -11,47 +11,36 @@ import 'react-toastify/dist/ReactToastify.css';
 /**
  * マークダウン編集ページProps
  */
-interface MarkdownDetailPageProps extends PageProps {
-};
+interface MarkdownDetailPageProps extends PageProps {}
 
 /**
  * マークダウン編集ページ
  * @returns JSX
  */
-function MarkdownEditorPage({
+function MarkdownEditorPage({}: MarkdownDetailPageProps) {
+    const { props } = usePage();
+    const post = props.post as MarkdownPost;
+    const message = props.message as string;
+    const error = props.error as string;
 
-}: MarkdownDetailPageProps) {
-  const { props } = usePage();
-  const post = props.post as MarkdownPost;
-  const message = props.message as string;
-  const error = props.error as string;
-
-  return (
-    <>
-        <MarkdownEditor 
-          post={post}
-          message={message}
-          error={error}
-        />
-    </>
-  );
+    return (
+        <>
+            <MarkdownEditor post={post} message={message} error={error} />
+        </>
+    );
 }
 
 /**
  * マークダウン編集レイアウト
- * @param page 
+ * @param page
  * @returns JSX
  */
-MarkdownEditorPage.layout = (
-    page: ReactElement
-  ) => {
-      return (
-          <AuthenticatedLayout>
-              <MarkdownLayout>
-                {page}
-              </MarkdownLayout>
-          </AuthenticatedLayout>
-      );
-  }
+MarkdownEditorPage.layout = (page: ReactElement) => {
+    return (
+        <AuthenticatedLayout>
+            <MarkdownLayout>{page}</MarkdownLayout>
+        </AuthenticatedLayout>
+    );
+};
 
 export default MarkdownEditorPage;

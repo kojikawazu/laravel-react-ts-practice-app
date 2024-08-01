@@ -7,36 +7,32 @@ import { usePage } from '@inertiajs/react';
 
 /**
  * マークダウン生成エディタページ
- * @param {} 
+ * @param {}
  * @returns JSX
  */
 function MarkdownCreatorPage({}: PageProps) {
-  const { props } = usePage();
-  const message = props.message as string;
-  const error = props.error as string;
+    const { props } = usePage();
+    const message = props.message as string;
+    const error = props.error as string;
 
-  return (
-    <div>
-      <MarkdownCreator message={message} error={error} />
-    </div>
-  );
+    return (
+        <div>
+            <MarkdownCreator message={message} error={error} />
+        </div>
+    );
 }
 
 /**
  * マークダウン生成エディタレイアウト
- * @param page 
+ * @param page
  * @returns JSX
  */
-MarkdownCreatorPage.layout = (
-  page: ReactElement
-) => {
+MarkdownCreatorPage.layout = (page: ReactElement) => {
     return (
         <AuthenticatedLayout>
-            <MarkdownLayout>
-              {page}
-            </MarkdownLayout>
+            <MarkdownLayout>{page}</MarkdownLayout>
         </AuthenticatedLayout>
     );
-}
+};
 
 export default MarkdownCreatorPage;

@@ -1,8 +1,8 @@
-import { FormEvent } from "react";
+import { FormEvent } from 'react';
 
 interface MarkdownReplyForm {
     formClasses: string;
-    handleSubmit:  (e: FormEvent) => void;
+    handleSubmit: (e: FormEvent) => void;
     textareaRows: number;
     textareaClasses: string;
     content: string;
@@ -10,7 +10,7 @@ interface MarkdownReplyForm {
     submitBtnClasses: string;
     submitBtnInnerClasses: string;
     submitBtnLabel: string;
-};
+}
 
 /**
  * Markdown返信フォームコンポーネント
@@ -29,27 +29,22 @@ const MarkdownReplyForm = ({
     submitBtnInnerClasses,
     submitBtnLabel,
 }: MarkdownReplyForm) => {
-  return (
-    <form 
-        onSubmit={handleSubmit} 
-        className={formClasses}
-    >
-        <textarea
-            className={textareaClasses}
-            rows={textareaRows}
-            value={content}
-            onChange={(e) => setContent('content', e.target.value)}
-        />
+    return (
+        <form onSubmit={handleSubmit} className={formClasses}>
+            <textarea
+                className={textareaClasses}
+                rows={textareaRows}
+                value={content}
+                onChange={(e) => setContent('content', e.target.value)}
+            />
 
-        <div className={submitBtnClasses}>
-            <button
-                type="submit"
-                className={submitBtnInnerClasses}>
-                {submitBtnLabel}
-            </button>
-        </div>
-    </form>
-  );
-}
+            <div className={submitBtnClasses}>
+                <button type="submit" className={submitBtnInnerClasses}>
+                    {submitBtnLabel}
+                </button>
+            </div>
+        </form>
+    );
+};
 
 export default MarkdownReplyForm;

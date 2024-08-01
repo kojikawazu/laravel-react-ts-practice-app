@@ -7,24 +7,19 @@ interface MailSendButtonProps {
 
 /**
  * メール送信ボタンコンポーネント
- * @param isSubmitting 
+ * @param isSubmitting
  * @returns JSX
  */
-const MailSendButton = ({
-    isSubmitting,
-}: MailSendButtonProps) => {
+const MailSendButton = ({ isSubmitting }: MailSendButtonProps) => {
     return (
         <Button
             type="submit"
             disabled={isSubmitting}
             className="mb-4 bg-amber-600"
-            >
-            {isSubmitting
-                ? <ClipLoader /> 
-                : "送信"
-            }
+        >
+            {isSubmitting ? <ClipLoader /> : '送信'}
         </Button>
     );
-}
+};
 
 export default MailSendButton;

@@ -25,10 +25,7 @@ interface MarkdownDetail {
  * @param loginUserId number
  * @returns JSX
  */
-const MarkdownDetail = ({
-    post,
-    loginUserId,
-}: MarkdownDetail) => {
+const MarkdownDetail = ({ post, loginUserId }: MarkdownDetail) => {
     const [isImageLoading, setIsImageLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const { delete: destroy } = useForm();
@@ -37,7 +34,7 @@ const MarkdownDetail = ({
         data,
         setData,
         post: submit,
-        reset
+        reset,
     } = useForm({
         content: '',
         parent_id: '' as string | null,
@@ -77,7 +74,9 @@ const MarkdownDetail = ({
 
             <div className="container mx-auto p-4">
                 <div className="flex justify-center mb-8">
-                    <MarkdownTitle title={post.title ? post.title : 'Untitled Post'} />
+                    <MarkdownTitle
+                        title={post.title ? post.title : 'Untitled Post'}
+                    />
                 </div>
 
                 <div className="flex justify-center mx-auto w-1/2 h-1/3 mb-12">
@@ -87,7 +86,7 @@ const MarkdownDetail = ({
                         setIsImageLoading={setIsImageLoading}
                     />
                 </div>
-                
+
                 <div className="flex justify-between space-x-4 mb-2">
                     <div className="flex items-end">
                         <p className="pl-2">Preview:</p>
@@ -103,9 +102,7 @@ const MarkdownDetail = ({
                     </div>
                 </div>
 
-                <MdDetailPreview
-                    postContent={post.content}
-                />
+                <MdDetailPreview postContent={post.content} />
 
                 <div className="flex flex-start items-end">
                     <p className="pl-2">Comment:</p>
@@ -121,16 +118,17 @@ const MarkdownDetail = ({
                         setContent={setData}
                         submitBtnClasses="flex items-center justify-end mt-4"
                         submitBtnInnerClasses="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-opacity-50"
-                        submitBtnLabel={"Comment"}
+                        submitBtnLabel={'Comment'}
                     />
 
-                    {post.replies && post.replies.map(reply => (
-                        <MarkdownReplyItem
-                            key={reply.id}
-                            reply={reply}
-                            postId={post.id}
-                        />
-                    ))}
+                    {post.replies &&
+                        post.replies.map((reply) => (
+                            <MarkdownReplyItem
+                                key={reply.id}
+                                reply={reply}
+                                postId={post.id}
+                            />
+                        ))}
                 </div>
 
                 <MdConfirmDialog
@@ -141,10 +139,10 @@ const MarkdownDetail = ({
                     labelYes="はい"
                     labelNo="いいえ"
                     message="本当に削除してもよろしいですか？"
-                />  
+                />
             </div>
         </>
     );
-}
+};
 
 export default MarkdownDetail;

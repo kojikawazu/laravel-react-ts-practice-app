@@ -12,7 +12,13 @@ import { Head, Link, useForm } from '@inertiajs/react';
  * @param status
  * @returns JSX
  */
-export default function Login({ status, canResetPassword }: { status?: string, canResetPassword: boolean }) {
+export default function Login({
+    status,
+    canResetPassword,
+}: {
+    status?: string;
+    canResetPassword: boolean;
+}) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -34,7 +40,11 @@ export default function Login({ status, canResetPassword }: { status?: string, c
         <GuestLayout>
             <Head title="Log in" />
 
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+            {status && (
+                <div className="mb-4 font-medium text-sm text-green-600">
+                    {status}
+                </div>
+            )}
 
             <form onSubmit={submit}>
                 <div>
@@ -75,9 +85,13 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                         <Checkbox
                             name="remember"
                             checked={data.remember}
-                            onChange={(e) => setData('remember', e.target.checked)}
+                            onChange={(e) =>
+                                setData('remember', e.target.checked)
+                            }
                         />
-                        <span className="ms-2 text-sm text-gray-600">Remember me</span>
+                        <span className="ms-2 text-sm text-gray-600">
+                            Remember me
+                        </span>
                     </label>
                 </div>
 
@@ -98,7 +112,10 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                         ユーザー登録はこちら
                     </Link>
 
-                    <PrimaryButton className="ms-4 bg-amber-700" disabled={processing}>
+                    <PrimaryButton
+                        className="ms-4 bg-amber-700"
+                        disabled={processing}
+                    >
                         ログイン
                     </PrimaryButton>
                 </div>

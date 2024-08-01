@@ -20,11 +20,11 @@ interface MarkdownFormData {
     title: string;
     imageFile: File | null;
     content: string;
-};
+}
 
 /**
  * Markdown用(カスタムhooks)
- * @param content 
+ * @param content
  * @returns カスタムhooks
  */
 export const useMyMarkdown = ({
@@ -34,13 +34,13 @@ export const useMyMarkdown = ({
     title: string;
     content: string;
 }) => {
-    const { 
-        data, 
-        setData, 
-        post, 
+    const {
+        data,
+        setData,
+        post,
         delete: destroy,
-        reset, 
-        errors 
+        reset,
+        errors,
     } = useForm<MarkdownFormData>({
         title: title,
         imageFile: null,
@@ -94,7 +94,7 @@ export const useMyMarkdown = ({
                 imageFile: data.imageFile ? 'File present' : 'No file',
             },
             imageFileAppended: true,
-            formDataEntries: {}
+            formDataEntries: {},
         };
 
         const formData = new FormData();
@@ -107,7 +107,10 @@ export const useMyMarkdown = ({
 
         // FormDataの内容を確認
         for (let [key, value] of formData.entries()) {
-            debugInfo.formDataEntries[key] = value instanceof File ? `File: ${value.name}` : value.toString();
+            debugInfo.formDataEntries[key] =
+                value instanceof File
+                    ? `File: ${value.name}`
+                    : value.toString();
         }
         // デバッグ情報をLocalStorageに保存
         localStorage.setItem('debugInfo', JSON.stringify(debugInfo));
@@ -142,13 +145,13 @@ export const useMyMarkdown = ({
             preserveState: true,
             preserveScroll: true,
             onSuccess: () => {
-              toast.success('投稿の更新に成功しました。');
+                toast.success('投稿の更新に成功しました。');
             },
             onError: () => {
-              toast.error('投稿の更新に失敗しました。');
+                toast.error('投稿の更新に失敗しました。');
             },
         });
-    }
+    };
 
     const handleDestroy = (id: string) => {
         destroy(`/markdown/${id}`, {
@@ -158,9 +161,9 @@ export const useMyMarkdown = ({
             },
             onError: () => {
                 toast.error('An error occurred while deleting the post');
-            }
-          });
-    }
+            },
+        });
+    };
 
     return {
         data,

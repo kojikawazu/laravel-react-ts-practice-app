@@ -1,13 +1,13 @@
 interface MdCreatorImageInputProps {
-    handleImageChange:  (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     imagePreview?: string | null;
-};
+}
 
 /**
  * [Markdown Creator]画像コンポーネント
  * @param handleImageChange
  * @param imagePreview
- * @returns JSX 
+ * @returns JSX
  */
 const MdCreatorImageInput = ({
     handleImageChange,
@@ -15,10 +15,13 @@ const MdCreatorImageInput = ({
 }: MdCreatorImageInputProps) => {
     return (
         <>
-            <label className="block text-amber-700 text-sm font-bold mb-2" htmlFor="imageFile">
+            <label
+                className="block text-amber-700 text-sm font-bold mb-2"
+                htmlFor="imageFile"
+            >
                 タイトル画像:
             </label>
-            
+
             <div className="shadow appearance-none border-2 rounded-lg w-full border-amber-200">
                 <input
                     id="imageFile"
@@ -33,6 +36,6 @@ const MdCreatorImageInput = ({
             </div>
         </>
     );
-}
+};
 
 export default MdCreatorImageInput;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const useModalDialog = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);

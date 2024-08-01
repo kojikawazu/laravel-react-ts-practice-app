@@ -1,4 +1,12 @@
-import { useState, createContext, useContext, Fragment, PropsWithChildren, Dispatch, SetStateAction } from 'react';
+import {
+    useState,
+    createContext,
+    useContext,
+    Fragment,
+    PropsWithChildren,
+    Dispatch,
+    SetStateAction,
+} from 'react';
 import { Link, InertiaLinkProps } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
@@ -33,12 +41,26 @@ const Trigger = ({ children }: PropsWithChildren) => {
         <>
             <div onClick={toggleOpen}>{children}</div>
 
-            {open && <div className="fixed inset-0 z-40" onClick={() => setOpen(false)}></div>}
+            {open && (
+                <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setOpen(false)}
+                ></div>
+            )}
         </>
     );
 };
 
-const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-white', children }: PropsWithChildren<{ align?: 'left'|'right', width?: '48', contentClasses?: string }>) => {
+const Content = ({
+    align = 'right',
+    width = '48',
+    contentClasses = 'py-1 bg-white',
+    children,
+}: PropsWithChildren<{
+    align?: 'left' | 'right';
+    width?: '48';
+    contentClasses?: string;
+}>) => {
     const { open, setOpen } = useContext(DropDownContext);
 
     let alignmentClasses = 'origin-top';
@@ -71,14 +93,25 @@ const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-whit
                     className={`absolute z-50 mt-2 rounded-md shadow-lg ${alignmentClasses} ${widthClasses}`}
                     onClick={() => setOpen(false)}
                 >
-                    <div className={`rounded-md ring-1 ring-black ring-opacity-5 ` + contentClasses}>{children}</div>
+                    <div
+                        className={
+                            `rounded-md ring-1 ring-black ring-opacity-5 ` +
+                            contentClasses
+                        }
+                    >
+                        {children}
+                    </div>
                 </div>
             </Transition>
         </>
     );
 };
 
-const DropdownLink = ({ className = '', children, ...props }: InertiaLinkProps) => {
+const DropdownLink = ({
+    className = '',
+    children,
+    ...props
+}: InertiaLinkProps) => {
     return (
         <Link
             {...props}

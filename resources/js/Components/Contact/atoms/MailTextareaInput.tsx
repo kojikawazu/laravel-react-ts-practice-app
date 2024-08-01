@@ -1,7 +1,7 @@
 import { Control, FieldValues, Path } from 'react-hook-form';
 import { Textarea } from '@/Components/ui/textarea';
-import { 
-    FormControl, 
+import {
+    FormControl,
     FormField,
     FormItem,
     FormLabel,
@@ -13,7 +13,7 @@ interface MailInputProps<T extends FieldValues> {
     name: Path<T>;
     label: string;
     placeholder: string;
-};
+}
 
 /**
  * メールテキストコンポーネント
@@ -23,7 +23,7 @@ interface MailInputProps<T extends FieldValues> {
  * @param placeholder
  * @returns JSX
  */
-function MailTextareaInput<T extends FieldValues> ({
+function MailTextareaInput<T extends FieldValues>({
     control,
     name,
     label,
@@ -34,13 +34,13 @@ function MailTextareaInput<T extends FieldValues> ({
             control={control}
             name={name}
             render={({ field }) => (
-            <FormItem className="mb-4">
-                <FormLabel>{label}</FormLabel>
-                <FormControl>
-                    <Textarea placeholder={placeholder} {...field} />
-                </FormControl>
-                <FormMessage />
-            </FormItem>
+                <FormItem className="mb-4">
+                    <FormLabel>{label}</FormLabel>
+                    <FormControl>
+                        <Textarea placeholder={placeholder} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                </FormItem>
             )}
         />
     );

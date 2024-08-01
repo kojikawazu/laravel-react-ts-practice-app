@@ -6,11 +6,23 @@ import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
-export default function UpdatePasswordForm({ className = '' }: { className?: string }) {
+export default function UpdatePasswordForm({
+    className = '',
+}: {
+    className?: string;
+}) {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
-    const { data, setData, errors, put, reset, processing, recentlySuccessful } = useForm({
+    const {
+        data,
+        setData,
+        errors,
+        put,
+        reset,
+        processing,
+        recentlySuccessful,
+    } = useForm({
         current_password: '',
         password: '',
         password_confirmation: '',
@@ -39,7 +51,9 @@ export default function UpdatePasswordForm({ className = '' }: { className?: str
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium mb-2 text-amber-900 border-b border-amber-900">パスワードの更新</h2>
+                <h2 className="text-lg font-medium mb-2 text-amber-900 border-b border-amber-900">
+                    パスワードの更新
+                </h2>
 
                 <p className="mt-1 text-sm text-amber-700">
                     あなたのEメールアドレスに新しい認証リンクが送信されました。
@@ -48,23 +62,34 @@ export default function UpdatePasswordForm({ className = '' }: { className?: str
 
             <form onSubmit={updatePassword} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="current_password" value="現在のパスワード" />
+                    <InputLabel
+                        htmlFor="current_password"
+                        value="現在のパスワード"
+                    />
 
                     <TextInput
                         id="current_password"
                         ref={currentPasswordInput}
                         value={data.current_password}
-                        onChange={(e) => setData('current_password', e.target.value)}
+                        onChange={(e) =>
+                            setData('current_password', e.target.value)
+                        }
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="current-password"
                     />
 
-                    <InputError message={errors.current_password} className="mt-2" />
+                    <InputError
+                        message={errors.current_password}
+                        className="mt-2"
+                    />
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password" value="新しいメールアドレス" />
+                    <InputLabel
+                        htmlFor="password"
+                        value="新しいメールアドレス"
+                    />
 
                     <TextInput
                         id="password"
@@ -80,18 +105,26 @@ export default function UpdatePasswordForm({ className = '' }: { className?: str
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password_confirmation" value="確認用パスワード" />
+                    <InputLabel
+                        htmlFor="password_confirmation"
+                        value="確認用パスワード"
+                    />
 
                     <TextInput
                         id="password_confirmation"
                         value={data.password_confirmation}
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
+                        onChange={(e) =>
+                            setData('password_confirmation', e.target.value)
+                        }
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="new-password"
                     />
 
-                    <InputError message={errors.password_confirmation} className="mt-2" />
+                    <InputError
+                        message={errors.password_confirmation}
+                        className="mt-2"
+                    />
                 </div>
 
                 <div className="flex items-center gap-4">

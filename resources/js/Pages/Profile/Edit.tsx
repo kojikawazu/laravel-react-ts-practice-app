@@ -5,16 +5,12 @@ import UpdateProfileInformationForm from './Partials/UpdateProfileInformationFor
 import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
 
-
 interface EditProps extends PageProps {
     mustVerifyEmail: boolean;
     status?: string;
 }
 
-function Edit({ 
-    mustVerifyEmail, 
-    status 
-}: EditProps) {
+function Edit({ mustVerifyEmail, status }: EditProps) {
     return (
         <>
             <Head title="Profile" />
@@ -42,12 +38,14 @@ function Edit({
     );
 }
 
-Edit.layout = (
-    page: React.ReactElement
-) => {
+Edit.layout = (page: React.ReactElement) => {
     return (
         <AuthenticatedLayout
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight indigo font-serif">プロフィール</h2>}
+            header={
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight indigo font-serif">
+                    プロフィール
+                </h2>
+            }
         >
             {page}
         </AuthenticatedLayout>
