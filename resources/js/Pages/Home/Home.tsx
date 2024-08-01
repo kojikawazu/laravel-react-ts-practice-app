@@ -3,23 +3,15 @@ import HomeLayout from '@/Layouts/HomeLayout';
 import { PageProps } from '@/types';
 
 function Home({}: PageProps) {
-  return (
-    <div>
-      Home
-    </div>
-  );
+    return <div>Home</div>;
 }
 
-Home.layout = (
-  page: React.ReactElement
-) => {
+Home.layout = (page: React.ReactElement) => {
     return (
         <AuthenticatedLayout>
-            <HomeLayout>
-              {page}
-            </HomeLayout>
+            <HomeLayout>{page}</HomeLayout>
         </AuthenticatedLayout>
     );
-}
+};
 
 export default Home;

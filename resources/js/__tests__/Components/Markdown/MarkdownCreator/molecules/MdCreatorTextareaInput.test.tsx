@@ -9,17 +9,15 @@ describe('MdCreatorTextareaInput', () => {
         name: 'codeEdit',
         keyCommand: 'codeEdit',
         buttonProps: { 'aria-label': 'Insert code' },
-        execute: () => {
- 
-        }
+        execute: () => {},
     };
 
     it('renders without crashing', () => {
         render(
-            <MdCreatorTextareaInput 
-                content="Sample content" 
-                handleChange={mockHandleChange} 
-                codeEdit={mockCodeEdit} 
+            <MdCreatorTextareaInput
+                content="Sample content"
+                handleChange={mockHandleChange}
+                codeEdit={mockCodeEdit}
             />
         );
         expect(screen.getByText('記載欄:')).toBeInTheDocument();
@@ -27,21 +25,21 @@ describe('MdCreatorTextareaInput', () => {
 
     it('displays the provided content', () => {
         render(
-        <MdCreatorTextareaInput 
-            content="Sample content" 
-            handleChange={mockHandleChange} 
-            codeEdit={mockCodeEdit} 
-        />
+            <MdCreatorTextareaInput
+                content="Sample content"
+                handleChange={mockHandleChange}
+                codeEdit={mockCodeEdit}
+            />
         );
         expect(screen.getByDisplayValue('Sample content')).toBeInTheDocument();
     });
 
     it('calls handleChange when content is changed', () => {
         render(
-            <MdCreatorTextareaInput 
-                content="" 
-                handleChange={mockHandleChange} 
-                codeEdit={mockCodeEdit} 
+            <MdCreatorTextareaInput
+                content=""
+                handleChange={mockHandleChange}
+                codeEdit={mockCodeEdit}
             />
         );
 

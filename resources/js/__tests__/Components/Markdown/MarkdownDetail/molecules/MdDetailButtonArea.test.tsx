@@ -5,12 +5,14 @@ describe('MdDetailButtonArea', () => {
     const mockHandleDelete = vi.fn();
 
     beforeEach(() => {
-        render(<MdDetailButtonArea 
-            postId="123" 
-            loginUserId={1}
-            postUserId={1}
-            handleDelete={mockHandleDelete} 
-        />);
+        render(
+            <MdDetailButtonArea
+                postId="123"
+                loginUserId={1}
+                postUserId={1}
+                handleDelete={mockHandleDelete}
+            />
+        );
     });
 
     afterEach(() => {
@@ -26,7 +28,10 @@ describe('MdDetailButtonArea', () => {
     it('should render the Update button', () => {
         const updateButton = screen.getByText('Update');
         expect(updateButton).toBeInTheDocument();
-        expect(updateButton.closest('a')).toHaveAttribute('href', '/markdown/editor/123');
+        expect(updateButton.closest('a')).toHaveAttribute(
+            'href',
+            '/markdown/editor/123'
+        );
     });
 
     it('should render the Delete button', () => {
@@ -45,12 +50,14 @@ describe('MdDetailButtonArea - other user', () => {
     const mockHandleDelete = vi.fn();
 
     beforeEach(() => {
-        render(<MdDetailButtonArea 
-            postId="123" 
-            loginUserId={2}
-            postUserId={1}
-            handleDelete={mockHandleDelete} 
-        />);
+        render(
+            <MdDetailButtonArea
+                postId="123"
+                loginUserId={2}
+                postUserId={1}
+                handleDelete={mockHandleDelete}
+            />
+        );
     });
 
     afterEach(() => {

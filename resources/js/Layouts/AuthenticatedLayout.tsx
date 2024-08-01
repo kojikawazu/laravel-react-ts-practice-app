@@ -7,15 +7,16 @@ import { Link, usePage } from '@inertiajs/react';
 import { PageProps, User } from '@/types';
 import { InertiaPage } from '@/types/type-pages';
 
-export default function Authenticated({ 
-    header, 
-    children 
-}: PropsWithChildren<{ 
-    header?: ReactNode 
+export default function Authenticated({
+    header,
+    children,
+}: PropsWithChildren<{
+    header?: ReactNode;
 }>) {
     const { props: page }: InertiaPage<PageProps> = usePage();
     const user = page.auth.user;
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const [showingNavigationDropdown, setShowingNavigationDropdown] =
+        useState(false);
 
     return (
         <div className="min-h-screen bg-amber-100 text-amber-900 font-serif">
@@ -30,7 +31,10 @@ export default function Authenticated({
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('markdown.index')} active={route().current('markdown.index')}>
+                                <NavLink
+                                    href={route('markdown.index')}
+                                    active={route().current('markdown.index')}
+                                >
                                     Blog App
                                 </NavLink>
                             </div>
@@ -64,21 +68,33 @@ export default function Authenticated({
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>
+                                        <Dropdown.Link
+                                            href={route('profile.edit')}
+                                        >
                                             Profile
                                         </Dropdown.Link>
-                                        <Dropdown.Link href={route('markdown.index')}>
+                                        <Dropdown.Link
+                                            href={route('markdown.index')}
+                                        >
                                             Markdown
                                         </Dropdown.Link>
-                                        <Dropdown.Link href={route('contact.index')}>
+                                        <Dropdown.Link
+                                            href={route('contact.index')}
+                                        >
                                             Contact
                                         </Dropdown.Link>
                                         {user.is_admin && (
-                                            <Dropdown.Link href={route('admin.tables')}>
+                                            <Dropdown.Link
+                                                href={route('admin.tables')}
+                                            >
                                                 Table Manager
                                             </Dropdown.Link>
                                         )}
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
+                                        <Dropdown.Link
+                                            href={route('logout')}
+                                            method="post"
+                                            as="button"
+                                        >
                                             Log Out
                                         </Dropdown.Link>
                                     </Dropdown.Content>
@@ -88,19 +104,36 @@ export default function Authenticated({
 
                         <div className="-me-2 flex items-center sm:hidden">
                             <button
-                                onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
+                                onClick={() =>
+                                    setShowingNavigationDropdown(
+                                        (previousState) => !previousState
+                                    )
+                                }
                                 className="inline-flex items-center justify-center p-2 rounded-md text-amber-400 hover:text-amber-500 hover:bg-amber-100 focus:outline-none focus:bg-amber-100 focus:text-amber-500 transition duration-150 ease-in-out"
                             >
-                                <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                <svg
+                                    className="h-6 w-6"
+                                    stroke="currentColor"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
                                     <path
-                                        className={!showingNavigationDropdown ? 'inline-flex' : 'hidden'}
+                                        className={
+                                            !showingNavigationDropdown
+                                                ? 'inline-flex'
+                                                : 'hidden'
+                                        }
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
                                         d="M4 6h16M4 12h16M4 18h16"
                                     />
                                     <path
-                                        className={showingNavigationDropdown ? 'inline-flex' : 'hidden'}
+                                        className={
+                                            showingNavigationDropdown
+                                                ? 'inline-flex'
+                                                : 'hidden'
+                                        }
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
@@ -112,9 +145,17 @@ export default function Authenticated({
                     </div>
                 </div>
 
-                <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
+                <div
+                    className={
+                        (showingNavigationDropdown ? 'block' : 'hidden') +
+                        ' sm:hidden'
+                    }
+                >
                     <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('markdown.index')} active={route().current('markdown.index')}>
+                        <ResponsiveNavLink
+                            href={route('markdown.index')}
+                            active={route().current('markdown.index')}
+                        >
                             Blog App
                         </ResponsiveNavLink>
                     </div>
@@ -124,7 +165,9 @@ export default function Authenticated({
                             <div className="font-medium text-base text-amber-800">
                                 {user.name}
                             </div>
-                            <div className="font-medium text-sm text-amber-700">{user.email}</div>
+                            <div className="font-medium text-sm text-amber-700">
+                                {user.email}
+                            </div>
                         </div>
 
                         <div className="mt-3 space-y-1">
@@ -137,7 +180,11 @@ export default function Authenticated({
                             <ResponsiveNavLink href={route('contact.index')}>
                                 Contact
                             </ResponsiveNavLink>
-                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
+                            <ResponsiveNavLink
+                                method="post"
+                                href={route('logout')}
+                                as="button"
+                            >
                                 Log Out
                             </ResponsiveNavLink>
                         </div>
@@ -147,7 +194,9 @@ export default function Authenticated({
 
             {header && (
                 <header className="shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
+                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {header}
+                    </div>
                 </header>
             )}
 

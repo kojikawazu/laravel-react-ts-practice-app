@@ -37,7 +37,9 @@ describe('MdListActive', () => {
 
         const linkElement = screen.getByRole('link', { name: /Page 2/i });
         expect(linkElement).toHaveAttribute('href', '/test-url-2');
-        expect(linkElement).toHaveClass('bg-white text-amber-500 border border-amber-500');
+        expect(linkElement).toHaveClass(
+            'bg-white text-amber-500 border border-amber-500'
+        );
     });
 
     it('changes label correctly', () => {
@@ -66,6 +68,8 @@ describe('MdListActive', () => {
 
         const linkElement = screen.getByRole('link', { name: /次へ/i });
         expect(linkElement).toHaveAttribute('href', '#');
-        expect(linkElement).toHaveClass('bg-white text-amber-500 border border-amber-500');
+        expect(linkElement).toHaveClass(
+            'bg-white text-amber-500 border border-amber-500'
+        );
     });
 });

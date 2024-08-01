@@ -12,45 +12,36 @@ import MarkdownDetail from '@/Components/Markdown/MarkdownDetail/MarkdownDetail'
  */
 interface MarkdownDetailPageProps extends PageProps {
     post: MarkdownPost;
-};
+}
 
 /**
  * マークダウン詳細ページ
  * @param post
  * @returns JSX
  */
-function MarkdownDetailsPage({
-    post,
-}: MarkdownDetailPageProps) {
-  const { props: page }: InertiaPage<PageProps> = usePage();
-  const user = page.auth.user;
-  //user.
-  
-  return (
-    <>
-        <MarkdownDetail 
-          post={post} 
-          loginUserId={user.id}
-        />
-    </>
-  );
+function MarkdownDetailsPage({ post }: MarkdownDetailPageProps) {
+    const { props: page }: InertiaPage<PageProps> = usePage();
+    const user = page.auth.user;
+    //user.
+
+    return (
+        <>
+            <MarkdownDetail post={post} loginUserId={user.id} />
+        </>
+    );
 }
 
 /**
  * マークダウン詳細レイアウト
- * @param page 
+ * @param page
  * @returns JSX
  */
-MarkdownDetailsPage.layout = (
-    page: ReactElement
-  ) => {
-      return (
-          <AuthenticatedLayout>
-              <MarkdownLayout>
-                {page}
-              </MarkdownLayout>
-          </AuthenticatedLayout>
-      );
-  }
+MarkdownDetailsPage.layout = (page: ReactElement) => {
+    return (
+        <AuthenticatedLayout>
+            <MarkdownLayout>{page}</MarkdownLayout>
+        </AuthenticatedLayout>
+    );
+};
 
 export default MarkdownDetailsPage;

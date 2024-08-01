@@ -5,15 +5,15 @@ describe('MdCreatorButtonArea', () => {
     let setShowEmojiPicker: ReturnType<typeof vi.fn>;
     let addEmoji: ReturnType<typeof vi.fn>;
     let showEmojiPicker: boolean;
-  
+
     beforeEach(() => {
-      setShowEmojiPicker = vi.fn();
-      addEmoji = vi.fn();
-      showEmojiPicker = false;
+        setShowEmojiPicker = vi.fn();
+        addEmoji = vi.fn();
+        showEmojiPicker = false;
     });
-  
+
     afterEach(() => {
-      cleanup();
+        cleanup();
     });
 
     it('renders EmojiButton and MarkdownButton', () => {
@@ -25,7 +25,9 @@ describe('MdCreatorButtonArea', () => {
             />
         );
 
-        expect(screen.getByRole('button', { name: '投稿' })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: '投稿' })
+        ).toBeInTheDocument();
         expect(screen.getByRole('button', { name: '☻' })).toBeInTheDocument();
     });
 

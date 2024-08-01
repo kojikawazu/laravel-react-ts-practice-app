@@ -21,7 +21,7 @@ import 'react-toastify/dist/ReactToastify.css';
 interface MarkdownCreatorProps {
     message: string;
     error: string;
-};
+}
 
 /**
  * Markdown作成コンポーネント
@@ -29,10 +29,7 @@ interface MarkdownCreatorProps {
  * @param error
  * @returns JSX
  */
-const MarkdownCreator = ({
-    message,
-    error,
-}: MarkdownCreatorProps) => {
+const MarkdownCreator = ({ message, error }: MarkdownCreatorProps) => {
     const {
         data,
         setData,
@@ -79,7 +76,9 @@ const MarkdownCreator = ({
 
             <div className="container mx-auto p-4">
                 <div className="flex justify-center mb-12">
-                    <MarkdownTitle title={CommonConstants.MARKDOWN_CREATOR_TITLE} />
+                    <MarkdownTitle
+                        title={CommonConstants.MARKDOWN_CREATOR_TITLE}
+                    />
                 </div>
 
                 <div className="flex justify-end space-x-4 mb-4">
@@ -90,16 +89,20 @@ const MarkdownCreator = ({
                     />
                 </div>
 
-                <form 
+                <form
                     onSubmit={handleSubmit}
-                    className="border-2 border-amber-200 p-6 rounded-lg">
-
+                    className="border-2 border-amber-200 p-6 rounded-lg"
+                >
                     <MarkdownErrorLabel errorContents={errors.title} />
                     <div className="mb-4">
                         <MdCreatorTitleInput
-                            titleLabel={CommonConstants.MARKDOWN_CREATOR_LABEL_TITLE}
+                            titleLabel={
+                                CommonConstants.MARKDOWN_CREATOR_LABEL_TITLE
+                            }
                             title={data.title}
-                            titlePlaceholder={CommonConstants.MARKDOWN_CREATOR_INPUT_PLACEHOLDER}
+                            titlePlaceholder={
+                                CommonConstants.MARKDOWN_CREATOR_INPUT_PLACEHOLDER
+                            }
                             setData={setData}
                         />
                     </div>
@@ -113,11 +116,9 @@ const MarkdownCreator = ({
                     </div>
 
                     <div className="mb-4">
-                        <MdCreatorPreviewInput
-                            content={data.content}
-                        />
+                        <MdCreatorPreviewInput content={data.content} />
                     </div>
-                    
+
                     <MarkdownErrorLabel errorContents={errors.content} />
                     <div className="mb-4">
                         <MdCreatorTextareaInput
@@ -126,7 +127,7 @@ const MarkdownCreator = ({
                             codeEdit={commands.codeEdit}
                         />
                     </div>
-                    
+
                     <div className="mb-4">
                         <MdCreatorButtonArea
                             setShowEmojiPicker={setShowEmojiPicker}
@@ -148,6 +149,6 @@ const MarkdownCreator = ({
             </div>
         </>
     );
-}
+};
 
 export default MarkdownCreator;

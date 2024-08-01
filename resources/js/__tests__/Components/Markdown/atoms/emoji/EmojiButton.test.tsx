@@ -4,22 +4,29 @@ import { EmojiClickData, SkinTones } from 'emoji-picker-react';
 
 const mockEmojiClickData = {
     emoji: '😀',
-    unified: '1F600'
+    unified: '1F600',
 };
-  
+
 vi.mock('emoji-picker-react', () => {
     return {
-      __esModule: true,
-      default: ({ onEmojiClick }: { onEmojiClick: (emoji: EmojiClickData) => void }) => (
-        <div
-          data-testid="emoji-picker"
-          onClick={() => onEmojiClick(mockEmojiClickData as EmojiClickData)}>
-          EmojiPicker
-        </div>
-      ),
+        __esModule: true,
+        default: ({
+            onEmojiClick,
+        }: {
+            onEmojiClick: (emoji: EmojiClickData) => void;
+        }) => (
+            <div
+                data-testid="emoji-picker"
+                onClick={() =>
+                    onEmojiClick(mockEmojiClickData as EmojiClickData)
+                }
+            >
+                EmojiPicker
+            </div>
+        ),
     };
 });
-  
+
 describe('EmojiButton', () => {
     const setShowEmojiPickerMock = vi.fn();
     const addEmojiMock = vi.fn();
@@ -27,9 +34,9 @@ describe('EmojiButton', () => {
     const setup = (showEmojiPicker = false) => {
         return render(
             <EmojiButton
-            setShowEmojiPicker={setShowEmojiPickerMock}
-            showEmojiPicker={showEmojiPicker}
-            addEmoji={addEmojiMock}
+                setShowEmojiPicker={setShowEmojiPickerMock}
+                showEmojiPicker={showEmojiPicker}
+                addEmoji={addEmojiMock}
             />
         );
     };
@@ -62,11 +69,13 @@ describe('EmojiButton', () => {
 
         const emojiPicker = screen.getByTestId('emoji-picker');
         fireEvent.click(emojiPicker);
-    
+
         expect(addEmojiMock).toHaveBeenCalled();
-        expect(addEmojiMock).toHaveBeenCalledWith(expect.objectContaining({
-            emoji: '😀',
-            unified: '1F600',
-        }));
+        expect(addEmojiMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                emoji: '😀',
+                unified: '1F600',
+            })
+        );
     });
 });

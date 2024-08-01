@@ -1,7 +1,6 @@
 import { render, screen, cleanup } from '@testing-library/react';
 import MdCreatorPreviewInput from '@/Components/Markdown/MarkdownCreator/molecules/MdCreatorPreviewInput';
 
-
 describe('MdCreatorPreviewInput', () => {
     let content: string;
 
@@ -32,6 +31,8 @@ describe('MdCreatorPreviewInput', () => {
         render(<MdCreatorPreviewInput content={content} />);
 
         const previewContainer = screen.getByTestId('preview-container');
-        expect(previewContainer).toHaveClass('w-full h-72 bg-white mb-4 p-4 rounded-2xl border-8 border-amber-500');
+        expect(previewContainer).toHaveClass(
+            'w-full h-72 bg-white mb-4 p-4 rounded-2xl border-8 border-amber-500'
+        );
     });
 });

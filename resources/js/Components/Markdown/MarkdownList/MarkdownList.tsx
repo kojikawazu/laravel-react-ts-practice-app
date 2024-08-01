@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 interface MarkdownListProps {
     posts: {
         data: MarkdownPost[];
-        links: { url: string | null, label: string, active: boolean }[];
+        links: { url: string | null; label: string; active: boolean }[];
         meta: {
             current_page: number;
             last_page: number;
@@ -23,18 +23,16 @@ interface MarkdownListProps {
 
 /**
  * Markdownリストコンポーネント
- * @param ports Markdownデータリスト 
+ * @param ports Markdownデータリスト
  * @returns JSX
  */
-const MarkdownList = ({
-    posts,
-}: MarkdownListProps) => {
+const MarkdownList = ({ posts }: MarkdownListProps) => {
     return (
         <div className="container mx-auto p-4">
             <ToastContainer />
 
             <div className="flex justify-center mb-8">
-                <MarkdownTitle title={"Markdown List"} />
+                <MarkdownTitle title={'Markdown List'} />
             </div>
 
             <div className="flex justify-end mb-4 mr-2">
@@ -46,16 +44,13 @@ const MarkdownList = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {posts.data.map((post) => (
-                    <MarkdownCard 
-                        key={post.id}
-                        post={post}
-                    />
+                    <MarkdownCard key={post.id} post={post} />
                 ))}
             </div>
 
             <MdListPagination links={posts.links} />
         </div>
-  );
-}
+    );
+};
 
 export default MarkdownList;

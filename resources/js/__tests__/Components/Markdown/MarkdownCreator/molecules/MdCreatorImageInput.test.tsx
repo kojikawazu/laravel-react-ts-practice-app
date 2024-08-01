@@ -16,22 +16,39 @@ describe('MdCreatorImageInput', () => {
         render(<MdCreatorImageInput handleImageChange={handleImageChange} />);
 
         expect(screen.getByLabelText('タイトル画像:')).toBeInTheDocument();
-        expect(screen.getByLabelText('タイトル画像:')).toHaveAttribute('type', 'file');
+        expect(screen.getByLabelText('タイトル画像:')).toHaveAttribute(
+            'type',
+            'file'
+        );
     });
 
     it('calls handleImageChange when file input changes', () => {
         render(<MdCreatorImageInput handleImageChange={handleImageChange} />);
 
-        const fileInput = screen.getByLabelText('タイトル画像:') as HTMLInputElement;
-        fireEvent.change(fileInput, { target: { files: [new File(['image'], 'image.png', { type: 'image/png' })] } });
+        const fileInput = screen.getByLabelText(
+            'タイトル画像:'
+        ) as HTMLInputElement;
+        fireEvent.change(fileInput, {
+            target: {
+                files: [
+                    new File(['image'], 'image.png', { type: 'image/png' }),
+                ],
+            },
+        });
 
         expect(handleImageChange).toHaveBeenCalled();
     });
 
     it('renders image preview when imagePreview is provided', () => {
-        const imagePreview = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA';
+        const imagePreview =
+            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA';
 
-        render(<MdCreatorImageInput handleImageChange={handleImageChange} imagePreview={imagePreview} />);
+        render(
+            <MdCreatorImageInput
+                handleImageChange={handleImageChange}
+                imagePreview={imagePreview}
+            />
+        );
 
         const img = screen.getByAltText('Preview');
         expect(img).toBeInTheDocument();
@@ -39,7 +56,12 @@ describe('MdCreatorImageInput', () => {
     });
 
     it('does not render image preview when imagePreview is not provided', () => {
-        render(<MdCreatorImageInput handleImageChange={handleImageChange} imagePreview={null} />);
+        render(
+            <MdCreatorImageInput
+                handleImageChange={handleImageChange}
+                imagePreview={null}
+            />
+        );
 
         const img = screen.queryByAltText('Preview');
         expect(img).toBeNull();

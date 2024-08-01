@@ -15,19 +15,16 @@ interface MdListActiveProps {
  * @param active
  * @returns JSX
  */
-const MdListActive = ({
-    index,
-    url,
-    label,
-    active,
-}: MdListActiveProps) => {
-    const activeClassName = active ? 'bg-amber-500 text-white' : 'bg-white text-amber-500 border border-amber-500';
-    const changedLabel = 
-        (label === '« Previous' || label === '&laquo; Previous') 
-            ? '前へ' 
-            : (label === 'Next »' || label === 'Next &raquo;') 
-                ? '次へ' 
-                : label;
+const MdListActive = ({ index, url, label, active }: MdListActiveProps) => {
+    const activeClassName = active
+        ? 'bg-amber-500 text-white'
+        : 'bg-white text-amber-500 border border-amber-500';
+    const changedLabel =
+        label === '« Previous' || label === '&laquo; Previous'
+            ? '前へ'
+            : label === 'Next »' || label === 'Next &raquo;'
+              ? '次へ'
+              : label;
 
     return (
         <Link
@@ -38,6 +35,6 @@ const MdListActive = ({
             {changedLabel}
         </Link>
     );
-}
+};
 
 export default MdListActive;

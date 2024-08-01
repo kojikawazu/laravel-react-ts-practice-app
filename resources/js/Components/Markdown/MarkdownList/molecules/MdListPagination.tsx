@@ -2,7 +2,7 @@ import MdListInActive from '@/Components/Markdown/MarkdownList/atoms/MdListInAct
 import MdListActive from '@/Components/Markdown/MarkdownList/atoms/MdListActive';
 
 interface MdListPaginationProps {
-    links: { url: string | null, label: string, active: boolean }[];
+    links: { url: string | null; label: string; active: boolean }[];
 }
 
 /**
@@ -10,12 +10,10 @@ interface MdListPaginationProps {
  * @param links
  * @returns JSX
  */
-const MdListPagination = ({
-    links,
-}: MdListPaginationProps) => {
+const MdListPagination = ({ links }: MdListPaginationProps) => {
     return (
         <div className="flex justify-center mt-6">
-            {links.map((link, index) => (
+            {links.map((link, index) =>
                 link.url === null ? (
                     <MdListInActive
                         index={index}
@@ -30,9 +28,9 @@ const MdListPagination = ({
                         active={link.active}
                     />
                 )
-            ))}
+            )}
         </div>
     );
-}
+};
 
 export default MdListPagination;

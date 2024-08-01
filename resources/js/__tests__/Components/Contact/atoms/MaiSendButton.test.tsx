@@ -3,12 +3,12 @@ import { render, screen } from '@testing-library/react';
 import MailSendButton from '@/Components/Contact/atoms/MailSendButton';
 
 vi.mock('react-spinners', () => ({
-    ClipLoader: () => <div data-testid="clip-loader">Loading...</div>
+    ClipLoader: () => <div data-testid="clip-loader">Loading...</div>,
 }));
 vi.mock('@/Components/ui/button', () => ({
     Button: ({ children, ...props }: React.PropsWithChildren<any>) => (
         <button {...props}>{children}</button>
-    )
+    ),
 }));
 
 describe('MailSendButton', () => {

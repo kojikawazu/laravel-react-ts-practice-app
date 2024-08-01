@@ -1,13 +1,12 @@
-
 /**
  * MarkdownLayout
  * @param children
- * @returns JSX 
+ * @returns JSX
  */
-export default function MarkdownLayout({ 
-    children 
-}: { 
-    children: React.ReactNode 
+export default function MarkdownLayout({
+    children,
+}: {
+    children: React.ReactNode;
 }) {
     return (
         <div className="min-h-screen bg-amber-100 py-12 font-serif">
@@ -15,4 +14,3 @@ export default function MarkdownLayout({
         </div>
     );
 }
-  

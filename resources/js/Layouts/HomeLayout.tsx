@@ -1,11 +1,12 @@
-export default function HomeLayout({ 
-  children 
-}: { 
-  children: React.ReactNode 
+export default function HomeLayout({
+    children,
+}: {
+    children: React.ReactNode;
 }) {
-  return (
-    <div>HomeLayout
-      {children}
-    </div>
-  )
+    return (
+        <div>
+            HomeLayout
+            {children}
+        </div>
+    );
 }

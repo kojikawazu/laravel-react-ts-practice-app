@@ -5,25 +5,56 @@ import MdEditorButtonArea from '@/Components/Markdown/MarkdownEditor/molecules/M
 vi.mock('@/Components/Markdown/atoms/emoji/EmojiButton', () => {
     return {
         __esModule: true,
-        default: ({ setShowEmojiPicker, showEmojiPicker, addEmoji }: { setShowEmojiPicker: (value: React.SetStateAction<boolean>) => void, showEmojiPicker: boolean, addEmoji: (emojiData: EmojiClickData) => void }) => (
+        default: ({
+            setShowEmojiPicker,
+            showEmojiPicker,
+            addEmoji,
+        }: {
+            setShowEmojiPicker: (value: React.SetStateAction<boolean>) => void;
+            showEmojiPicker: boolean;
+            addEmoji: (emojiData: EmojiClickData) => void;
+        }) => (
             <>
                 <button onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
                     {showEmojiPicker ? 'Close' : '☻'}
                 </button>
-                {showEmojiPicker && <div role="button" onClick={() => addEmoji({ emoji: '😊' } as EmojiClickData)}>😊</div>}
+                {showEmojiPicker && (
+                    <div
+                        role="button"
+                        onClick={() =>
+                            addEmoji({ emoji: '😊' } as EmojiClickData)
+                        }
+                    >
+                        😊
+                    </div>
+                )}
             </>
-        )
+        ),
     };
 });
 
 vi.mock('@/Components/Markdown/atoms/button/MarkdownButton', () => {
     return {
         __esModule: true,
-        default: ({ type, label, additionalClassName, onClick }: { type: 'button' | 'submit', label: string, additionalClassName: string, onClick?: () => void }) => (
-            <button type={type} className={additionalClassName} onClick={onClick}>
+        default: ({
+            type,
+            label,
+            additionalClassName,
+            onClick,
+        }: {
+            type: 'button' | 'submit';
+            label: string;
+            additionalClassName: string;
+            onClick?: () => void;
+        }) => (
+            <button
+                type={type}
+                className={additionalClassName}
+                onClick={onClick}
+            >
                 {label}
             </button>
-        )
+        ),
     };
 });
 
@@ -77,7 +108,9 @@ describe('MdEditorButtonArea', () => {
         fireEvent.click(emojiPicker);
 
         expect(mockAddEmoji).toHaveBeenCalledTimes(1);
-        expect(mockAddEmoji).toHaveBeenCalledWith(expect.objectContaining({ emoji: '😊' }));
+        expect(mockAddEmoji).toHaveBeenCalledWith(
+            expect.objectContaining({ emoji: '😊' })
+        );
     });
 
     it('should call handleDelete when the delete button is clicked', () => {

@@ -7,7 +7,7 @@ interface MdEditorButtonAreaProps {
     showEmojiPicker: boolean;
     addEmoji: (emojiData: EmojiClickData) => void;
     handleDelete: () => void;
-};
+}
 
 /**
  * [Markdown Editor]ボタンエリアコンポーネント
@@ -30,7 +30,7 @@ const MdEditorButtonArea = ({
                 showEmojiPicker={showEmojiPicker}
                 addEmoji={addEmoji}
             />
-            
+
             <MarkdownButton
                 type="submit"
                 label="Update"
@@ -44,7 +44,7 @@ const MdEditorButtonArea = ({
                 onClick={handleDelete}
             />
         </div>
-    )
-}
+    );
+};
 
-export default MdEditorButtonArea
+export default MdEditorButtonArea;

@@ -11,7 +11,7 @@ interface MarkdownLikeProps {
     postId: string;
     currentEmoji: string | null;
     likeCounts: Record<string, number>;
-};
+}
 
 /**
  * MarkdownLikeコンポーネント
@@ -23,12 +23,17 @@ interface MarkdownLikeProps {
 const MarkdownLike = ({
     postId,
     currentEmoji,
-    likeCounts
+    likeCounts,
 }: MarkdownLikeProps) => {
     const [emoji, setEmoji] = useState<string | null>(currentEmoji);
     const [showPicker, setShowPicker] = useState<boolean>(false);
     const [likes, setLikes] = useState<Record<string, number>>(likeCounts);
-    const { data, setData, post, delete: destroy } = useForm<{ emoji: string }>({ emoji: '' });
+    const {
+        data,
+        setData,
+        post,
+        delete: destroy,
+    } = useForm<{ emoji: string }>({ emoji: '' });
 
     useEffect(() => {
         if (data.emoji) {
@@ -36,29 +41,29 @@ const MarkdownLike = ({
         }
     }, [data.emoji]);
 
-    const addEmoji =  (emojiData: EmojiClickData) => {
+    const addEmoji = (emojiData: EmojiClickData) => {
         const newEmoji = emojiData.emoji;
         setEmoji(newEmoji);
         setData({ emoji: newEmoji });
         setShowPicker(false);
     };
-    
+
     const sendEmoji = (newEmoji: string) => {
         post(route('markdown.like', postId), {
             onSuccess: () => {
                 //console.log('successed');
                 setLikes((prevLikes) => ({
                     ...prevLikes,
-                    [data.emoji]: (prevLikes[data.emoji] || 0) + 1
+                    [data.emoji]: (prevLikes[data.emoji] || 0) + 1,
                 }));
             },
             onError: (error) => {
                 console.log('error');
                 //console.log(error);
-            }
+            },
         });
     };
-    
+
     const removeEmoji = () => {
         if (emoji) {
             const updatedLikes = { ...likes };
@@ -71,7 +76,7 @@ const MarkdownLike = ({
             setEmoji(null);
             setLikes(updatedLikes);
             destroy(route('markdown.unlike', postId), {
-                onSuccess: () => {}
+                onSuccess: () => {},
             });
         }
     };
@@ -81,21 +86,21 @@ const MarkdownLike = ({
             <ToastContainer />
 
             <div className="flex items-center">
-                {
-                    emoji ? (
-                        <Button 
-                            onClick={removeEmoji} 
-                            className="ml-2 mt-2 bg-white hover:bg-white">
-                            {emoji}
-                        </Button>
-                    ) : (
-                        <Button 
-                            onClick={() => setShowPicker(true)}
-                            className="ml-2 mt-2 bg-white hover:bg-white">
-                            😀
-                        </Button>
-                    )
-                }
+                {emoji ? (
+                    <Button
+                        onClick={removeEmoji}
+                        className="ml-2 mt-2 bg-white hover:bg-white"
+                    >
+                        {emoji}
+                    </Button>
+                ) : (
+                    <Button
+                        onClick={() => setShowPicker(true)}
+                        className="ml-2 mt-2 bg-white hover:bg-white"
+                    >
+                        😀
+                    </Button>
+                )}
 
                 <div className="flex items-center">
                     {Object.entries(likes).map(([emoji, count]) => (
@@ -110,6 +115,6 @@ const MarkdownLike = ({
             {showPicker && <EmojiPicker onEmojiClick={addEmoji} />}
         </>
     );
-}
+};
 
 export default MarkdownLike;

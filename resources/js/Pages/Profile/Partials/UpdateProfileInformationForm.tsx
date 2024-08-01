@@ -7,13 +7,22 @@ import { Transition } from '@headlessui/react';
 import { FormEventHandler } from 'react';
 import { PageProps } from '@/types';
 
-export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }: { mustVerifyEmail: boolean, status?: string, className?: string }) {
+export default function UpdateProfileInformation({
+    mustVerifyEmail,
+    status,
+    className = '',
+}: {
+    mustVerifyEmail: boolean;
+    status?: string;
+    className?: string;
+}) {
     const user = usePage<PageProps>().props.auth.user;
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
-        name: user.name,
-        email: user.email,
-    });
+    const { data, setData, patch, errors, processing, recentlySuccessful } =
+        useForm({
+            name: user.name,
+            email: user.email,
+        });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -24,7 +33,9 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium mb-2 text-amber-900 border-b border-amber-900">プロフィール情報</h2>
+                <h2 className="text-lg font-medium mb-2 text-amber-900 border-b border-amber-900">
+                    プロフィール情報
+                </h2>
 
                 <p className="mt-1 text-sm text-amber-700">
                     アカウントのプロフィール情報とEメールアドレスを更新してください。

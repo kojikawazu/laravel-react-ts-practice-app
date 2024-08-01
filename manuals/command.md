@@ -79,7 +79,9 @@ docker exec -it laravel-app composer require league/flysystem-aws-s3-v3 "^3.0"
 
 ```bash
 docker exec -it laravel-app npm i zod react-spinners react-toastify
-docker exec -it laravel-app npm install @uiw/react-md-editor react-markdown emoji-mart
+docker exec -it laravel-app npm i @uiw/react-md-editor react-markdown emoji-mart
+docker exec -it laravel-app npm i --save-dev eslint eslint-plugin-react eslint-plugin-react-hooks @typescript-eslint/parser @typescript-eslint/eslint-plugin prettier eslint-config-prettier eslint-plugin-prettier
+
 ```
 
 # その他

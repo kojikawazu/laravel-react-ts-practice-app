@@ -6,7 +6,7 @@ describe('MdListPagination', () => {
         { url: null, label: '&laquo; Previous', active: false },
         { url: '/page/1', label: '1', active: true },
         { url: '/page/2', label: '2', active: false },
-        { url: null, label: 'Next &raquo;', active: false }
+        { url: null, label: 'Next &raquo;', active: false },
     ];
 
     it('renders pagination links correctly', () => {
@@ -18,7 +18,9 @@ describe('MdListPagination', () => {
 
         // Check for active and inactive links
         expect(screen.getByText('1')).toHaveClass('bg-amber-500 text-white');
-        expect(screen.getByText('2')).toHaveClass('bg-white text-amber-500 border border-amber-500');
+        expect(screen.getByText('2')).toHaveClass(
+            'bg-white text-amber-500 border border-amber-500'
+        );
     });
 
     it('renders MdListInActive and MdListActive components correctly', () => {
