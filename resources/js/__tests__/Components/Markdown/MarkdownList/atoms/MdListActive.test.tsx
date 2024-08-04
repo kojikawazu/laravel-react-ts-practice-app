@@ -1,8 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import MdListActive from '@/Components/Markdown/MarkdownList/atoms/MdListActive';
 
+interface LinkProps {
+    children: React.ReactNode;
+    href: string;
+    className?: string;
+}
+
 vi.mock('@inertiajs/react', () => ({
-    Link: ({ children, href, className }: any) => (
+    Link: ({ children, href, className }: LinkProps) => (
         <a href={href} className={className}>
             {children}
         </a>

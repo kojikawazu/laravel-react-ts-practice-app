@@ -106,7 +106,7 @@ export const useMyMarkdown = ({
         }
 
         // FormDataの内容を確認
-        for (let [key, value] of formData.entries()) {
+        for (const [key, value] of formData.entries()) {
             debugInfo.formDataEntries[key] =
                 value instanceof File
                     ? `File: ${value.name}`

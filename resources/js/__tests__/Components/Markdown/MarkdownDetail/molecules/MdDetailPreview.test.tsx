@@ -1,5 +1,5 @@
 import { render, screen, cleanup } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import MdDetailPreview from '@/Components/Markdown/MarkdownDetail/molecules/MdDetailPreview';
 
 interface MdDetailPreviewProps {

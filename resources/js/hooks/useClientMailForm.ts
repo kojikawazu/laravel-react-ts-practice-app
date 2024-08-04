@@ -42,7 +42,9 @@ export const useClientMailForm = ({ user }: useClientMailFormProps) => {
 
         // CSRFトークンを設定
         // Laravel側のcsrfトークンを扱う
-        const token = (window as any).Laravel?.csrfToken;
+        const token = (
+            window as unknown as { Laravel?: { csrfToken?: string } }
+        ).Laravel?.csrfToken;
         if (token) {
             setCsrfToken(token);
         } else {
@@ -98,8 +100,7 @@ export const useClientMailForm = ({ user }: useClientMailFormProps) => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                const data = await response.json();
-                //console.log("Email sent successfully: ", data);
+                await response.json();
 
                 // フォームをリセット
                 form.reset({
@@ -110,13 +111,13 @@ export const useClientMailForm = ({ user }: useClientMailFormProps) => {
                     file: undefined,
                 });
                 setError(null);
-            } catch (err) {
+            } catch {
                 //console.error("Error sending email: ", err);
                 console.error('Unexpected error in onSubmit');
                 setError('Error');
             }
         },
-        [user, csrfToken]
+        [user, csrfToken, form]
     );
 
     return {

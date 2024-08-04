@@ -9,16 +9,13 @@ import {
 } from '@/Components/ui/form';
 
 interface MailFileInputProps {
-    control: Control<
-        {
-            username: string;
-            subject: string;
-            email: string;
-            content: string;
-            file?: FileList | null;
-        },
-        any
-    >;
+    control: Control<{
+        username: string;
+        subject: string;
+        email: string;
+        content: string;
+        file?: FileList | null;
+    }>;
     fileInputRef: React.MutableRefObject<HTMLInputElement | null>;
 }
 
@@ -34,6 +31,7 @@ const MailFileInput = ({ control, fileInputRef }: MailFileInputProps) => {
             control={control}
             name="file"
             render={({ field: { value, onChange, ref, ...fieldProps } }) => (
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 <FormItem className="mb-4">
                     <FormLabel>添付画像</FormLabel>
                     <FormControl>
