@@ -16,7 +16,7 @@ const MarkdownCard = ({ post }: MarkdownCardProps) => {
     return (
         <div className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col transition-shadow duration-300 ease-in-out hover:shadow-lg border-amber-500 border-2">
             <MarkdownCardImageTitle
-                image_path={post?.image_path!}
+                image_path={post?.image_path || ''}
                 href={`/markdown/${post.id}`}
             />
 

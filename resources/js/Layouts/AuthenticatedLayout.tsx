@@ -4,7 +4,7 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
-import { PageProps, User } from '@/types';
+import { PageProps } from '@/types';
 import { InertiaPage } from '@/types/type-pages';
 
 export default function Authenticated({

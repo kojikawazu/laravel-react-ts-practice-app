@@ -1,41 +1,88 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Control } from 'react-hook-form';
+import { Control, FieldValues } from 'react-hook-form';
 import MailFileInput from '@/Components/Contact/atoms/MailFileInput';
 
 vi.mock('react-hook-form', () => ({
     Control: vi.fn(),
 }));
 
-vi.mock('@/Components/ui/input', () => ({
-    Input: React.forwardRef(({ onChange, ...props }: any, ref: any) => (
-        <input
-            onChange={onChange}
-            ref={ref}
-            {...props}
-            data-testid="file-input"
-        />
-    )),
-}));
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    ref?: React.Ref<HTMLInputElement>;
+}
+
+vi.mock('@/Components/ui/input', () => {
+    const Input = React.forwardRef<HTMLInputElement, InputProps>(
+        ({ onChange, ...props }, ref) => {
+            return (
+                <input
+                    onChange={onChange}
+                    ref={ref}
+                    {...props}
+                    data-testid="file-input"
+                />
+            );
+        }
+    );
+    Input.displayName = 'Input';
+    return { Input };
+});
 
 const mockOnChange = vi.fn();
-vi.mock('@/Components/ui/form', () => ({
-    FormControl: ({ children }: any) => (
+
+interface FormControlProps {
+    children: React.ReactNode;
+}
+
+interface FormFieldProps {
+    render: ({
+        field,
+    }: {
+        field: {
+            onChange: (files: FileList | null) => void;
+            ref: React.Ref<HTMLInputElement>;
+        };
+    }) => React.ReactNode;
+}
+
+interface FormItemProps {
+    children: React.ReactNode;
+    className: string;
+}
+
+interface FormLabelProps {
+    children: React.ReactNode;
+}
+
+vi.mock('@/Components/ui/form', () => {
+    const FormControl = ({ children }: FormControlProps) => (
         <div data-testid="form-control">{children}</div>
-    ),
-    FormField: ({ render }: any) =>
-        render({ field: { onChange: mockOnChange, ref: vi.fn() } }),
-    FormItem: ({ children, className }: any) => (
+    );
+    FormControl.displayName = 'FormControl';
+
+    const FormField = ({ render }: FormFieldProps) =>
+        render({ field: { onChange: mockOnChange, ref: vi.fn() } });
+    FormField.displayName = 'FormField';
+
+    const FormItem = ({ children, className }: FormItemProps) => (
         <div data-testid="form-item" className={className}>
             {children}
         </div>
-    ),
-    FormLabel: ({ children }: any) => (
+    );
+    FormItem.displayName = 'FormItem';
+
+    const FormLabel = ({ children }: FormLabelProps) => (
         <label data-testid="form-label">{children}</label>
-    ),
-    FormMessage: () => <div data-testid="form-message"></div>,
-}));
+    );
+    FormLabel.displayName = 'FormLabel';
+
+    const FormMessage = () => <div data-testid="form-message"></div>;
+    FormMessage.displayName = 'FormMessage';
+
+    return { FormControl, FormField, FormItem, FormLabel, FormMessage };
+});
 
 describe('MailFileInput', () => {
     const mockControl = {} as Control<
@@ -46,7 +93,7 @@ describe('MailFileInput', () => {
             content: string;
             file?: FileList | null;
         },
-        any
+        FieldValues
     >;
     const mockFileInputRef = { current: null };
 

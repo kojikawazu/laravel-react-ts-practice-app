@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import MDEditor, { ContextStore, ICommand } from '@uiw/react-md-editor';
+import { ICommand } from '@uiw/react-md-editor';
 import MdCreatorTextareaInput from '@/Components/Markdown/MarkdownCreator/molecules/MdCreatorTextareaInput';
 
 describe('MdCreatorTextareaInput', () => {

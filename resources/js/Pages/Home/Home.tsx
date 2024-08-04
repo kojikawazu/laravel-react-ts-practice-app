@@ -1,8 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import HomeLayout from '@/Layouts/HomeLayout';
-import { PageProps } from '@/types';
 
-function Home({}: PageProps) {
+function Home() {
     return <div>Home</div>;
 }
 

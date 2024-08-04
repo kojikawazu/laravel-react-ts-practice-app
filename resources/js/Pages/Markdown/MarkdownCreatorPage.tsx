@@ -2,15 +2,13 @@ import { ReactElement } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import MarkdownLayout from '@/Layouts/MarkdownLayout';
 import MarkdownCreator from '@/Components/Markdown/MarkdownCreator/MarkdownCreator';
-import { PageProps } from '@/types';
 import { usePage } from '@inertiajs/react';
 
 /**
  * マークダウン生成エディタページ
- * @param {}
  * @returns JSX
  */
-function MarkdownCreatorPage({}: PageProps) {
+function MarkdownCreatorPage() {
     const { props } = usePage();
     const message = props.message as string;
     const error = props.error as string;

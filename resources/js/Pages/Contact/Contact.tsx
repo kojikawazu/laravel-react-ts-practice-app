@@ -6,10 +6,9 @@ import MailForm from '@/Components/Contact/MailForm';
 
 /**
  * お問い合わせページ
- * @param auth
  * @returns JSX
  */
-function Contact({}: PageProps) {
+function Contact() {
     const { auth } = usePage<PageProps>().props;
     console.log('MailForm mounted');
 

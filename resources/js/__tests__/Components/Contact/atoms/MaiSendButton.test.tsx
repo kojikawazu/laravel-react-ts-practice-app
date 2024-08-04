@@ -5,8 +5,13 @@ import MailSendButton from '@/Components/Contact/atoms/MailSendButton';
 vi.mock('react-spinners', () => ({
     ClipLoader: () => <div data-testid="clip-loader">Loading...</div>,
 }));
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    children: React.ReactNode;
+}
+
 vi.mock('@/Components/ui/button', () => ({
-    Button: ({ children, ...props }: React.PropsWithChildren<any>) => (
+    Button: ({ children, ...props }: ButtonProps) => (
         <button {...props}>{children}</button>
     ),
 }));

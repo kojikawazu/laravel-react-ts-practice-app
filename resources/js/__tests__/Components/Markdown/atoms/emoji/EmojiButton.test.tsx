@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import EmojiButton from '@/Components/Markdown/atoms/emoji/EmojiButton';
-import { EmojiClickData, SkinTones } from 'emoji-picker-react';
+import { EmojiClickData } from 'emoji-picker-react';
 
 const mockEmojiClickData = {
     emoji: '😀',

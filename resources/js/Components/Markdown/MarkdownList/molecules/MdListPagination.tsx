@@ -16,12 +16,14 @@ const MdListPagination = ({ links }: MdListPaginationProps) => {
             {links.map((link, index) =>
                 link.url === null ? (
                     <MdListInActive
+                        key={index}
                         index={index}
                         active={link.active}
                         label={link.label}
                     />
                 ) : (
                     <MdListActive
+                        key={index}
                         index={index}
                         url={link.url}
                         label={link.label}

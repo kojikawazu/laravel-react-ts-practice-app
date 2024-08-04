@@ -60,6 +60,8 @@ const MarkdownLike = ({
             onError: (error) => {
                 console.log('error');
                 //console.log(error);
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const unusedError = error;
             },
         });
     };

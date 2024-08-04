@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Control } from 'react-hook-form';
+import { Control, FieldValues } from 'react-hook-form';
 import MailInput from '@/Components/Contact/atoms/MailInput';
 
 vi.mock('react-hook-form', () => ({
@@ -7,28 +7,50 @@ vi.mock('react-hook-form', () => ({
     FieldValues: vi.fn(),
     Path: vi.fn(),
 }));
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    placeholder: string;
+}
+
 vi.mock('@/Components/ui/input', () => ({
-    Input: ({ placeholder, ...props }: any) => (
+    Input: ({ placeholder, ...props }: InputProps) => (
         <input placeholder={placeholder} {...props} data-testid="input" />
     ),
 }));
 
+interface FormControlProps {
+    children: React.ReactNode;
+}
+
+interface FormFieldProps {
+    render: ({ field }: { field: { name: string } }) => React.ReactNode;
+}
+
+interface FormItemProps {
+    children: React.ReactNode;
+}
+
+interface FormLabelProps {
+    children: React.ReactNode;
+}
+
 vi.mock('@/Components/ui/form', () => ({
-    FormControl: ({ children }: any) => (
+    FormControl: ({ children }: FormControlProps) => (
         <div data-testid="form-control">{children}</div>
     ),
-    FormField: ({ render }: any) => render({ field: { name: 'test' } }),
-    FormItem: ({ children }: any) => (
+    FormField: ({ render }: FormFieldProps) =>
+        render({ field: { name: 'test' } }),
+    FormItem: ({ children }: FormItemProps) => (
         <div data-testid="form-item">{children}</div>
     ),
-    FormLabel: ({ children }: any) => (
+    FormLabel: ({ children }: FormLabelProps) => (
         <label data-testid="form-label">{children}</label>
     ),
     FormMessage: () => <div data-testid="form-message"></div>,
 }));
 
 describe('MailInput', () => {
-    const mockControl = {} as Control<any>;
+    const mockControl = {} as Control<FieldValues>;
 
     it('renders the component correctly', () => {
         render(
